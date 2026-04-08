@@ -1297,7 +1297,7 @@ body {
       <div class="ability-card" data-action="action">
         <div class="ability-name">Amnestic Administration (Class-A)</div>
         <div class="ability-badges"><span class="badge badge-action">Action</span><span class="badge badge-charges">Serial-Tracked</span></div>
-        <div class="ability-desc">Erases preceding <strong>1 hour</strong>. WIS save. Combat use: administer to incapacitated enemy. All doses logged. Misuse = investigation.</div>
+        <div class="ability-desc">Erases <strong>recent memory</strong> (DM determines scope). WIS save. Combat use: administer to incapacitated enemy. All doses logged. Misuse = investigation.</div>
         <div class="ability-note authorization">Requires amnestics certification (Ethics Committee + Security review).</div>
       </div>
       <div class="ability-card" data-action="passive">
@@ -1349,7 +1349,7 @@ body {
       <div class="ability-card" data-action="action">
         <div class="ability-name">Class-B Amnestics (AM-B)</div>
         <div class="ability-badges"><span class="badge badge-action">Action</span><span class="badge badge-charges">Serial-Tracked</span></div>
-        <div class="ability-desc">Erases up to <strong>24 hours</strong> of memory. WIS save (DC 8 + prof + WIS). <strong>Combat autoinjector:</strong> melee attack roll vs unwilling target, on hit deploys amnestic + WIS save. <strong>Overdose risk:</strong> any amnestic in past 48 hrs &rarr; DC 14 CON save or seizures (incapacitated 1 round, 2d6 psychic).</div>
+        <div class="ability-desc">Erases up to <strong>one day</strong> of memory. WIS save (DC 8 + prof + WIS). <strong>Combat autoinjector:</strong> melee attack roll vs unwilling target, on hit deploys amnestic + WIS save. <strong>Overdose risk:</strong> any amnestic in past 48 hrs &rarr; DC 14 CON save or seizures (incapacitated 1 round, 2d6 psychic).</div>
         <div class="ability-note authorization">Requires Class-A/B certification + field-deployment endorsement for combat autoinjector.</div>
       </div>
       <div class="ability-card" data-action="action">
@@ -1384,7 +1384,7 @@ body {
       <div class="ability-card" data-action="action">
         <div class="ability-name">Experimental Protocol (ECD-3)</div>
         <div class="ability-badges"><span class="badge badge-action">Full Round</span><span class="badge badge-charges">1 / LR (shared)</span></div>
-        <div class="ability-desc"><strong>Emergency Containment Dose (ECD-3):</strong> <strong>Suppresses one anomalous effect</strong> for <strong>1 hour</strong> &mdash; paused, not cured. Effect resumes when suppression expires. Side effects: fever, fatigue, metallic taste.</div>
+        <div class="ability-desc"><strong>Emergency Containment Dose (ECD-3):</strong> <strong>Suppresses one anomalous effect</strong> <strong>until next combat or scene change</strong> &mdash; paused, not cured. Effect resumes when suppression expires. Side effects: fever, fatigue, metallic taste.</div>
       </div>
       <div class="ability-card" data-action="passive">
         <div class="ability-name">Directed Triage (Scaling)</div>
@@ -1406,7 +1406,7 @@ body {
       <div class="ability-card" data-action="action">
         <div class="ability-name">Protocol HIPPOCRATES</div>
         <div class="ability-badges"><span class="badge badge-action">Action</span><span class="badge badge-charges">1 / LR</span></div>
-        <div class="ability-desc">Invoke pre-authorized O5 emergency medical directive. All Foundation personnel and systems in the immediate area must comply with your <strong>medical directives for up to 30 minutes</strong>. Goes above Site Directors in medical matters. <strong>Medical directives only</strong>, immediate area only, mandatory post-incident review.</div>
+        <div class="ability-desc">Invoke pre-authorized O5 emergency medical directive. All Foundation personnel and systems in the immediate area must comply with your <strong>medical directives for the current scene</strong>. Goes above Site Directors in medical matters. <strong>Medical directives only</strong>, immediate area only, mandatory post-incident review.</div>
         <div class="ability-note authorization">Every invocation generates an O5 report. Abuse triggers automatic O5 investigation.</div>
       </div>
       <div class="ability-card" data-action="passive">
@@ -1574,7 +1574,7 @@ body {
         <div class="ability-name">Cognitive Decontamination</div>
         <div class="ability-badges"><span class="badge badge-action">Action</span><span class="badge badge-charges">1 / SR</span><span class="badge badge-charges">Touch</span></div>
         <div class="ability-desc">
-          Emergency Class-X mnestic injection. Target <strong>re-saves a failed WIS save</strong> against charm/compulsion/fear/memetic effect <strong>with advantage</strong>. If original effect had no save, target makes WIS save vs <strong>DC 15</strong> (success = suppressed 1 hour).<br><br>
+          Emergency Class-X mnestic injection. Target <strong>re-saves a failed WIS save</strong> against charm/compulsion/fear/memetic effect <strong>with advantage</strong>. If original effect had no save, target makes WIS save vs <strong>DC 15</strong> (success = suppressed until next combat).<br><br>
           <strong>Immunity window:</strong> On successful re-save, target is <strong>immune to that effect from that source</strong> until start of their next turn. No buffer on failure.<br><br>
           Side effects: severe headache, nosebleed, 30s disorientation.
         </div>
@@ -1659,9 +1659,9 @@ body {
     <div class="level-body">
       <div class="ability-card" data-action="action">
         <div class="ability-name">Memetic Hardening</div>
-        <div class="ability-badges"><span class="badge badge-action">Action</span><span class="badge badge-charges">8 Hours</span><span class="badge badge-charges">Touch</span></div>
+        <div class="ability-badges"><span class="badge badge-action">Action</span><span class="badge badge-charges">Until Long Rest</span><span class="badge badge-charges">Touch</span></div>
         <div class="ability-desc">
-          Class-Y sustained-release mnestic. One willing creature gains for <strong>8 hours</strong>:<br>
+          Class-Y sustained-release mnestic. One willing creature gains <strong>until long rest</strong>:<br>
           &bull; <strong>Advantage on all WIS saves</strong> vs mental/memetic effects<br>
           &bull; <strong>Resistance to psychic damage</strong><br><br>
           <strong>Trade-off &mdash; Cognitive Lockdown:</strong> Target <strong>cannot benefit from beneficial mental effects</strong> (morale, telepathy, bardic inspiration analogs) <em>except</em> from the MS who applied it (keyed neurochemical signature).
@@ -1758,7 +1758,7 @@ body {
     <div class="level-body">
       <div class="ability-card" data-action="action" style="border-left-color:var(--ms-color)">
         <div class="ability-name" style="color:var(--ms-color)">Antimemetic Concealment</div>
-        <div class="ability-badges"><span class="badge badge-action">Action</span><span class="badge badge-charges">1 / LR</span><span class="badge badge-charges">Concentration &mdash; up to 1 hour</span></div>
+        <div class="ability-badges"><span class="badge badge-action">Action</span><span class="badge badge-charges">1 / LR</span><span class="badge badge-charges">Concentration &mdash; until scene ends</span></div>
         <div class="ability-desc">
           Administer <strong>FORGOTTEN-7</strong> (experimental antimemetic). Self + up to <strong>3 allies</strong> become antimemetically shielded &mdash; not invisible, <em>irrelevant</em>. Light reflects, sound carries, but observers' brains cannot process your presence.<br><br>
           <strong>Dosing:</strong> 1 action per target per round, <strong>touch range</strong>. Effect activates once all targets dosed.<br><br>
