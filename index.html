@@ -1,0 +1,2294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SCP Foundation — Medic Class v0.12</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500;700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-deep: #0a0a0c;
+  --bg-panel: #111114;
+  --bg-card: #18181c;
+  --bg-card-hover: #1e1e24;
+  --bg-inset: #0e0e11;
+  --border: #2a2a30;
+  --border-highlight: #3a3a42;
+  --accent: #d4870f;
+  --accent-glow: #d4870f44;
+  --accent-dim: #8a5a0a;
+  --accent-bright: #f0a030;
+  --text: #c8c8cc;
+  --text-dim: #707078;
+  --text-bright: #e8e8ec;
+  --red: #b02020;
+  --red-dim: #6a1818;
+  --green: #20a040;
+  --blue: #3080d0;
+  --purple: #8040c0;
+  --cm-color: #e04030;
+  --im-color: #3090e0;
+  --ms-color: #9050d0;
+  --action-color: #e04030;
+  --bonus-color: #20a040;
+  --reaction-color: #d4870f;
+  --passive-color: #3080d0;
+  --noncombat-color: #707078;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg-deep);
+  color: var(--text);
+  font-family: 'IBM Plex Mono', 'Courier Prime', monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* === HEADER === */
+.site-header {
+  background: var(--bg-panel);
+  border-bottom: 2px solid var(--accent);
+  padding: 20px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.scp-logo {
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 11px;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.header-title h1 {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-bright);
+  letter-spacing: 1px;
+}
+
+.header-title .version {
+  font-size: 12px;
+  color: var(--accent);
+  background: var(--accent-glow);
+  padding: 2px 8px;
+  border-radius: 3px;
+  border: 1px solid var(--accent-dim);
+}
+
+.search-box {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.search-box input {
+  background: var(--bg-inset);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 13px;
+  padding: 8px 12px 8px 32px;
+  border-radius: 4px;
+  width: 260px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.search-box input:focus { border-color: var(--accent); }
+.search-box input::placeholder { color: var(--text-dim); }
+
+.search-box::before {
+  content: '>';
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* === TABS === */
+.tab-bar {
+  display: flex;
+  gap: 2px;
+  padding: 0 24px;
+  background: var(--bg-panel);
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.tab-bar::-webkit-scrollbar { height: 0; }
+
+.tab {
+  padding: 12px 20px;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+}
+
+.tab:hover { color: var(--text); background: var(--bg-card); }
+.tab.active { color: var(--accent); border-bottom-color: var(--accent); background: var(--bg-card); }
+
+.tab[data-tab="cm"] { --tab-accent: var(--cm-color); }
+.tab[data-tab="im"] { --tab-accent: var(--im-color); }
+.tab[data-tab="ms"] { --tab-accent: var(--ms-color); }
+.tab[data-tab="cm"].active { color: var(--cm-color); border-bottom-color: var(--cm-color); }
+.tab[data-tab="im"].active { color: var(--im-color); border-bottom-color: var(--im-color); }
+.tab[data-tab="ms"].active { color: var(--ms-color); border-bottom-color: var(--ms-color); }
+
+/* === MAIN CONTENT === */
+.main-content {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* === CLASSIFIED BANNER === */
+.classified-banner {
+  border: 1px solid var(--red-dim);
+  background: linear-gradient(135deg, #1a0808, #0a0a0c);
+  padding: 16px 20px;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.classified-banner::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--red);
+}
+
+.classified-banner h2 {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-bright);
+  margin-bottom: 4px;
+}
+
+.classified-banner .subtitle {
+  font-size: 12px;
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+.spec-meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.meta-item {
+  font-size: 12px;
+}
+
+.meta-item .label {
+  color: var(--text-dim);
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 1px;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.meta-item .value { color: var(--text-bright); }
+
+/* === LEVEL SECTIONS === */
+.level-section {
+  margin-bottom: 16px;
+  border: 1px solid var(--border);
+  background: var(--bg-panel);
+  overflow: hidden;
+}
+
+.level-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.15s;
+}
+
+.level-header:hover { background: var(--bg-card); }
+
+.level-header .level-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 2px solid var(--accent);
+  border-radius: 4px;
+  font-family: 'Source Code Pro', monospace;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--accent);
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+.level-header .level-title {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-bright);
+  flex: 1;
+}
+
+.level-header .level-abilities {
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-left: 12px;
+  text-align: right;
+}
+
+.level-header .toggle-icon {
+  color: var(--text-dim);
+  font-size: 18px;
+  margin-left: 12px;
+  transition: transform 0.25s;
+}
+
+.level-section.open .toggle-icon { transform: rotate(90deg); }
+
+.level-body {
+  display: none;
+  padding: 0 16px 16px;
+  border-top: 1px solid var(--border);
+}
+
+.level-section.open .level-body { display: block; }
+
+/* === ABILITY CARDS === */
+.ability-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  padding: 16px;
+  margin-top: 12px;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.ability-card:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-highlight);
+}
+
+.ability-card[data-action="action"] { border-left-color: var(--action-color); }
+.ability-card[data-action="bonus"] { border-left-color: var(--bonus-color); }
+.ability-card[data-action="reaction"] { border-left-color: var(--reaction-color); }
+.ability-card[data-action="passive"] { border-left-color: var(--passive-color); }
+.ability-card[data-action="noncombat"] { border-left-color: var(--noncombat-color); }
+
+.ability-name {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-bright);
+  margin-bottom: 4px;
+}
+
+.ability-badges {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 2px;
+  border: 1px solid;
+}
+
+.badge-action { color: var(--action-color); border-color: var(--action-color); background: #e0403018; }
+.badge-bonus { color: var(--bonus-color); border-color: var(--bonus-color); background: #20a04018; }
+.badge-reaction { color: var(--reaction-color); border-color: var(--reaction-color); background: #d4870f18; }
+.badge-passive { color: var(--passive-color); border-color: var(--passive-color); background: #3080d018; }
+.badge-noncombat { color: var(--noncombat-color); border-color: var(--noncombat-color); background: #70707818; }
+.badge-charges { color: var(--accent-bright); border-color: var(--accent-dim); background: var(--accent-glow); }
+.badge-new { color: #20e060; border-color: #20e060; background: #20e06018; }
+
+.ability-desc {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text);
+}
+
+.ability-desc em { color: var(--text-dim); font-style: italic; }
+.ability-desc strong { color: var(--text-bright); font-weight: 600; }
+
+.ability-desc ul {
+  padding-left: 20px;
+  margin: 8px 0;
+}
+
+.ability-desc li { margin-bottom: 4px; }
+
+.ability-note {
+  margin-top: 10px;
+  padding: 10px 12px;
+  background: var(--bg-inset);
+  border-left: 2px solid var(--text-dim);
+  font-size: 12px;
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+.ability-note.design { border-left-color: var(--accent-dim); }
+.ability-note.authorization { border-left-color: var(--red-dim); color: var(--red); }
+.ability-note.warning { border-left-color: var(--red); background: #1a080a; }
+
+/* === SCALING TABLE === */
+.scaling-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 12px;
+}
+
+.scaling-table th {
+  background: var(--bg-inset);
+  color: var(--accent);
+  font-weight: 600;
+  text-align: left;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 0.5px;
+}
+
+.scaling-table td {
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+.scaling-table tr:nth-child(even) td { background: var(--bg-inset); }
+.scaling-table tr:hover td { background: var(--bg-card-hover); }
+
+/* === PROGRESSION OVERVIEW === */
+.progression-grid {
+  display: grid;
+  grid-template-columns: 48px 1fr 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  margin: 16px 0;
+  font-size: 11px;
+  overflow-x: auto;
+}
+
+.prog-cell {
+  background: var(--bg-panel);
+  padding: 8px 10px;
+  min-height: 40px;
+}
+
+.prog-cell.header {
+  background: var(--bg-inset);
+  font-weight: 700;
+  color: var(--accent);
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 0.5px;
+}
+
+.prog-cell.level-num {
+  background: var(--bg-inset);
+  font-weight: 700;
+  color: var(--accent);
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.prog-cell.cm-cell { border-top: 2px solid var(--cm-color); }
+.prog-cell.im-cell { border-top: 2px solid var(--im-color); }
+.prog-cell.ms-cell { border-top: 2px solid var(--ms-color); }
+
+/* === DM NOTES === */
+.dm-section {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.dm-section h3 {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* === FILTER TAGS === */
+.filter-bar {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.filter-tag {
+  font-size: 11px;
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  cursor: pointer;
+  color: var(--text-dim);
+  background: transparent;
+  font-family: inherit;
+  transition: all 0.15s;
+}
+
+.filter-tag:hover { border-color: var(--accent); color: var(--text); }
+.filter-tag.active { border-color: var(--accent); color: var(--accent); background: var(--accent-glow); }
+
+/* === SEARCH HIGHLIGHT === */
+.search-match { background: var(--accent-glow); border-bottom: 1px solid var(--accent); }
+
+/* === NO RESULTS === */
+.no-results {
+  text-align: center;
+  padding: 40px;
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+/* === MOBILE === */
+@media (max-width: 640px) {
+  .header-top { flex-direction: column; align-items: flex-start; }
+  .search-box input { width: 100%; }
+  .tab { padding: 10px 14px; font-size: 11px; }
+  .main-content { padding: 16px; }
+  .level-header .level-abilities { display: none; }
+  .spec-meta { grid-template-columns: 1fr 1fr; }
+  .progression-grid { grid-template-columns: 36px 1fr 1fr 1fr; font-size: 10px; }
+  .prog-cell { padding: 6px; }
+}
+
+/* === SCROLL === */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-deep); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent-dim); }
+
+/* === REDACTED EFFECT === */
+.redacted {
+  background: var(--text-bright);
+  color: transparent;
+  padding: 0 4px;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.3s;
+  border-radius: 2px;
+}
+.redacted:hover { background: var(--accent-dim); }
+.redacted.revealed { background: transparent; color: var(--red); }
+/* === FLOATING REFERENCE PANEL === */
+.ref-toggle {
+  position: fixed;
+  top: 80px;
+  right: 16px;
+  z-index: 200;
+  background: var(--bg-panel);
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-family: 'Source Code Pro', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: 3px;
+  text-transform: uppercase;
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+.ref-toggle:hover { background: var(--accent-glow); }
+.ref-toggle.open { background: var(--accent-dim); color: var(--text-bright); }
+
+.ref-panel {
+  position: fixed;
+  top: 116px;
+  right: 16px;
+  z-index: 200;
+  width: 300px;
+  max-height: calc(100vh - 140px);
+  overflow-y: auto;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--accent);
+  border-radius: 4px;
+  padding: 12px;
+  display: none;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+  font-size: 11px;
+  line-height: 1.5;
+}
+.ref-panel.open { display: block; }
+
+.ref-panel h4 {
+  color: var(--accent);
+  font-family: 'Source Code Pro', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 10px 0 6px 0;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--border);
+}
+.ref-panel h4:first-child { margin-top: 0; }
+
+.ref-panel table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 8px;
+}
+.ref-panel td {
+  padding: 2px 6px;
+  border-bottom: 1px solid var(--bg-inset);
+  vertical-align: top;
+}
+.ref-panel td:first-child {
+  color: var(--accent-bright);
+  font-weight: 600;
+  white-space: nowrap;
+  width: 70px;
+}
+.ref-panel td:last-child { color: var(--text-dim); }
+
+.ref-panel .ref-note {
+  color: var(--text-dim);
+  font-style: italic;
+  font-size: 10px;
+  margin-top: 8px;
+  padding-top: 6px;
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 640px) {
+  .ref-panel { width: calc(100vw - 32px); right: 16px; }
+  .ref-toggle { top: 76px; right: 8px; font-size: 10px; padding: 4px 8px; }
+  .ref-panel { top: 108px; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-top">
+    <div class="header-title">
+      <div class="scp-logo">SCP</div>
+      <div>
+        <h1>MEDIC CLASS PROPOSAL</h1>
+        <span class="version">v0.12 // DRAFT FOR DM REVIEW</span>
+      </div>
+    </div>
+    <div class="search-box">
+      <input type="text" id="search" placeholder="Search abilities..." autocomplete="off">
+    </div>
+  </div>
+</header>
+
+<nav class="tab-bar">
+  <button class="tab active" data-tab="overview">Overview</button>
+  <button class="tab" data-tab="base">Base Medic</button>
+  <button class="tab" data-tab="cm">Combat Medic</button>
+  <button class="tab" data-tab="im">Internal Medic</button>
+  <button class="tab" data-tab="ms">Memetic Specialist</button>
+  <button class="tab" data-tab="dm">Rules</button>
+  <button class="tab" data-tab="dmlock" style="color:var(--red-dim)">&#x1F512; DM Only</button>
+</nav>
+
+<button class="ref-toggle" id="ref-toggle" onclick="document.getElementById('ref-panel').classList.toggle('open');this.classList.toggle('open');">&#9776; REF</button>
+<div class="ref-panel" id="ref-panel">
+  <div id="ref-content"></div>
+</div>
+
+<main class="main-content">
+
+<!-- ===================== OVERVIEW TAB ===================== -->
+<div class="tab-panel active" id="panel-overview">
+  <div class="classified-banner">
+    <h2>SCP FOUNDATION // MEDICAL DIVISION</h2>
+    <div class="subtitle">Class Document — Level 1-12 — Three Specialization Paths</div>
+    <div class="spec-meta">
+      <div class="meta-item"><span class="label">Hit Dice</span><span class="value">d8</span></div>
+      <div class="meta-item"><span class="label">Primary Stat</span><span class="value">Wisdom</span></div>
+      <div class="meta-item"><span class="label">Proficiencies</span><span class="value">Medicine, Light Arms, Light Armor</span></div>
+      <div class="meta-item"><span class="label">Power Curve</span><span class="value">Foundation (1-2) &rarr; Spec (3-5) &rarr; Strong (6-8) &rarr; Powerful (9-10) &rarr; Capstone (11-12)</span></div>
+    </div>
+  </div>
+
+  <h3 style="color:var(--accent);margin-bottom:12px;font-family:'Source Code Pro',monospace;">Specialization Paths</h3>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-bottom:24px;">
+    <div class="ability-card" style="border-left-color:var(--cm-color);cursor:pointer;" onclick="switchTab('cm')">
+      <div class="ability-name" style="color:var(--cm-color);">Combat Medic &mdash; "Lifeline"</div>
+      <div class="ability-desc">Frontline battlefield healer. Burst healing, high mobility, keeps people alive under fire. DEX secondary.<br><br><em>"You carry 30 kilograms of medical gear into a firefight and you use every gram of it."</em></div>
+    </div>
+    <div class="ability-card" style="border-left-color:var(--im-color);cursor:pointer;" onclick="switchTab('im')">
+      <div class="ability-name" style="color:var(--im-color);">Internal Medic &mdash; "Surgeon"</div>
+      <div class="ability-desc">Foundation medical specialist. Mode-select healing (Heal/Cure/Buff), pharmaceutical prep, institutional authority. INT secondary.<br><br><em>"Your clearance level lets you read the unredacted version."</em></div>
+    </div>
+    <div class="ability-card" style="border-left-color:var(--ms-color);cursor:pointer;" onclick="switchTab('ms')">
+      <div class="ability-name" style="color:var(--ms-color);">Memetic Specialist &mdash; "Inoculator"</div>
+      <div class="ability-desc">Antimemetics Division cognitive defense operative. Mental protection, mnestic science, BL weapons. INT secondary.<br><br><em>"You didn't stop being a medic &mdash; but you became something else too."</em></div>
+    </div>
+  </div>
+
+  <h3 style="color:var(--accent);margin-bottom:12px;font-family:'Source Code Pro',monospace;">Progression Overview</h3>
+  <div style="overflow-x:auto;">
+    <div class="progression-grid">
+      <div class="prog-cell header">LVL</div>
+      <div class="prog-cell header" style="border-top:2px solid var(--cm-color)">Combat Medic</div>
+      <div class="prog-cell header" style="border-top:2px solid var(--im-color)">Internal Medic</div>
+      <div class="prog-cell header" style="border-top:2px solid var(--ms-color)">Memetic Specialist</div>
+
+      <div class="prog-cell level-num">1</div>
+      <div class="prog-cell" colspan="3" style="grid-column:2/5;color:var(--text-dim)">First Aid, Stabilize, Medical Assessment</div>
+
+      <div class="prog-cell level-num">2</div>
+      <div class="prog-cell" style="grid-column:2/5;color:var(--text-dim)">Emergency Response, Medic's Eye</div>
+
+      <div class="prog-cell level-num">3</div>
+      <div class="prog-cell">Triage, Combat Stabilization</div>
+      <div class="prog-cell">Preemptive Treatment, Purge</div>
+      <div class="prog-cell">Memetic Inoculation, Psych Reading, Cog Triage, Residual Imprint</div>
+
+      <div class="prog-cell level-num">4</div>
+      <div class="prog-cell">Under Fire, Proximity Training, Field Forensics, TMA</div>
+      <div class="prog-cell">Directed Recovery, Directed Triage, Classified Consultation, Clinical Scanner</div>
+      <div class="prog-cell">Cog Decontamination, Inoculation+</div>
+
+      <div class="prog-cell level-num">5</div>
+      <div class="prog-cell">Adrenaline Shot, <strong>Trauma Extraction</strong>, FA 3d6</div>
+      <div class="prog-cell">Analysis Paralysis, FA 3d6</div>
+      <div class="prog-cell">Pattern Recognition, SCRAMBLE, FA 3d6</div>
+
+      <div class="prog-cell level-num">6</div>
+      <div class="prog-cell">Patch Job + Field Remedy, Triage Point</div>
+      <div class="prog-cell">Amnestics, <strong>Field Triage Protocol</strong></div>
+      <div class="prog-cell">Counter-Memetic Barrier, Advanced CRV</div>
+
+      <div class="prog-cell level-num">7</div>
+      <div class="prog-cell">Field Surgery, Battlefield Awareness, AAMR</div>
+      <div class="prog-cell">Strategic Prep (AR-5, CF-2), Analysis&times;2</div>
+      <div class="prog-cell">Memetic Hardening, Cog Warning, Decontam&times;2</div>
+
+      <div class="prog-cell level-num">8</div>
+      <div class="prog-cell">Mass Triage, FA 4d6</div>
+      <div class="prog-cell">Class-B Amnestics, Med Authority, FA 4d6</div>
+      <div class="prog-cell"><strong>Division Induction:</strong> Cognitive Strike, SCRAMBLE&times;2, FA 4d6</div>
+
+      <div class="prog-cell level-num">9</div>
+      <div class="prog-cell">Adrenaline Surge, Surgery+, Extraction&rarr;BA</div>
+      <div class="prog-cell">Experimental Protocol, DT&times;3</div>
+      <div class="prog-cell">Antimemetic Protocol, CW&times;2, Decontam&times;3</div>
+
+      <div class="prog-cell level-num">10</div>
+      <div class="prog-cell">Adv. Field Surgery, FA 5d6</div>
+      <div class="prog-cell">Protocol HIPPOCRATES, AP-1</div>
+      <div class="prog-cell">Antimemetic Concealment</div>
+
+      <div class="prog-cell level-num">11</div>
+      <div class="prog-cell">Miraculous Save, Mastery</div>
+      <div class="prog-cell">Class-C Amnestics, FA 5d6, Fortify</div>
+      <div class="prog-cell">Adv. BL Weapons, Identity Fracture, SCRAMBLE always-on</div>
+
+      <div class="prog-cell level-num">12</div>
+      <div class="prog-cell" style="color:var(--cm-color);font-weight:700">One More Breath, FA 6d6</div>
+      <div class="prog-cell" style="color:var(--im-color);font-weight:700">Lazarus Protocol</div>
+      <div class="prog-cell" style="color:var(--ms-color);font-weight:700">Containment Inoculation + Cognitive Sovereignty</div>
+    </div>
+  </div>
+
+  <h3 style="color:var(--accent);margin-bottom:12px;font-family:'Source Code Pro',monospace;margin-top:24px;">v0.12 Changes</h3>
+  <div class="dm-section">
+    <div class="ability-desc">
+      <ul>
+        <li><strong style="color:var(--cm-color)">Trauma Extraction</strong> (CM L5) &mdash; Drag ally to safety + free Triage patch</li>
+        <li><strong style="color:var(--cm-color)">Triage soft landing</strong> &mdash; 1 extra use after charges expire (stabilize/condition only)</li>
+        <li><strong style="color:var(--im-color)">Field Triage Protocol</strong> (IM L6) &mdash; Scan &rarr; advantage on next treatment</li>
+        <li><strong style="color:var(--ms-color)">Residual Imprint</strong> (MS L3) &mdash; Reaction on ally save success</li>
+        <li><strong style="color:var(--ms-color)">Identity Fracture rebalanced</strong> (MS L11) &mdash; 1/LR, single target, cognitive backlash</li>
+        <li><strong style="color:var(--im-color)">Lazarus Vital Transfer</strong> (IM L12) &mdash; Half HP cost + anomaly condition</li>
+        <li><strong>L7-12 full writeups</strong> for all three specs</li>
+        <li><strong>8 ambiguity fixes</strong> across all specs</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== BASE MEDIC TAB ===================== -->
+<div class="tab-panel" id="panel-base">
+  <div class="classified-banner">
+    <h2>BASE MEDIC // LEVELS 1&ndash;2</h2>
+    <div class="subtitle">All medics share these levels before branching at Level 3</div>
+    <div class="spec-meta">
+      <div class="meta-item"><span class="label">Hit Dice</span><span class="value">d8</span></div>
+      <div class="meta-item"><span class="label">Primary Stat</span><span class="value">WIS</span></div>
+      <div class="meta-item"><span class="label">Proficiencies</span><span class="value">Medicine, Light Arms, Light Armor, Foundation Medical Kits</span></div>
+      <div class="meta-item"><span class="label">Starting Gear</span><span class="value">Field medical kit, light arm, field radio, ID badge, biometric scanner</span></div>
+    </div>
+  </div>
+
+  <div class="level-section open">
+    <div class="level-header" onclick="toggleLevel(this)">
+      <span class="level-badge">1</span>
+      <span class="level-title">Level 1</span>
+      <span class="level-abilities">First Aid, Stabilize, Medical Assessment</span>
+      <span class="toggle-icon">&#9654;</span>
+    </div>
+    <div class="level-body">
+      <div class="ability-card" data-action="action">
+        <div class="ability-name">First Aid</div>
+        <div class="ability-badges">
+          <span class="badge badge-action">Action</span>
+          <span class="badge badge-charges">Adjacent</span>
+        </div>
+        <div class="ability-desc">Apply Foundation-grade trauma care: hemostatic gel, dermal adhesive strips, pressure bandages, analgesic autoinjector. Heals <strong>2d6 + WIS modifier HP</strong>. Scaling differs by specialization starting at level 5.</div>
+      </div>
+      <div class="ability-card" data-action="bonus">
+        <div class="ability-name">Stabilize</div>
+        <div class="ability-badges">
+          <span class="badge badge-bonus">Bonus Action</span>
+          <span class="badge badge-charges">Adjacent</span>
+        </div>
+        <div class="ability-desc">Deploy emergency trauma patch on a dying creature. Target stops making death saves and stabilizes at <strong>0 HP</strong>. They're not conscious or healed &mdash; the patch is buying time.</div>
+      </div>
+      <div class="ability-card" data-action="noncombat">
+        <div class="ability-name">Medical Assessment</div>
+        <div class="ability-badges">
+          <span class="badge badge-noncombat">Exploration</span>
+          <span class="badge badge-charges">Examine a Creature</span>
+        </div>
+        <div class="ability-desc">Biometric scanner + hands-on exam. Learn current HP, active conditions, toxins, infections, or anomalous contamination markers. DM may require Medicine check for anomalous effects.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="level-section">
+    <div class="level-header" onclick="toggleLevel(this)">
+      <span class="level-badge">2</span>
+      <span class="level-title">Level 2</span>
+      <span class="level-abilities">Emergency Response, Medic's Eye</span>
+      <span class="toggle-icon">&#9654;</span>
+    </div>
+    <div class="level-body">
+      <div class="ability-card" data-action="reaction">
+        <div class="ability-name">Emergency Response</div>
+        <div class="ability-badges">
+          <span class="badge badge-reaction">Reaction</span>
+          <span class="badge badge-charges">30ft Range</span>
+        </div>
+        <div class="ability-desc">When an ally within 30 feet takes damage, move up to <strong>half your speed toward them</strong> without provoking opportunity attacks. Must end closer to the ally. Drilled into every Foundation medic from day one.</div>
+      </div>
+      <div class="ability-card" data-action="bonus">
+        <div class="ability-name">Medic's Eye</div>
+        <div class="ability-badges">
+          <span class="badge badge-bonus">Bonus Action</span>
+          <span class="badge badge-charges">30ft Range</span>
+          <span class="badge badge-charges">Medicine Check (enemies)</span>
+        </div>
+        <div class="ability-desc">
+          <strong>On an ally:</strong> Exact current HP, max HP, and all active conditions. No check required.<br>
+          <strong>On an enemy:</strong> Condition tier (healthy/wounded/bloodied/critical) is <strong>free</strong>. Scanner detail requires a <strong>Medicine check — DC set by the DM</strong> based on the creature. On failure, the scanner returns noise — you know the tier but can't interpret the detail.
+        </div>
+        <div class="ability-note design">Condition tier is always free so scanning is never wasted. The check gates the useful intel behind enemy difficulty — harder creatures are harder to read.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== COMBAT MEDIC TAB ===================== -->
+<div class="tab-panel" id="panel-cm">
+  <div class="classified-banner" style="border-color:var(--cm-color)44;">
+    <div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--cm-color);"></div>
+    <h2 style="color:var(--cm-color);">COMBAT MEDIC // "LIFELINE"</h2>
+    <div class="subtitle">Frontline battlefield healer &mdash; burst healing, high mobility, keeps people alive under fire</div>
+    <div class="spec-meta">
+      <div class="meta-item"><span class="label">Secondary Stat</span><span class="value">DEX</span></div>
+      <div class="meta-item"><span class="label">Weapon Prof</span><span class="value">Light + Medium Arms</span></div>
+      <div class="meta-item"><span class="label">Weakness</span><span class="value">Limited anomalous/mental tools; supplies run out</span></div>
+      <div class="meta-item"><span class="label">Reports To</span><span class="value">Medical Division</span></div>
+    </div>
+  </div>
+
+  <div class="filter-bar">
+    <button class="filter-tag active" data-filter="all">All</button>
+    <button class="filter-tag" data-filter="action">Actions</button>
+    <button class="filter-tag" data-filter="bonus">Bonus Actions</button>
+    <button class="filter-tag" data-filter="reaction">Reactions</button>
+    <button class="filter-tag" data-filter="passive">Passives</button>
+    <button class="filter-tag" data-filter="noncombat">Non-Combat</button>
+  </div>
+
+  <table class="scaling-table">
+    <thead><tr><th>Level</th><th>First Aid (Action)</th><th>Triage (Bonus)</th><th>Compounds</th></tr></thead>
+    <tbody>
+      <tr><td>1&ndash;4</td><td>2d6 + WIS</td><td>1d6 + WIS (from L3)</td><td>Standard trauma kit</td></tr>
+      <tr><td>5</td><td>3d6 + WIS</td><td>2d6 + WIS</td><td>Advanced hemostatic compounds</td></tr>
+      <tr><td>8</td><td>4d6 + WIS</td><td>3d6 + WIS (MAX)</td><td>Regenerative biofoam</td></tr>
+      <tr><td>10</td><td>5d6 + WIS</td><td>3d6 + WIS</td><td>Project PROMETHEUS</td></tr>
+      <tr><td>12</td><td>6d6 + WIS</td><td>3d6 + WIS</td><td>Cutting-edge Foundation biotech</td></tr>
+    </tbody>
+  </table>
+
+  <!-- CM Level 3 -->
+  <div class="level-section open">
+    <div class="level-header" onclick="toggleLevel(this)">
+      <span class="level-badge">3</span>
+      <span class="level-title">Level 3 &mdash; Specialization Entry</span>
+      <span class="level-abilities">Triage, Combat Stabilization</span>
+      <span class="toggle-icon">&#9654;</span>
+    </div>
+    <div class="level-body">
+      <div class="ability-card" data-action="bonus">
+        <div class="ability-name">Triage</div>
+        <div class="ability-badges">
+          <span class="badge badge-bonus">Bonus Action</span>
+          <span class="badge badge-charges">WIS mod / SR</span>
+          <span class="badge badge-charges">Touch</span>
+        </div>
+        <div class="ability-desc">Slap a quick-deploy trauma patch. Heals <strong>1d6 + WIS modifier HP</strong>. WIS modifier charges per short rest.
+        <br><br><strong>Soft landing:</strong> When your last charge is spent, retain <strong>one additional use</strong> for stabilize (auto, no healing) or condition removal only. Then fully expended.</div>
+        <div class="ability-note">Side effects: localized numbness ~10 min, mild inflammation. Repeated application &rarr; chemical burns.</div>
+      </div>
+      <div class="ability-card" data-action="reaction">
+        <div class="ability-name">Combat Stabilization</div>
+        <div class="ability-badges">
+          <span class="badge badge-reaction">Reaction</span>
+          <span class="badge badge-charges">1 / SR</span>
+          <span class="badge badge-charges">30ft Range</span>
+        </div>
+        <div class="ability-desc">When ally drops to 0 HP, throw a stabilization canister. <strong>DEX check</strong> &mdash; DC 8 (15ft), DC 12 (30ft), DC 16 (40ft at L7+). Success = auto-stabilize. <strong>Choose one reaction per trigger</strong> &mdash; can't use with Emergency Response on same event.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CM Level 4 -->
+  <div class="level-section">
+    <div class="level-header" onclick="toggleLevel(this)">
+      <span class="level-badge">4</span>
+      <span class="level-title">Level 4</span>
+      <span class="level-abilities">Under Fire, Proximity Training, Field Forensics, TMA</span>
+      <span class="toggle-icon">&#9654;</span>
+    </div>
+    <div class="level-body">
+      <div class="ability-card" data-action="passive">
+        <div class="ability-name">Under Fire</div>
+        <div class="ability-badges"><span class="badge badge-passive">Passive</span></div>
+        <div class="ability-desc">Moving to heal/stabilize an ally <strong>does not provoke opportunity attacks</strong>. When you use First Aid or Triage, move up to half speed as part of that action without provoking.</div>
+      </div>
+      <div class="ability-card" data-action="passive">
+        <div class="ability-name">Proximity Training</div>
+        <div class="ability-badges"><span class="badge badge-passive">Passive</span><span class="badge badge-charges">Adjacent</span></div>
+        <div class="ability-desc">Adjacent allies add <strong>+1 to death saving throws</strong>.</div>
+      </div>
+      <div class="ability-card" data-action="noncombat">
+        <div class="ability-name">Field Forensics</div>
+        <div class="ability-badges"><span class="badge badge-noncombat">Exploration — Examine Body/Scene</span></div>
+        <div class="ability-desc">Examine bodies/scenes. <strong>Medicine check</strong> &mdash; the DM determines what you learn based on your roll. Higher rolls reveal more: cause of death, time of death, toxicology, whether the scene was staged.</div>
+      </div>
+      <div class="ability-card" data-action="noncombat">
+        <div class="ability-name">Tactical Medical Assessment</div>
+        <div class="ability-badges"><span class="badge badge-noncombat">Before Going In</span></div>
+        <div class="ability-desc"><strong>Medicine check</strong> &mdash; prep the team's self-aid gear and brief injury expectations. On a good roll: party gains <strong>+1 to death saving throws</strong> for the mission. On an exceptional roll: DM provides a medical-reasoning tactical insight.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CM Level 5 -->
+  <div class="level-section">
+    <div class="level-header" onclick="toggleLevel(this)">
+      <span class="level-badge">5</span>
+      <span class="level-title">Level 5</span>
+      <span class="level-abilities">Adrenaline Shot, Trauma Extraction, FA 3d6</span>
+      <span class="toggle-icon">&#9654;</span>
+    </div>
+    <div class="level-body">
+      <div class="ability-card" data-action="bonus">
+        <div class="ability-name">Adrenaline Shot (Compound 47)</div>
+        <div class="ability-badges">
+          <span class="badge badge-bonus">Bonus Action</span>
+          <span class="badge badge-charges">1 / LR</span>
+          <span class="badge badge-charges">Adjacent, Willing</span>
+        </div>
+        <div class="ability-desc">
+          <strong>2d6 temp HP</strong>, advantage on next attack, +10ft speed. Duration: target's second turn after injection.<br>
+          <strong>Mental override:</strong> If target is Stunned/Dominated/Charmed/Feared, forces immediate re-save (no advantage).<br>
+          <strong>Failure rider:</strong> Even on failed re-save, advantage on next natural save against that effect.<br>
+          <strong>Crash:</strong> Disadvantage on attacks + ability checks until end of next turn.
+        </div>
+        <div class="ability-note authorization">Target must be conscious, able to speak, and not under compulsion. Silenced/Dominated creatures cannot consent.</div>
+      </div>
+      <div class="ability-card" data-action="action">
+        <div class="ability-name">Trauma Extraction</div>
+        <div class="ability-badges">
+          <span class="badge badge-action">Action</span>
+          <span class="badge badge-new">NEW v0.12</span>
+          <span class="badge badge-charges">Adjacent</span>
+        </div>
+        <div class="ability-desc">
+          Grab willing/unconscious creature adjacent to you. Move your <strong>full speed</strong> dragging them &mdash; <strong>no opportunity attacks</strong> for either of you.<br>
+          <strong>At 0 HP:</strong> Auto-stabilize on grab.<br>
+          <strong>End of movement:</strong> Free Triage on the extracted creature (costs a charge).<br>
+          <strong>Behind cover:</strong> Advantage on death saves until your next turn.<br>
+          <strong>L9 upgrade:</strong> Can use as bonus action (no free Triage rider).
+        </div>
+        <div class="ability-note design">Emergency Response gets you in. Trauma Extraction gets you both out.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CM Level 6 -->
+  <div class="level-section">
+    <div class="level-header" onclick="toggleLevel(this)">
+      <span class="level-badge">6</span>
+      <span class="level-title">Level 6</span>
+      <span class="level-abilities">Patch Job + Field Remedy, Triage Point</span>
+      <span class="toggle-icon">&#9654;</span>
+    </div>
+    <div class="level-body">
+      <div class="ability-card" data-action="bonus">
+        <div class="ability-name">Patch Job + Field Remedy</div>
+        <div class="ability-badges">
+          <span class="badge badge-bonus">Added to Triage</span>
+          <span class="badge badge-charges">Costs Triage Charge</span>
+        </div>
+        <div class="ability-desc">
+          Specialized patch variants: <strong>Ocular flush</strong> (removes Blinded), <strong>Aural stabilizer</strong> (removes Deafened), <strong>Toxin binder</strong> (removes Poisoned), <strong>Field Remedy</strong> (removes Frightened OR Charm re-save, no advantage).
+          <br><br><em>Field Remedy does NOT work on Stunned, Incapacitated, or anomalous mental effects.</em>
+        </div>
+      </div>
+      <div class="ability-card" data-action="noncombat">
+        <div class="ability-name">Triage Point</div>
+        <div class="ability-badges"><span class="badge badge-noncombat">Before Combat / During Rest</span><span class="badge badge-charges">3 Uses</span></div>
+        <div class="ability-desc">Pre-deploy supply cache at a position. Allies at the point can use BA to spend a hit die + your WIS mod. 3 uses before depleted.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CM Levels 7-12 (condensed) -->
+  <div class="level-section">
+    <div class="level-header" onclick="toggleLevel(this)">
+      <span class="level-badge">7</span>
+      <span class="level-title">Level 7</span>
+      <span class="level-abilities">Field Surgery, Battlefield Awareness, AAMR</span>
+      <span class="toggle-icon">&#9654;</span>
+    </div>
+    <div class="level-body">
+      <div class="ability-card" data-action="action">
+        <div class="ability-name">Field Surgery</div>
+        <div class="ability-badges"><span class="badge badge-action">Full Round Action</span><span class="badge badge-charges">2 / LR</span></div>
+        <div class="ability-desc"><strong>3d8 + WIS HP</strong>, recover 1 hit die. Must remain adjacent. Medicine check (DC 10 + damage) if hit or healing halved. L9: 4d8+WIS, 2 hit dice.</div>
+      </div>
+      <div class="ability-card" data-action="passive">
+        <div class="ability-name">Battlefield Awareness</div>
+        <div class="ability-badges"><span class="badge badge-passive">Passive</span></div>
+        <div class="ability-desc">While healing: <strong>advantage on DEX saves, +2 AC</strong>. Combat Stabilization &rarr; 2 canisters/SR, 40ft range.</div>
+      </div>
+      <div class="ability-card" data-action="noncombat">
+        <div class="ability-name">After-Action Medical Report</div>
+        <div class="ability-badges"><span class="badge badge-noncombat">After Combat</span></div>
+        <div class="ability-desc"><strong>Medicine check</strong> &mdash; analyze wounds and damage patterns from the fight. On a good roll: party gains <strong>advantage on initiative</strong> vs same enemy type next encounter. On an exceptional roll: DM reveals an unexploited tactical weakness.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="level-section">
+    <div class="level-header" onclick="toggleLevel(this)">
+      <span class="level-badge">8</span>
+      <span class="level-title">Level 8</span>
+      <span class="level-abilities">Mass Triage, FA 4d6</span>
+      <span class="toggle-icon">&#9654;</span>
+    </div>
+    <div class="level-body">
+      <div class="ability-card" data-action="action">
+        <div class="ability-name">Mass Triage</div>
+        <div class="ability-badges"><span class="badge badge-action">Action</span><span class="badge badge-charges">1 / LR</span></div>
+        <div class="ability-desc">Up to <strong>3 allies within 15 feet</strong> each heal for <strong>2d6 + WIS</strong>. L11: 2/LR, 3d6+WIS each.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="level-section">
+    <div class="level-header" onclick="toggleLevel(this)">
+      <span class="level-badge">9</span>
+      <span class="level-title">Level 9</span>
+      <span class="level-abilities">Adrenaline Surge, Surgery+, Extraction&rarr;BA</span>
+      <span class="toggle-icon">&#9654;</span>
+    </div>
+    <div class="level-body">
+      <div class="ability-card" data-action="bonus">
+        <div class="ability-name">Adrenaline Surge (Compound 47-B)</div>
+        <div class="ability-badges"><span class="badge badge-bonus">Bonus Action</span><span class="badge badge-charges">2 / LR</span></div>
+        <div class="ability-desc"><strong>3d6 temp HP</strong>, advantage on next <strong>two</strong> attacks, +10ft speed. Crash reduced to disadvantage on next attack only. Field Surgery &rarr; 4d8+WIS, 2 hit dice. Trauma Extraction &rarr; bonus action option.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="level-section">
+    <div class="level-header" onclick="toggleLevel(this)">
+      <span class="level-badge">10</span>
+      <span class="level-title">Level 10</span>
+      <span class="level-abilities">Advanced Field Surgery, FA 5d6</span>
+      <span class="toggle-icon">&#9654;</span>
+    </div>
+    <div class="level-body">
+      <div class="ability-card" data-action="action">
+        <div class="ability-name">Advanced Field Surgery</div>
+        <div class="ability-badges"><span class="badge badge-action">Full Round</span><span class="badge badge-charges">3 / LR</span></div>
+        <div class="ability-desc"><strong>5d8 + WIS HP</strong>, 2 hit dice recovered, <strong>remove one non-anomalous condition</strong>. Survives forced repositioning but surgeon can't voluntarily move.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="level-section">
+    <div class="level-header" onclick="toggleLevel(this)">
+      <span class="level-badge">11</span>
+      <span class="level-title">Level 11</span>
+      <span class="level-abilities">Miraculous Save, Mastery</span>
+      <span class="toggle-icon">&#9654;</span>
+    </div>
+    <div class="level-body">
+      <div class="ability-card" data-action="reaction">
+        <div class="ability-name">Miraculous Save</div>
+        <div class="ability-badges"><span class="badge badge-reaction">Reaction</span><span class="badge badge-charges">1 / LR</span></div>
+        <div class="ability-desc">When creature adjacent to you is <strong>reduced to 0 HP or fails third death save</strong>: deploy cardiac resuscitation kit. Target drops to <strong>1 HP instead of dying</strong>. Conscious and can act.</div>
+      </div>
+      <div class="ability-card" data-action="passive">
+        <div class="ability-name">Combat Medic Mastery</div>
+        <div class="ability-badges"><span class="badge badge-passive">Passive</span></div>
+        <div class="ability-desc">Mass Triage &rarr; <strong>2/LR</strong>, <strong>3d6 + WIS</strong> each.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="level-section">
+    <div class="level-header" onclick="toggleLevel(this)">
+      <span class="level-badge" style="border-color:var(--cm-color);color:var(--cm-color)">12</span>
+      <span class="level-title" style="color:var(--cm-color)">Level 12 &mdash; Capstone</span>
+      <span class="level-abilities">One More Breath, FA 6d6</span>
+      <span class="toggle-icon">&#9654;</span>
+    </div>
+    <div class="level-body">
+      <div class="ability-card" data-action="reaction" style="border-left-color:var(--cm-color);">
+        <div class="ability-name" style="color:var(--cm-color);">One More Breath</div>
+        <div class="ability-badges"><span class="badge badge-reaction">Reaction</span><span class="badge badge-charges">1 / LR (shared w/ Miraculous Save)</span></div>
+        <div class="ability-desc">
+          Enhancement to Miraculous Save with <strong>LAZARUS-Light</strong>. Target also gains:<br>
+          &bull; <strong>3d6 temporary HP</strong><br>
+          &bull; <strong>Immunity to 0 HP until start of your next turn</strong><br>
+          &bull; <strong>Can immediately take a reaction</strong><br><br>
+          First Aid reaches <strong>6d6 + WIS</strong> (unique to Combat Medic).
+        </div>
+        <div class="ability-note authorization">LAZARUS-Light requires Level 4 Medical approval + documented justification. Dose tracked regardless of use.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== INTERNAL MEDIC TAB ===================== -->
+<div class="tab-panel" id="panel-im">
+  <div class="classified-banner" style="border-color:var(--im-color)44;">
+    <div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--im-color);"></div>
+    <h2 style="color:var(--im-color);">INTERNAL MEDIC // "SURGEON"</h2>
+    <div class="subtitle">Foundation medical specialist &mdash; mode-select healing, pharmaceutical prep, institutional authority</div>
+    <div class="spec-meta">
+      <div class="meta-item"><span class="label">Secondary Stat</span><span class="value">INT</span></div>
+      <div class="meta-item"><span class="label">Core Mechanic</span><span class="value">Mode-Select: Heal / Cure / Buff</span></div>
+      <div class="meta-item"><span class="label">Weakness</span><span class="value">Less raw throughput; needs prep time</span></div>
+      <div class="meta-item"><span class="label">Reports To</span><span class="value">Medical Division (primary)</span></div>
+    </div>
+  </div>
+
+  <div class="filter-bar">
+    <button class="filter-tag active" data-filter="all">All</button>
+    <button class="filter-tag" data-filter="action">Actions</button>
+    <button class="filter-tag" data-filter="bonus">Bonus Actions</button>
+    <button class="filter-tag" data-filter="reaction">Reactions</button>
+    <button class="filter-tag" data-filter="passive">Passives</button>
+    <button class="filter-tag" data-filter="noncombat">Non-Combat</button>
+  </div>
+
+  <div class="dm-section" style="border-left:3px solid var(--im-color);margin-bottom:20px;">
+    <h3 style="color:var(--im-color)">Mode-Select System</h3>
+    <div class="ability-desc">Each First Aid, choose <strong>ONE</strong> mode:<br>
+      <strong style="color:#20e060">HEAL</strong> &mdash; Roll First Aid dice normally. Restore HP.<br>
+      <strong style="color:var(--accent)">CURE</strong> &mdash; Purge a condition. No HP healed. Costs a Purge charge.<br>
+      <strong style="color:var(--im-color)">BUFF</strong> &mdash; Directed Recovery compound. No HP healed.<br>
+      <br>You cannot combine modes. One action, one effect. This is the Internal Medic's core identity.</div>
+  </div>
+
+  <!-- IM Level 3 -->
+  <div class="level-section open">
+    <div class="level-header" onclick="toggleLevel(this)">
+      <span class="level-badge" style="border-color:var(--im-color);color:var(--im-color)">3</span>
+      <span class="level-title">Level 3 &mdash; Specialization Entry</span>
+      <span class="level-abilities">Preemptive Treatment, Precision Medicine</span>
+      <span class="toggle-icon">&#9654;</span>
+    </div>
+    <div class="level-body">
+      <div class="ability-card" data-action="noncombat">
+        <div class="ability-name">Preemptive Treatment</div>
+        <div class="ability-badges"><span class="badge badge-noncombat">Before Going In / During Rest</span><span class="badge badge-charges">3 Allies</span></div>
+        <div class="ability-desc">
+          Administer compounds to up to 3 allies. Choose one per ally:<br>
+          &bull; <strong>IM-7 Immunobooster:</strong> Advantage on CON saves vs poison/disease, 8 hrs<br>
+          &bull; <strong>DRG-4 Trauma Plating:</strong> 1d6+WIS temp HP until LR<br>
+          &bull; <strong>PS-12 Pain Suppressant:</strong> Ignore first Frightened or Stunned (single use)
+        </div>
+      </div>
+      <div class="ability-card" data-action="action">
+        <div class="ability-name">Precision Medicine (Purge)</div>
+        <div class="ability-badges"><span class="badge badge-action">Added to First Aid</span><span class="badge badge-charges">WIS mod / SR</span></div>
+        <div class="ability-desc">Choose CURE mode: remove one condition. <strong>Non-anomalous = auto.</strong> Anomalous = <strong>Medicine check (DC set by DM)</strong> based on the anomaly's strength. Charge spent on attempt regardless.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- IM Key Levels -->
+  <div class="level-section">
+    <div class="level-header" onclick="toggleLevel(this)">
+      <span class="level-badge" style="border-color:var(--im-color);color:var(--im-color)">4</span>
+      <span class="level-title">Level 4</span>
+      <span class="level-abilities">Directed Recovery, Directed Triage, Consultation, Scanner</span>
+      <span class="toggle-icon">&#9654;</span>
+    </div>
+    <div class="level-body">
+      <div class="ability-card" data-action="action">
+        <div class="ability-name">Directed Recovery (Buff Mode)</div>
+        <div class="ability-badges"><span class="badge badge-action">Added to First Aid</span></div>
+        <div class="ability-desc">Choose BUFF mode: <strong>Brace</strong> (+2 AC), <strong>Steady</strong> (advantage on next save), or <strong>Reposition</strong> (reaction to move half speed). Lasts until start of target's next turn.</div>
+      </div>
+      <div class="ability-card" data-action="bonus">
+        <div class="ability-name">Directed Triage</div>
+        <div class="ability-badges"><span class="badge badge-bonus">Bonus Action</span><span class="badge badge-charges">2 / SR</span><span class="badge badge-charges">30ft</span></div>
+        <div class="ability-desc">Shout medical instructions to a conscious ally. Target spends their <strong>hit die + your WIS mod</strong>. Target must be able to hear you and chooses whether to accept.</div>
+        <div class="ability-note warning">Uses ally's hit dice &mdash; drains their short rest healing budget over long days.</div>
+      </div>
+      <div class="ability-card" data-action="bonus">
+        <div class="ability-name">Clinical Scanner</div>
+        <div class="ability-badges"><span class="badge badge-passive">Passive + Active</span><span class="badge badge-charges">Medicine Check (enemies)</span></div>
+        <div class="ability-desc">
+          <strong>Passive:</strong> Always know ally condition tiers within 30ft (requires consciousness).<br>
+          <strong>Active scan — ally (BA):</strong> Exact HP, max HP, all conditions. Automatic, no check.<br>
+          <strong>Active scan — enemy (BA):</strong> Condition tier (free) + tactical detail via <strong>Medicine check — DC set by DM</strong> based on creature difficulty. Clinical-grade scanner gives <strong>+2 to this check</strong> vs base Medic's Eye.<br>
+          <strong>On successful scan:</strong> Allies who can hear you gain <strong>+1 to attack rolls</strong> vs that target until your next turn.
+        </div>
+        <div class="ability-note design">The +1 attack bonus only triggers on a successful scan. Harder enemies are harder to read, which means the +1 is earned, not automatic.</div>
+      </div>
+      <div class="ability-card" data-action="noncombat">
+        <div class="ability-name">Classified Consultation</div>
+        <div class="ability-badges"><span class="badge badge-noncombat">Exploration</span></div>
+        <div class="ability-desc">Access classified Foundation medical databases via your secure terminal. <strong>Medicine check</strong> &mdash; DM determines what you learn based on your roll. Cross-reference anomalous effects, diseases, or unidentified conditions. Can also research an SCP pre-mission (DM discretion based on clearance).</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- IM Level 5 -->
+  <div class="level-section">
+    <div class="level-header" onclick="toggleLevel(this)">
+      <span class="level-badge" style="border-color:var(--im-color);color:var(--im-color)">5</span>
+      <span class="level-title">Level 5</span>
+      <span class="level-abilities">Analysis Paralysis, Preemptive Treatment +, First Aid 3d6</span>
+      <span class="toggle-icon">&#9654;</span>
+    </div>
+    <div class="level-body">
+      <div class="ability-card" data-action="reaction">
+        <div class="ability-name">Analysis Paralysis</div>
+        <div class="ability-badges"><span class="badge badge-reaction">Reaction</span><span class="badge badge-charges">1 / SR</span><span class="badge badge-charges">30ft</span></div>
+        <div class="ability-desc">When an ally within 30ft is targeted by an attack you can see, shout a warning. The attack has <strong>disadvantage</strong>. Scanner detects biometric panic in your patient before they register the threat.</div>
+      </div>
+      <div class="ability-card" data-action="noncombat">
+        <div class="ability-name">Preemptive Treatment (Scaling)</div>
+        <div class="ability-badges"><span class="badge badge-noncombat">Before Going In / During Rest</span><span class="badge badge-charges">5 Allies</span></div>
+        <div class="ability-desc">Capacity increases to <strong>5 allies</strong>. New compound:<br>
+          &bull; <strong>MB-9 Metabolic Boost:</strong> +5ft movement speed and advantage on Initiative for 8 hrs</div>
+      </div>
+      <div class="ability-card" data-action="passive">
+        <div class="ability-name">First Aid Scaling</div>
+        <div class="ability-badges"><span class="badge badge-passive">Passive</span></div>
+        <div class="ability-desc">First Aid scales to <strong>3d6 + WIS</strong>. Targeted pharmaceutical compounds (analgesics + tissue stimulants).</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- IM Level 6 -->
+  <div class="level-section">
+    <div class="level-header" onclick="toggleLevel(this)">
+      <span class="level-badge" style="border-color:var(--im-color);color:var(--im-color)">6</span>
+      <span class="level-title">Level 6</span>
+      <span class="level-abilities">Amnestics, Field Triage Protocol</span>
+      <span class="toggle-icon">&#9654;</span>
+    </div>
+    <div class="level-body">
+      <div class="ability-card" data-action="action">
+        <div class="ability-name">Amnestic Administration (Class-A)</div>
+        <div class="ability-badges"><span class="badge badge-action">Action</span><span class="badge badge-charges">Serial-Tracked</span></div>
+        <div class="ability-desc">Erases preceding <strong>1 hour</strong>. WIS save. Combat use: administer to incapacitated enemy. All doses logged. Misuse = investigation.</div>
+        <div class="ability-note authorization">Requires amnestics certification (Ethics Committee + Security review).</div>
+      </div>
+      <div class="ability-card" data-action="passive">
+        <div class="ability-name">Field Triage Protocol</div>
+        <div class="ability-badges"><span class="badge badge-passive">Passive</span><span class="badge badge-new">NEW v0.12</span></div>
+        <div class="ability-desc">After scanning a creature with Clinical Scanner (BA), your next <strong>First Aid, Triage, or Stabilize</strong> on that target has <strong>advantage on the roll</strong>. One use per scan, resets on rescan.</div>
+        <div class="ability-note design">Rewards the scan-then-treat rhythm without adding a new resource.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- IM Level 7 -->
+  <div class="level-section">
+    <div class="level-header" onclick="toggleLevel(this)">
+      <span class="level-badge" style="border-color:var(--im-color);color:var(--im-color)">7</span>
+      <span class="level-title">Level 7</span>
+      <span class="level-abilities">Strategic Preparation, Analysis Paralysis &times;2</span>
+      <span class="toggle-icon">&#9654;</span>
+    </div>
+    <div class="level-body">
+      <div class="ability-card" data-action="noncombat">
+        <div class="ability-name">Strategic Preparation (AR-5)</div>
+        <div class="ability-badges"><span class="badge badge-noncombat">Before Going In / During Rest</span></div>
+        <div class="ability-desc"><strong>Anomalous Resistance (Compound AR-5):</strong> Advantage on CON saves vs anomalous effects for <strong>8 hrs</strong>. No stacking within 24 hrs. IV slow-push autoinjector. Side effects: desaturated color perception, emotional dampening.</div>
+        <div class="ability-note authorization">Requires Level 3+ Medical clearance and pre-mission requisition noting anticipated anomalous exposure.</div>
+      </div>
+      <div class="ability-card" data-action="noncombat">
+        <div class="ability-name">Strategic Preparation (CF-2)</div>
+        <div class="ability-badges"><span class="badge badge-noncombat">Before Going In / During Rest</span></div>
+        <div class="ability-desc"><strong>Cellular Fortification (Compound CF-2):</strong> Choose one damage type (fire, cold, lightning, acid, necrotic, radiant, or poison). Target gains <strong>resistance to that type for 8 hrs</strong>. Cannot stack &mdash; second injection negates both. Side effects: translucent skin at site, joint stiffness (disadv. Acrobatics 1 hr).</div>
+      </div>
+      <div class="ability-card" data-action="passive">
+        <div class="ability-name">Analysis Paralysis (Scaling)</div>
+        <div class="ability-badges"><span class="badge badge-passive">Passive</span></div>
+        <div class="ability-desc">Analysis Paralysis improves to <strong>2 per short rest</strong>.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- IM Level 8 -->
+  <div class="level-section">
+    <div class="level-header" onclick="toggleLevel(this)">
+      <span class="level-badge" style="border-color:var(--im-color);color:var(--im-color)">8</span>
+      <span class="level-title">Level 8</span>
+      <span class="level-abilities">Class-B Amnestics, Medical Authority, First Aid 4d6</span>
+      <span class="toggle-icon">&#9654;</span>
+    </div>
+    <div class="level-body">
+      <div class="ability-card" data-action="action">
+        <div class="ability-name">Class-B Amnestics (AM-B)</div>
+        <div class="ability-badges"><span class="badge badge-action">Action</span><span class="badge badge-charges">Serial-Tracked</span></div>
+        <div class="ability-desc">Erases up to <strong>24 hours</strong> of memory. WIS save (DC 8 + prof + WIS). <strong>Combat autoinjector:</strong> melee attack roll vs unwilling target, on hit deploys amnestic + WIS save. <strong>Overdose risk:</strong> any amnestic in past 48 hrs &rarr; DC 14 CON save or seizures (incapacitated 1 round, 2d6 psychic).</div>
+        <div class="ability-note authorization">Requires Class-A/B certification + field-deployment endorsement for combat autoinjector.</div>
+      </div>
+      <div class="ability-card" data-action="action">
+        <div class="ability-name">Foundation Medical Authority</div>
+        <div class="ability-badges"><span class="badge badge-action">Action</span><span class="badge badge-charges">1 / LR</span></div>
+        <div class="ability-desc"><strong>Medical Override keycard</strong> (Level 4 Medical clearance, biometric). One Foundation system, supply cache, restricted file, or NPC must comply with a reasonable <strong>medical directive</strong>. Opens medical supply caches, patient records, quarantine locks. Does <strong>NOT</strong> open containment cells or override security lockdowns.</div>
+        <div class="ability-note authorization">Medical contexts only. Abuse triggers mandatory review and permanent revocation.</div>
+      </div>
+      <div class="ability-card" data-action="passive">
+        <div class="ability-name">First Aid Scaling</div>
+        <div class="ability-badges"><span class="badge badge-passive">Passive</span></div>
+        <div class="ability-desc">First Aid scales to <strong>4d6 + WIS</strong>. Foundation-grade regenerative compounds (biofoam sealants, dermal matrix patches).</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- IM Level 9 -->
+  <div class="level-section">
+    <div class="level-header" onclick="toggleLevel(this)">
+      <span class="level-badge" style="border-color:var(--im-color);color:var(--im-color)">9</span>
+      <span class="level-title">Level 9</span>
+      <span class="level-abilities">Experimental Protocol, Directed Triage 3/SR</span>
+      <span class="toggle-icon">&#9654;</span>
+    </div>
+    <div class="level-body">
+      <div class="ability-card" data-action="action">
+        <div class="ability-name">Experimental Protocol (RC-7)</div>
+        <div class="ability-badges"><span class="badge badge-action">Full Round</span><span class="badge badge-charges">1 / LR</span></div>
+        <div class="ability-desc"><strong>Regenerative Compound (RC-7):</strong> Heals <strong>4d6 + WIS</strong>. All non-anomalous conditions removed. <strong>DC 12 CON save</strong> or nausea (disadvantage on attack rolls 1 round). Visibly unnatural healing &mdash; wounds seal in seconds.</div>
+        <div class="ability-note authorization">Each dose requisitioned from Site medical facility. Level 3+ Medical clearance + documented justification. Post-use reporting mandatory.</div>
+      </div>
+      <div class="ability-card" data-action="action">
+        <div class="ability-name">Experimental Protocol (ECD-3)</div>
+        <div class="ability-badges"><span class="badge badge-action">Full Round</span><span class="badge badge-charges">1 / LR (shared)</span></div>
+        <div class="ability-desc"><strong>Emergency Containment Dose (ECD-3):</strong> <strong>Suppresses one anomalous effect</strong> for <strong>1 hour</strong> &mdash; paused, not cured. Effect resumes when suppression expires. Side effects: fever, fatigue, metallic taste.</div>
+      </div>
+      <div class="ability-card" data-action="passive">
+        <div class="ability-name">Directed Triage (Scaling)</div>
+        <div class="ability-badges"><span class="badge badge-passive">Passive</span></div>
+        <div class="ability-desc">Directed Triage improves to <strong>3 per short rest</strong>.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- IM Level 10 -->
+  <div class="level-section">
+    <div class="level-header" onclick="toggleLevel(this)">
+      <span class="level-badge" style="border-color:var(--im-color);color:var(--im-color)">10</span>
+      <span class="level-title">Level 10</span>
+      <span class="level-abilities">Protocol HIPPOCRATES, RC-7 6d6, Exp Protocol 2/LR, AP-1</span>
+      <span class="toggle-icon">&#9654;</span>
+    </div>
+    <div class="level-body">
+      <div class="ability-card" data-action="action">
+        <div class="ability-name">Protocol HIPPOCRATES</div>
+        <div class="ability-badges"><span class="badge badge-action">Action</span><span class="badge badge-charges">1 / LR</span></div>
+        <div class="ability-desc">Invoke pre-authorized O5 emergency medical directive. All Foundation personnel and systems in the immediate area must comply with your <strong>medical directives for up to 30 minutes</strong>. Goes above Site Directors in medical matters. <strong>Medical directives only</strong>, immediate area only, mandatory post-incident review.</div>
+        <div class="ability-note authorization">Every invocation generates an O5 report. Abuse triggers automatic O5 investigation.</div>
+      </div>
+      <div class="ability-card" data-action="passive">
+        <div class="ability-name">Experimental Protocol (Scaling)</div>
+        <div class="ability-badges"><span class="badge badge-passive">Passive</span></div>
+        <div class="ability-desc">RC-7 scales to <strong>6d6 + WIS</strong>. Experimental Protocol becomes <strong>2 per long rest</strong>.</div>
+      </div>
+      <div class="ability-card" data-action="action">
+        <div class="ability-name">Anomalous Purge (AP-1)</div>
+        <div class="ability-badges"><span class="badge badge-action">Full Round</span><span class="badge badge-charges">1 / LR (separate)</span></div>
+        <div class="ability-desc">Biometric-locked autoinjector. Target makes <strong>CON save DC 18</strong>. On success: one <strong>anomalous physical/biological effect permanently cured</strong>. On failure: effect <strong>suppressed 24 hrs</strong> (as ECD-3 but longer). Side effects: crushing fatigue (disadv. STR/DEX checks 24 hrs), nosebleeds, headache. Second dose in 48 hrs risks organ failure. <strong>Physical/biological only</strong> &mdash; mental anomalous effects are Memetic Specialist territory.</div>
+        <div class="ability-note authorization">Level 4 Medical clearance + individual dose authorization from Project PROMETHEUS. Biometric-locked, serialized. Post-use tissue samples mandatory.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- IM Level 11 -->
+  <div class="level-section">
+    <div class="level-header" onclick="toggleLevel(this)">
+      <span class="level-badge" style="border-color:var(--im-color);color:var(--im-color)">11</span>
+      <span class="level-title">Level 11</span>
+      <span class="level-abilities">Class-C Amnestics, Fortify, Analysis Paralysis &times;3, First Aid 5d6</span>
+      <span class="toggle-icon">&#9654;</span>
+    </div>
+    <div class="level-body">
+      <div class="ability-card" data-action="action">
+        <div class="ability-name">Class-C Amnestics (AM-C)</div>
+        <div class="ability-badges"><span class="badge badge-action">Action</span><span class="badge badge-charges">Serial-Tracked</span></div>
+        <div class="ability-desc">Erases up to <strong>1 week</strong> of memory. WIS save (DC 8 + prof + WIS). <strong>Guided cognitive interview (10 min, non-combat):</strong> targeted erasure of specific memories &mdash; Medicine check DC 15 for clean excision, failure erases broader window. <strong>Overdose risk (72 hrs):</strong> DC 16 CON save or seizures (incapacitated 1 round, 3d6 psychic, permanent loss of 1d4 random memories).</div>
+        <div class="ability-note authorization">Separate Class-C endorsement + 40-hour practicum under Ethics Committee. Standing review of every deployment.</div>
+      </div>
+      <div class="ability-card" data-action="action">
+        <div class="ability-name">Fortify (FR-1)</div>
+        <div class="ability-badges"><span class="badge badge-action">Added to Buff Mode</span><span class="badge badge-charges">1 / LR</span></div>
+        <div class="ability-desc">New Directed Recovery option. Target gains <strong>resistance to all damage</strong> until start of their next turn. <strong>Cost:</strong> target takes <strong>1d4 psychic damage</strong> (pain, cannot be reduced) on application. No HP healed (Buff mode). Single-use compound &mdash; body must metabolize before reapplication.</div>
+        <div class="ability-note design">Clutch defensive play at the cost of your entire First Aid action + a LR resource. The pain cost prevents trivial use on healthy allies.</div>
+      </div>
+      <div class="ability-card" data-action="passive">
+        <div class="ability-name">Analysis Paralysis (Scaling)</div>
+        <div class="ability-badges"><span class="badge badge-passive">Passive</span></div>
+        <div class="ability-desc">Analysis Paralysis improves to <strong>3 per short rest</strong>.</div>
+      </div>
+      <div class="ability-card" data-action="passive">
+        <div class="ability-name">First Aid Scaling</div>
+        <div class="ability-badges"><span class="badge badge-passive">Passive</span></div>
+        <div class="ability-desc">First Aid scales to <strong>5d6 + WIS</strong>. Experimental biomedicine from classified research programs.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- IM Level 12 -->
+  <div class="level-section">
+    <div class="level-header" onclick="toggleLevel(this)">
+      <span class="level-badge" style="border-color:var(--im-color);color:var(--im-color)">12</span>
+      <span class="level-title" style="color:var(--im-color)">Level 12 &mdash; Capstone</span>
+      <span class="level-abilities">Lazarus Protocol</span>
+      <span class="toggle-icon">&#9654;</span>
+    </div>
+    <div class="level-body">
+      <div class="ability-card" data-action="action" style="border-left-color:var(--im-color)">
+        <div class="ability-name" style="color:var(--im-color)">Lazarus Protocol</div>
+        <div class="ability-badges"><span class="badge badge-action">Full Round</span><span class="badge badge-charges">1 / LR</span></div>
+        <div class="ability-desc">
+          Revive a creature that <strong>died within the last minute</strong>. Target returns at 1 HP with:<br>
+          &bull; Disadvantage on all rolls for 24 hours<br>
+          &bull; WIS save DC 15 or temporary mental condition (1d6 days)<br>
+          &bull; <strong>Permanent anomalous residue</strong> (DM determines)<br><br>
+          <strong>Vital Transfer:</strong> You drop to <strong>half your current HP</strong> (min 1, can't heal until SR). Gain <strong>Residual Anomaly</strong> condition (DM table, clears on LR).
+        </div>
+        <div class="ability-note authorization">Requires Level 4 Medical approval, high-risk deployment justification. 72-hour observation for revived individual. Containment protocols may apply.</div>
+        <div class="ability-note"><em>"Death is a containment breach. Recontain the subject."</em></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== MEMETIC SPECIALIST TAB ===================== -->
+<div class="tab-panel" id="panel-ms">
+  <div class="classified-banner" style="border-color:var(--ms-color)44;">
+    <div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--ms-color);"></div>
+    <h2 style="color:var(--ms-color);">MEMETIC SPECIALIST // "INOCULATOR"</h2>
+    <div class="subtitle">Antimemetics Division cognitive defense operative &mdash; mental protection, mnestic science, BL weapons</div>
+    <div class="spec-meta">
+      <div class="meta-item"><span class="label">Secondary Stat</span><span class="value">INT</span></div>
+      <div class="meta-item"><span class="label">Progression</span><span class="value">Medic (3-5) &rarr; Recruited (6-7) &rarr; Division (8+)</span></div>
+      <div class="meta-item"><span class="label">Weakness</span><span class="value">Lowest raw healing; encounter-dependent</span></div>
+      <div class="meta-item"><span class="label">Reports To</span><span class="value">Medical (L3-7) &rarr; Medical + Division (L8+)</span></div>
+    </div>
+  </div>
+
+  <div class="filter-bar">
+    <button class="filter-tag active" data-filter="all">All</button>
+    <button class="filter-tag" data-filter="action">Actions</button>
+    <button class="filter-tag" data-filter="bonus">Bonus Actions</button>
+    <button class="filter-tag" data-filter="reaction">Reactions</button>
+    <button class="filter-tag" data-filter="passive">Passives</button>
+    <button class="filter-tag" data-filter="noncombat">Non-Combat</button>
+  </div>
+
+  <div class="dm-section" style="border-left:3px solid var(--ms-color);margin-bottom:20px;">
+    <h3 style="color:var(--ms-color)">Equipment Access Gates</h3>
+    <div class="ability-desc" style="font-size:12px">
+      <strong>L3:</strong> CRV scanner + Class-W/X mnestics (loaned) &bull;
+      <strong>L5:</strong> SCRAMBLE eyewear &bull;
+      <strong>L6:</strong> Counter-memetic emitter &bull;
+      <strong>L7:</strong> Class-Y mnestic &bull;
+      <strong>L8:</strong> BL payload kit &bull;
+      <strong>L9:</strong> Class-Z mnestic &bull;
+      <strong>L10:</strong> FORGOTTEN-7 &bull;
+      <strong>L11:</strong> <span class="redacted" onclick="this.classList.toggle('revealed')">Cognitohazard-Aleph</span> &bull;
+      <strong>L12:</strong> Containment-Class protocols
+    </div>
+  </div>
+
+  <!-- MS Level 3 -->
+  <div class="level-section open">
+    <div class="level-header" onclick="toggleLevel(this)">
+      <span class="level-badge" style="border-color:var(--ms-color);color:var(--ms-color)">3</span>
+      <span class="level-title">Level 3 &mdash; Specialization Entry</span>
+      <span class="level-abilities">Inoculation, Psych Reading, Cog Triage, Residual Imprint</span>
+      <span class="toggle-icon">&#9654;</span>
+    </div>
+    <div class="level-body">
+      <div class="ability-card" data-action="noncombat">
+        <div class="ability-name">Memetic Inoculation</div>
+        <div class="ability-badges"><span class="badge badge-noncombat">Before Going In / During Rest</span><span class="badge badge-charges">3 Allies</span></div>
+        <div class="ability-desc">Class-W mnestic. Each target gains <strong>advantage on next WIS save</strong> against compulsion/charm/memetic effect. Single use per ally.</div>
+      </div>
+      <div class="ability-card" data-action="bonus">
+        <div class="ability-name">Psychometric Reading</div>
+        <div class="ability-badges"><span class="badge badge-bonus">Bonus Action</span><span class="badge badge-charges">Unlimited</span><span class="badge badge-charges">30ft</span></div>
+        <div class="ability-desc">
+          <strong>On ally:</strong> CRV scan detects cognitive compromise instantly.<br>
+          <strong>On enemy:</strong> Scanner overlays structural vulnerabilities (injury sites, compromised joints, weak points). Next 2 allies to hit add <strong>+1d4 to damage</strong> (precision targeting). DM also provides a behavioral prediction. Scales: +1d6 at L5, +1d8 at L9.
+        </div>
+      </div>
+      <div class="ability-card" data-action="bonus">
+        <div class="ability-name">Cognitive Triage</div>
+        <div class="ability-badges"><span class="badge badge-bonus">Bonus Action</span><span class="badge badge-charges">2 / SR</span></div>
+        <div class="ability-desc">Scan a non-compromised ally and show them stable CRV readout. Target gains <strong>advantage on next saving throw</strong>.</div>
+      </div>
+      <div class="ability-card" data-action="reaction">
+        <div class="ability-name">Residual Imprint</div>
+        <div class="ability-badges">
+          <span class="badge badge-reaction">Reaction</span>
+          <span class="badge badge-new">NEW v0.12</span>
+          <span class="badge badge-charges">PB / LR</span>
+        </div>
+        <div class="ability-desc">When an ally within 30ft <strong>succeeds on a saving throw</strong> (not death saves), that ally gains <strong>advantage on their next ability check or saving throw</strong> before the end of the current combat encounter. Cannot trigger from Cognitive Triage-assisted saves.</div>
+        <div class="ability-note design">Fills the MS reaction gap at L3-6. CRV scanner detects the neural spike from survived exposure &mdash; cognitive profiling from resistance patterns.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MS Level 4 -->
+  <div class="level-section">
+    <div class="level-header" onclick="toggleLevel(this)">
+      <span class="level-badge" style="border-color:var(--ms-color);color:var(--ms-color)">4</span>
+      <span class="level-title">Level 4</span>
+      <span class="level-abilities">Cognitive Decontamination, Inoculation&uarr;</span>
+      <span class="toggle-icon">&#9654;</span>
+    </div>
+    <div class="level-body">
+      <div class="ability-card" data-action="action">
+        <div class="ability-name">Cognitive Decontamination</div>
+        <div class="ability-badges"><span class="badge badge-action">Action</span><span class="badge badge-charges">1 / SR</span><span class="badge badge-charges">Touch</span></div>
+        <div class="ability-desc">
+          Emergency Class-X mnestic injection. Target <strong>re-saves a failed WIS save</strong> against charm/compulsion/fear/memetic effect <strong>with advantage</strong>. If original effect had no save, target makes WIS save vs <strong>DC 15</strong> (success = suppressed 1 hour).<br><br>
+          <strong>Immunity window:</strong> On successful re-save, target is <strong>immune to that effect from that source</strong> until start of their next turn. No buffer on failure.<br><br>
+          Side effects: severe headache, nosebleed, 30s disorientation.
+        </div>
+        <div class="ability-note authorization">Class-X is emergency medical &mdash; stronger than W, still within medical authorization.</div>
+      </div>
+      <div class="ability-card" data-action="noncombat">
+        <div class="ability-name">Memetic Inoculation &uarr;</div>
+        <div class="ability-badges"><span class="badge badge-noncombat">Scaling</span></div>
+        <div class="ability-desc">Now <strong>5 allies</strong>, each dose grants advantage on next <strong>2 WIS saves</strong> (up from 1).</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MS Level 5 -->
+  <div class="level-section">
+    <div class="level-header" onclick="toggleLevel(this)">
+      <span class="level-badge" style="border-color:var(--ms-color);color:var(--ms-color)">5</span>
+      <span class="level-title">Level 5</span>
+      <span class="level-abilities">Pattern Recognition, SCRAMBLE, Psych Reading&uarr;, First Aid 3d6</span>
+      <span class="toggle-icon">&#9654;</span>
+    </div>
+    <div class="level-body">
+      <div class="ability-card" data-action="passive">
+        <div class="ability-name">Pattern Recognition</div>
+        <div class="ability-badges"><span class="badge badge-passive">Passive</span></div>
+        <div class="ability-desc"><strong>Proficiency in WIS saves</strong> (expertise if already proficient). <strong>Advantage on all saves vs Charm.</strong> Result of years of Division conditioning and controlled-exposure therapy.</div>
+      </div>
+      <div class="ability-card" data-action="passive">
+        <div class="ability-name">SCRAMBLE Eyewear</div>
+        <div class="ability-badges"><span class="badge badge-passive">Passive</span><span class="badge badge-charges">1 / Encounter</span></div>
+        <div class="ability-desc">Division PPE. <strong>Once per encounter</strong>, gain <strong>advantage on a WIS save</strong> against a cognitohazard or memetic effect (broad-spectrum pattern library). Glasses recalibrate after first use. Lost if removed/destroyed. Scales: 2/encounter at L8, always-on at L11.</div>
+      </div>
+      <div class="ability-card" data-action="bonus">
+        <div class="ability-name">Psychometric Reading &uarr;</div>
+        <div class="ability-badges"><span class="badge badge-bonus">Scaling</span></div>
+        <div class="ability-desc">Damage bonus increases to <strong>+1d6</strong> (improved biometric targeting from field calibration data).</div>
+      </div>
+      <div class="ability-card" data-action="action">
+        <div class="ability-name">First Aid &uarr;</div>
+        <div class="ability-badges"><span class="badge badge-action">Scaling</span></div>
+        <div class="ability-desc">Scales to <strong>3d6 + WIS</strong>.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MS Level 6 -->
+  <div class="level-section">
+    <div class="level-header" onclick="toggleLevel(this)">
+      <span class="level-badge" style="border-color:var(--ms-color);color:var(--ms-color)">6</span>
+      <span class="level-title">Level 6</span>
+      <span class="level-abilities">Counter-Memetic Barrier, Adv. CRV Scanner</span>
+      <span class="toggle-icon">&#9654;</span>
+    </div>
+    <div class="level-body">
+      <div class="ability-card" data-action="action" style="border-left-color:var(--ms-color)">
+        <div class="ability-name" style="color:var(--ms-color)">Counter-Memetic Barrier</div>
+        <div class="ability-badges"><span class="badge badge-action">Action</span><span class="badge badge-charges">1 / LR</span><span class="badge badge-charges">Concentration</span></div>
+        <div class="ability-desc">
+          Deploy SCRAMBLE-derivative emitter array. <strong>15ft radius</strong>, moves with you. Duration: up to <strong>1 encounter</strong>.<br><br>
+          &bull; <strong>Field Effect:</strong> Allies <strong>advantage on WIS saves</strong> vs mental effects. Enemies <strong>disadvantage</strong> on compulsions/charms/frightens. Cognitohazardous objects suppressed.<br>
+          &bull; <strong>Mental Immunity:</strong> Concentration <strong>cannot be broken by mental effects</strong> (Stun, Charm, Domination, Fear). Hardware sustains itself.<br>
+          &bull; <strong>Physical Hardening:</strong> Concentration saves from physical damage made <strong>with advantage</strong>.
+        </div>
+        <div class="ability-note authorization">First operational (non-medical) Division hardware. You signed a different form for this one.</div>
+      </div>
+      <div class="ability-card" data-action="passive">
+        <div class="ability-name">Advanced CRV Scanner (v3.0)</div>
+        <div class="ability-badges"><span class="badge badge-passive">Upgrade</span></div>
+        <div class="ability-desc"><strong>Scan ally:</strong> Learn the <em>specific</em> effect and likely <em>source</em> (not just &ldquo;compromised&rdquo;). <strong>Scan enemy:</strong> Also learn their <strong>WIS score</strong>.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MS Level 7 -->
+  <div class="level-section">
+    <div class="level-header" onclick="toggleLevel(this)">
+      <span class="level-badge" style="border-color:var(--ms-color);color:var(--ms-color)">7</span>
+      <span class="level-title">Level 7</span>
+      <span class="level-abilities">Memetic Hardening, Cognitive Warning, Cog Decontam&uarr;</span>
+      <span class="toggle-icon">&#9654;</span>
+    </div>
+    <div class="level-body">
+      <div class="ability-card" data-action="action">
+        <div class="ability-name">Memetic Hardening</div>
+        <div class="ability-badges"><span class="badge badge-action">Action</span><span class="badge badge-charges">8 Hours</span><span class="badge badge-charges">Touch</span></div>
+        <div class="ability-desc">
+          Class-Y sustained-release mnestic. One willing creature gains for <strong>8 hours</strong>:<br>
+          &bull; <strong>Advantage on all WIS saves</strong> vs mental/memetic effects<br>
+          &bull; <strong>Resistance to psychic damage</strong><br><br>
+          <strong>Trade-off &mdash; Cognitive Lockdown:</strong> Target <strong>cannot benefit from beneficial mental effects</strong> (morale, telepathy, bardic inspiration analogs) <em>except</em> from the MS who applied it (keyed neurochemical signature).
+        </div>
+        <div class="ability-note authorization">Class-Y is operational conditioning, not medical. Issued under Division authority. Medical was notified, not consulted.</div>
+      </div>
+      <div class="ability-card" data-action="reaction">
+        <div class="ability-name">Cognitive Warning</div>
+        <div class="ability-badges"><span class="badge badge-reaction">Reaction</span><span class="badge badge-charges">1 / SR</span><span class="badge badge-charges">30ft</span></div>
+        <div class="ability-desc">When ally within 30ft must make a WIS save, use reaction to grant them <strong>advantage on that save</strong>. CRV scanner detects incoming cognitive intrusion milliseconds before impact. Scales: <strong>2/SR</strong> at L9, <strong>3/SR</strong> at L11.</div>
+      </div>
+      <div class="ability-card" data-action="action">
+        <div class="ability-name">Cognitive Decontamination &uarr;</div>
+        <div class="ability-badges"><span class="badge badge-action">Scaling</span></div>
+        <div class="ability-desc">Now <strong>2 / SR</strong>. Pneumatic mnestic delivery system extends range to <strong>15ft</strong> (no longer touch).</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MS Level 8 (Division Induction) -->
+  <div class="level-section">
+    <div class="level-header" onclick="toggleLevel(this)">
+      <span class="level-badge" style="border-color:var(--ms-color);color:var(--ms-color)">8</span>
+      <span class="level-title" style="color:var(--ms-color)">Level 8 &mdash; Division Induction</span>
+      <span class="level-abilities">Cognitive Strike, SCRAMBLE&times;2</span>
+      <span class="toggle-icon">&#9654;</span>
+    </div>
+    <div class="level-body">
+      <div class="ability-card" data-action="action" style="border-left-color:var(--ms-color)">
+        <div class="ability-name">Cognitive Strike (BL Offensive Payload)</div>
+        <div class="ability-badges"><span class="badge badge-action">Action</span><span class="badge badge-charges">1 / SR</span><span class="badge badge-charges">30ft</span></div>
+        <div class="ability-desc">
+          <strong>You're Division now.</strong> Weaponized cognitohazard. WIS save (DC 8 + prof + WIS):<br>
+          &bull; <strong>Cognitive Overload:</strong> Stunned until end of next turn<br>
+          &bull; <strong>Implanted Compulsion:</strong> Forced movement direction you choose<br>
+          &bull; <strong>Sensory Blackout:</strong> Blinded + Deafened until end of next turn<br>
+          <strong>On save:</strong> Disadvantage on next attack.
+        </div>
+        <div class="ability-note authorization">BL payload certification required. Ethics: Overload/Blackout = flashbang equivalent. Compulsion requires documentation.</div>
+      </div>
+      <div class="ability-card" data-action="passive">
+        <div class="ability-name">Level 8 Scaling</div>
+        <div class="ability-badges"><span class="badge badge-passive">Passive</span></div>
+        <div class="ability-desc"><strong>SCRAMBLE:</strong> 2/encounter (up from 1). <strong>First Aid:</strong> 4d6 + WIS.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MS Level 9 -->
+  <div class="level-section">
+    <div class="level-header" onclick="toggleLevel(this)">
+      <span class="level-badge" style="border-color:var(--ms-color);color:var(--ms-color)">9</span>
+      <span class="level-title">Level 9</span>
+      <span class="level-abilities">Antimemetic Protocol, Psych Reading&uarr;, Cog Decontam&uarr;, Cog Warning&uarr;</span>
+      <span class="toggle-icon">&#9654;</span>
+    </div>
+    <div class="level-body">
+      <div class="ability-card" data-action="action" style="border-left-color:var(--ms-color)">
+        <div class="ability-name" style="color:var(--ms-color)">Antimemetic Protocol (Full Cognitive Purge)</div>
+        <div class="ability-badges"><span class="badge badge-action">Action</span><span class="badge badge-charges">1 / LR</span><span class="badge badge-charges">Touch</span></div>
+        <div class="ability-desc">
+          Class-Z mnestic &mdash; highest grade in Foundation inventory. Touch a creature (including self). <strong>All mental effects immediately removed</strong> regardless of source, duration, or DC.<br><br>
+          Target is then <strong>immune to all new mental effects</strong> for ~<strong>1 encounter</strong>. Nothing gets in &mdash; cannot be bypassed short of Keter-class reality alteration.<br><br>
+          <strong>Side effects:</strong> <strong>1d4 hours</strong> hypercognitive state &mdash; concentration checks at <strong>disadvantage</strong>. Intrusive memory recall possible.
+        </div>
+        <div class="ability-note authorization">Class-Z existence is classified above standard clearance. Each dose individually tracked. Post-use reporting mandatory.</div>
+      </div>
+      <div class="ability-card" data-action="bonus">
+        <div class="ability-name">Psychometric Reading &uarr;</div>
+        <div class="ability-badges"><span class="badge badge-bonus">Scaling</span></div>
+        <div class="ability-desc">Damage bonus increases to <strong>+1d8</strong>. Predictive model borders on precognition.</div>
+      </div>
+      <div class="ability-card" data-action="action">
+        <div class="ability-name">Cognitive Decontamination &uarr;</div>
+        <div class="ability-badges"><span class="badge badge-action">Scaling</span></div>
+        <div class="ability-desc">Now <strong>3 / SR</strong>. Range extends to <strong>30ft</strong> (improved dart stabilization).</div>
+      </div>
+      <div class="ability-card" data-action="reaction">
+        <div class="ability-name">Cognitive Warning &uarr;</div>
+        <div class="ability-badges"><span class="badge badge-reaction">Scaling</span></div>
+        <div class="ability-desc">Scales to <strong>2 / SR</strong>.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MS Level 10 -->
+  <div class="level-section">
+    <div class="level-header" onclick="toggleLevel(this)">
+      <span class="level-badge" style="border-color:var(--ms-color);color:var(--ms-color)">10</span>
+      <span class="level-title">Level 10</span>
+      <span class="level-abilities">Antimemetic Concealment</span>
+      <span class="toggle-icon">&#9654;</span>
+    </div>
+    <div class="level-body">
+      <div class="ability-card" data-action="action" style="border-left-color:var(--ms-color)">
+        <div class="ability-name" style="color:var(--ms-color)">Antimemetic Concealment</div>
+        <div class="ability-badges"><span class="badge badge-action">Action</span><span class="badge badge-charges">1 / LR</span><span class="badge badge-charges">Concentration &mdash; up to 1 hour</span></div>
+        <div class="ability-desc">
+          Administer <strong>FORGOTTEN-7</strong> (experimental antimemetic). Self + up to <strong>3 allies</strong> become antimemetically shielded &mdash; not invisible, <em>irrelevant</em>. Light reflects, sound carries, but observers' brains cannot process your presence.<br><br>
+          <strong>Dosing:</strong> 1 action per target per round, <strong>touch range</strong>. Effect activates once all targets dosed.<br><br>
+          Enemies must make <strong>WIS save</strong> (DC 8 + prof + WIS) to notice shielded creatures. On failure, eyes slide past, sounds don't register. Succeeding enemies can alert others (each must still save independently).<br><br>
+          <strong>Breaks on hostile action</strong> (for that creature only &mdash; others stay concealed). Counter-Memetic Barrier mental immunity applies to concentration.
+        </div>
+        <div class="ability-note">Side effects: <strong>1d4 hours existential unease</strong> post-metabolization. Depersonalization episodes. Division post-op support group attendance mandatory.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MS Level 11 -->
+  <div class="level-section">
+    <div class="level-header" onclick="toggleLevel(this)">
+      <span class="level-badge" style="border-color:var(--ms-color);color:var(--ms-color)">11</span>
+      <span class="level-title">Level 11</span>
+      <span class="level-abilities">Adv. BL Weapons, Identity Fracture, SCRAMBLE always-on</span>
+      <span class="toggle-icon">&#9654;</span>
+    </div>
+    <div class="level-body">
+      <div class="ability-card" data-action="action">
+        <div class="ability-name">Advanced BL Weaponization</div>
+        <div class="ability-badges"><span class="badge badge-action">Upgrade</span></div>
+        <div class="ability-desc">Cognitive Strike: <strong>60ft range, 2 targets, 2/SR</strong>. Both targets face same payload. Identity Fracture is single-target only.</div>
+      </div>
+      <div class="ability-card" data-action="action" style="border-left-color:var(--red)">
+        <div class="ability-name" style="color:var(--red)">Identity Fracture (<span class="redacted" onclick="this.classList.toggle('revealed')">Cognitohazard-Aleph</span>)</div>
+        <div class="ability-badges">
+          <span class="badge badge-action">Action</span>
+          <span class="badge badge-charges">1 / LR (Separate)</span>
+          <span class="badge badge-charges">Single Target</span>
+          <span class="badge badge-new">REBALANCED v0.12</span>
+        </div>
+        <div class="ability-desc">
+          Target's sense of self <strong>dissolved</strong>. On failed WIS save: cannot attack, defend, take actions/reactions, auto-fails DEX saves. WIS save at end of each turn to recover. <strong>Max 10 rounds (1 minute).</strong><br><br>
+          <strong>Cognitive backlash:</strong> After use, <strong>disadvantage on all WIS saves</strong> and <strong>cannot activate Barrier</strong> until short rest.<br><br>
+          <strong>Witness cost:</strong> Allies DC 10 WIS or Frightened of you for 1 round.
+        </div>
+        <div class="ability-note authorization">Thaumiel-class. Pre-authorization from Division command + Ethics Committee waiver. Post-use investigation mandatory. May be prohibited against human targets.</div>
+      </div>
+      <div class="ability-card" data-action="passive">
+        <div class="ability-name">Level 11 Scaling</div>
+        <div class="ability-badges"><span class="badge badge-passive">Passive</span></div>
+        <div class="ability-desc"><strong>SCRAMBLE:</strong> Always active &mdash; advantage on ALL WIS saves vs cognitohazards while worn. <strong>First Aid:</strong> 5d6 + WIS. <strong>Counter-Memetic Barrier:</strong> 2/LR. <strong>Cognitive Warning:</strong> 3/SR.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MS Level 12 -->
+  <div class="level-section">
+    <div class="level-header" onclick="toggleLevel(this)">
+      <span class="level-badge" style="border-color:var(--ms-color);color:var(--ms-color)">12</span>
+      <span class="level-title" style="color:var(--ms-color)">Level 12 &mdash; Dual Capstone</span>
+      <span class="level-abilities">Containment Inoculation + Cognitive Sovereignty</span>
+      <span class="toggle-icon">&#9654;</span>
+    </div>
+    <div class="level-body">
+      <div class="ability-card" data-action="noncombat" style="border-left-color:var(--ms-color)">
+        <div class="ability-name">Containment-Class Inoculation</div>
+        <div class="ability-badges"><span class="badge badge-noncombat">Between Missions — Safe Location Only</span><span class="badge badge-charges">1 / LR</span></div>
+        <div class="ability-desc"><strong>Permanently</strong> restructure a creature's neural pathways to be immune to one specific anomaly's mental effects. Requires <strong>controlled environment</strong> (secure room, no interruptions — cannot be done in the field), willing target, knowledge of the anomaly's signature. Painful procedure (DC 15 CON save, 2d6 psychic on fail). Irreversible.</div>
+      </div>
+      <div class="ability-card" data-action="reaction" style="border-left-color:var(--ms-color)">
+        <div class="ability-name" style="color:var(--ms-color)">Cognitive Sovereignty</div>
+        <div class="ability-badges"><span class="badge badge-reaction">Reaction</span><span class="badge badge-charges">1 / LR</span></div>
+        <div class="ability-desc">
+          When an ally within 30ft would <strong>fail a WIS save</strong> against a mental/memetic effect: generate a counter-signal shielding their cognition while <strong>lowering your own defenses</strong> to compensate. Ally is unaffected. You then make the WIS save yourself — the effect reaches you because you opened yourself to it.<br><br>
+          <em>"I see it. I see what it's doing to you. Look at me. LOOK AT ME. I'll take it."</em>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== RULES & REFERENCE TAB (Player-Safe) ===================== -->
+<div class="tab-panel" id="panel-dm">
+  <div class="classified-banner">
+    <h2>RULES &amp; REFERENCE</h2>
+    <div class="subtitle">Key rules, timing reference, institutional oversight</div>
+  </div>
+
+  <div class="dm-section">
+    <h3>Key Rules</h3>
+    <div class="ability-desc">
+      <strong>Anomalous vs Non-Anomalous:</strong> If the source has an SCP designation or is clearly supernatural, its effects are <strong>anomalous</strong>. Mundane humans, animals, conventional traps/tech = <strong>non-anomalous</strong>. DM has final say on edge cases.<br><br>
+      <strong>Concentration:</strong> One effect at a time. CON save on damage (DC 10 or half damage taken, whichever is higher). Can end voluntarily.<br><br>
+      <strong>Adjacent:</strong> All abilities marked "Adjacent" mean you must be next to the target. No distance tracking needed.<br><br>
+      <strong>Shared Equipment Rule:</strong> Allies can use basic trauma patches from a downed medic (no proficiency bonus). Specialization equipment requires training &mdash; 50% chance of incorrect use without it.
+    </div>
+  </div>
+
+  <div class="dm-section">
+    <h3>When Can They Use It?</h3>
+    <div class="ability-desc">
+      <table class="scaling-table" style="margin-top:8px">
+        <thead><tr><th>Badge</th><th>When It Happens</th><th>Examples</th></tr></thead>
+        <tbody>
+          <tr><td style="color:var(--action-color)"><strong>Action / Bonus / Reaction</strong></td><td>During combat, on your turn or in response to a trigger</td><td>First Aid, Triage, Combat Stabilization</td></tr>
+          <tr><td style="color:var(--passive-color)"><strong>Passive</strong></td><td>Always on, no action needed</td><td>Under Fire, Battlefield Awareness, Clinical Scanner</td></tr>
+          <tr><td style="color:var(--noncombat-color)"><strong>Before Going In</strong></td><td>Declare before entering a hostile area. DM confirms, done.</td><td>Preemptive Treatment, TMA, Memetic Inoculation</td></tr>
+          <tr><td style="color:var(--noncombat-color)"><strong>After Combat</strong></td><td>Declare after a fight resolves.</td><td>After-Action Medical Report</td></tr>
+          <tr><td style="color:var(--noncombat-color)"><strong>During Rest</strong></td><td>Part of a short or long rest</td><td>Triage Point, compound prep</td></tr>
+          <tr><td style="color:var(--noncombat-color)"><strong>Exploration</strong></td><td>When examining something during freeform exploration</td><td>Medical Assessment, Field Forensics</td></tr>
+          <tr><td style="color:var(--noncombat-color)"><strong>Between Missions</strong></td><td>Safe location, no active threat. Cannot be done in the field.</td><td>Containment-Class Inoculation</td></tr>
+        </tbody>
+      </table>
+      <br>
+      <strong>Combat durations:</strong><br>
+      &bull; <strong>"Until start of [target's] next turn"</strong> = 1 round<br>
+      &bull; <strong>"One combat encounter" / "~10 rounds"</strong> = lasts the whole fight<br>
+      &bull; <strong>"Until next combat"</strong> = persists through exploration, ends on next initiative<br>
+      &bull; <strong>"Until long rest"</strong> = lasts all day
+    </div>
+  </div>
+
+  <div class="dm-section">
+    <h3>Ethics Committee Oversight</h3>
+    <div class="ability-desc" style="font-size:12px">
+      The following abilities are flagged for institutional review when used. This is in-world Foundation policy — characters are aware of these constraints.
+    </div>
+    <table class="scaling-table" style="margin-top:8px">
+      <thead><tr><th>Ability</th><th>Spec</th><th>Level</th><th>Foundation Policy</th></tr></thead>
+      <tbody>
+        <tr><td>Compound 47</td><td style="color:var(--cm-color)">CM</td><td>5</td><td>Verbal consent required. Dose tracked by serial number.</td></tr>
+        <tr><td>Amnestics</td><td style="color:var(--im-color)">IM</td><td>6+</td><td>All doses logged. Misuse = automatic investigation.</td></tr>
+        <tr><td>Class-B (combat)</td><td style="color:var(--im-color)">IM</td><td>8</td><td>Forcible use on Foundation personnel requires written consent or O5 authorization.</td></tr>
+        <tr><td>Protocol HIPPOCRATES</td><td style="color:var(--im-color)">IM</td><td>10</td><td>Mandatory post-incident review. Abuse = career end.</td></tr>
+        <tr><td>Lazarus Protocol</td><td style="color:var(--im-color)">IM</td><td>12</td><td>Full incident report. Revived individual monitored. Containment may apply.</td></tr>
+        <tr><td>Cognitive Strike</td><td style="color:var(--ms-color)">MS</td><td>8</td><td>Implanted Compulsion requires post-op documentation.</td></tr>
+        <tr><td style="color:var(--red)">Identity Fracture</td><td style="color:var(--ms-color)">MS</td><td>11</td><td style="color:var(--red)"><strong>Pre-authorization + Ethics waiver per deployment. Post-use investigation mandatory.</strong></td></tr>
+        <tr><td>Containment Inoculation</td><td style="color:var(--ms-color)">MS</td><td>12</td><td>Ethics Committee pre-auth, written informed consent, 72-hour monitoring.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ===================== DM ONLY (PASSWORD LOCKED) ===================== -->
+<div class="tab-panel" id="panel-dmlock">
+  <div class="classified-banner" style="border-color:var(--red)44;">
+    <div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--red);"></div>
+    <h2 style="color:var(--red);">LEVEL 5 CLEARANCE REQUIRED</h2>
+    <div class="subtitle">This section contains design rationale, tuning levers, and balance data. Player access is not authorized.</div>
+  </div>
+
+  <div id="dm-gate" style="text-align:center;padding:40px;">
+    <div style="font-size:13px;color:var(--text-dim);margin-bottom:16px;">Enter authorization code:</div>
+    <input type="password" id="dm-password" style="background:var(--bg-inset);border:1px solid var(--border);color:var(--text);font-family:inherit;font-size:16px;padding:10px 16px;border-radius:4px;width:240px;text-align:center;letter-spacing:4px;outline:none;" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;">
+    <br>
+    <button id="dm-unlock" style="margin-top:12px;background:var(--red-dim);color:var(--text);border:1px solid var(--red);padding:8px 24px;font-family:inherit;font-size:12px;text-transform:uppercase;letter-spacing:1px;cursor:pointer;border-radius:3px;">Authenticate</button>
+    <div id="dm-error" style="color:var(--red);font-size:12px;margin-top:8px;display:none;">ACCESS DENIED — Invalid authorization code</div>
+  </div>
+
+  <!-- DM content is AES-256-GCM encrypted. Password is the decryption key. -->
+  <div id="dm-vault" data-vault="eyJzIjoiZmNxVVpsa3VkZ1lMQm1EclRrK2tQZz09IiwiaXYiOiJjUEVGVHJDc3lrN0Z4Q2ZJIiwidCI6Ik5aRUVYbFcvdkYzNVROQ0c0N2N4SVE9PSIsImQiOiJyNUpVODhQU3ltZTZGOGUwbS9tQU4xL3lhTzl3b1htQVlZYlFKdWR4TG9Ud3I1REdFQm9HZWhoVlRZWjB5dFI0SFF4RHp5N2dIVTlwVTlmUVhCcmtHMEdqamRCSmJaQzlZVkNzU2VzZisyS2hVcUVieGVOT1phNFBwblQzT1FZclRxMjIrRzlxN0JXQ0lUY3hTMTl0UjJQNzZQR3padU1kQ21MZ3F0MXJMb1pFeGJDMHJBcjZHNGlJWnBWeXBYdVozMS9lZEF5eWx4V0FEQkw0K0hqYkJPQm1JblNRTms4ZHZ2RUpHRFBJbSt1OU4xK1RHK1FjZTd0V2kzbURFVzhmUElJbkZ2YzhRTVoxV1V2UWJncWpTWnhMbThXc1FoTnN3U1FUQzN3b2RQU3pLWEExYmo3L1IwbXdTdTI1U0xxZjg5YlBDeGxDbThaV1ZmT2VjRjA2OGFyV0xmYnRlY3ZZRXlQYjRWTlhnU1BMQkUvamdBKy95M3UwUFNGWFYxQ254cDUwZmxJOFdXYlE5WmJTamszM3N3V243T1NqeWxzaEV6TlpVK2RXNk9xajVLNjd4dGJVbWFEY0p0SytrUGZhU1EvWGE0N1dFdU5ScG9Wb2VydHFwRXJMNk0yWW1IckNNL0o5S2RCQTRnZW9VQ3ZORC90VTJ5djgvclhRQjlZa2Fad21mTm5rcnllNkJhb2laZDVUY0V1WVdQY0x6VXN4cTl0NC9TMldjeEZ1RDhuQTV5ZnpHbTdjaENCblJmd0pVaDVQK1lJS0Z0a1c5OFNIYk9zM1VxMEVqZ0VCS3NmTHVMU3laWHAyU0ZQcXF6Rm0yWVh2N3Myb3FrN1F5U1plNVpyd28rQnhadkNaWlE2MUkwRUZJUzJSZGNiamFRVUVOSGRVQ3hVWVVydGE3c1U0dVZHOEIzQjEvVHhLT094M2dYUktnUUw0NXdobE1aakpCcEpYc0pMR2gvRGNHdksvWXpMeENkYVlnNmpDYjRhL1p5ZVJnWVVFdHpzbk4vaDIwM1JzSnQrVEsrRklyRm1hdkVlYndiYzYzaERrRnNqKzZLRGRRRmt4SXBZcGlONUZVWUlweGJWeHZ4TUFNbVRKb2J1WFRTZW1tdXQ2MTYzVGRvV2h4Nko1MDFkbEQ3SEw4ZG1VOGpSek9wcm10MFh1YlRERlBSS2VjQ2hxUkJiQ3Uya0hIa1JDMjd0Q2N6eGZHUElNbXQ5dEdkNDJGVWpFQzJPUlNMdXAzazBiUWR2UDNsMXc5MzBaUTVZajloZ2czcEZ1anhGcVUwQVdHaHFCZmhKVUtKaGVjQ2lTK2diZ2h2ZjBtRzErQll5c2FVUkZkTXEwYkxVN1AyTGZ2WkFYUUpkTjhCUWNhcWVGU0tCcVpiYTIzNFBIVlJtZ2ErWmgzdlU0ZFNnaGhNb3pmWGtISHh5blNHa3dUdkNJQ3R6VmFrNThoUDJMekdKNlM5SE96aFN1VnVxTWdrVHlTMDRsMU9tdStLRXdJME1hVlN4eWk2Y3FNTFp3ME9MM2tiZGZ3U0pTWVJmN1dnbVEwRlRkdlZvZEVUOXU4WkNiSnplSEFpL0dKUW1pS3pNbzg5RENsdzFWZEJJNzVQSHpOamJ3NFZ6RDVjUkEwcThxZUQzdXcyYUtWL1A1Q0h2Rkc1aEZPOERjUWpPVEd3bUtPVXNteks3VkFKTWhJazd0SjlMVW9pYmRkNjBIREN5bHJjL0VJTWtzdlA4anVtTjFDR2ZldVk0RVpCbkkyNDVaVW1kd3dhbDgvK3dUVkJTVlZBWEZ6Ylc3RUpOcU5uU2Z6TzhtVkM1eVQrbmlyQkRpYW1PVFh0Q0pyeTRIOEFucitjSEFVT1h3UUxvS1o0Wis2eFNVTm9HNER5RzhTc0ZJLzZyNWo2UWZJRzJRUDNiODVUSUJyUm4rczdzUmlsWVI4cDFCUTF6MVRqRDNiTHpvUkdZTW05eGI4KzJTOFR4WGNhS25JdkJNSXhJNWtMbStDUTZlOE92eFB5ZmZoNUdFdXhsemFYQ3p4SC9GZDFpRmlCbjJBMUxvWGFrVHNWdGF1SkhjUEc3RkhvdzJrOGpFUWQvTFk2RmdSaks1VWdPZ0JHRHJNM1FBYzhHT1h0VW9BZkM5dUo3bDUzdllwVnE2c3JzQUdaek4xNWJXUDZBTUZtSm9aNXRQNlFtcnNTaE1Sb3pNZkxxdUdNYmk4SndDdXlNWTA2OXA1cS94UTF4dXhlc3hvc2NNaVFhN2xTKzRkbytwR1JleDJSRm9aM3dTMHR2cUUzVk5EVDdtdWs3YWFPTFNjYVo4WWQ0U1QvK3hPbmdPUzZzUkdqTU5VOERRR2JIQzl4dGh4R3BJVHVPdHc0U05lVERkbTJ4c3lQSWpESFJlYnBPMkdCWS9JeXZwcUt2YzNHZVoxZHRvMTVGMUs5ekFEZnVVOXZrN08wMk5VK2FMMURMNFhpVUxBaUlYZWVLWWFoTzVKcXBZaW02NkVLNVNZZEZDODMyU2VKOHVUeUpkUWdSemVqNElsR0dlM05zUXo1NFFDbXI2UWxqZzFDNWMzMEYweDJVZmsrY3RSUk1XYVU4RWw5aUlWSlo0Z3RaWWpjanhVb1V2VTBCbE1ITkxTREV6R1l1Mm1jZFBKaFRnTCsrblZYK3psTjlPbkdWRFk3cmhOUXBOM0lUc3ZLMStwenBhdUdwV2xtTU5MOE9uQmxZeDVUMytKdWpZRWErQWNvOU8vc2lGWm16d2dnWGJ1VXNyS3U1VERZYUJ1bWppU1JrU1E0Q2hWa1Q3V2tSTGdUZ2NTNlVjRGtVRGQyTEEva2JUVmZuN0txbEZxNmVZRWk4enRYdVlUT3hkQjZlVDFUeWg2S0Uwd3NrRXZuK2ZJOHF6c1dFbHl3ZnA1NmdTRGw4T0twVFFOOGx3dnpSRlVyT0U2SXY4NGkzRTBnMEo1TUhGTUpTcEZDOHFxVjkwNXhrZzhxbllPUXlJekxTNGN2dThjUm5kd1BrY0JLajlHTnJaL0lnN2dUbUYzSlBxWGozQkE2K1Q4QUl0UG1ic2lZUkpRMklVSkRnTkR6bkV4S0hWWmduZnFSTWJpVFduKzRCQ3VoVUh6VWVNODFzaE5nRit4TjAyRERHZlhpZFBCRVd4OGxJRk9tTEhoWExwdWZtZ0U2YnB5bFJRZUp0L3dVeVVPQkMva2RqN21mMFpXejdMSUVySXJxVGo2MGI1SmFSYVY4QTRveDRjWW01aHdBVUplQkJSOUUzb2FhY1J5ekc1TnByelNCdEhDRTc1Z3hIOGRkb0ptanFGVnJNNkliLzhENUlhRkVKQjVySkdmZU1pdFh3TGFaYzc1NUNRZFBWajBINDVTZ0dpaE1qZ2w1SEUxeFhHUk9ReXNpcHhPVEJ0UkNQcWxqeGJwU1ZRSUhZbVg4czJDaHFpYVM5K01aRlA4MGluL09nMUtYWlBzYVF3c0tHbGNLcTY5MVBubTVFcjZyTHcwSUJrTENiVFJkYXFEVnJobEpGUSsvKzZ1WVh6S0pGa2xJVGR1bUtKT0JkZ1NaYTVMK0l4RkZ5ajdmaXNyY0Z2ejNFTE5qMDduQm50bGk4YmNEbTZkaHlsQWhkbGszdkJVM0M3bXRiNzRNVE1PcTUyZWp2Wjg4emgrY2Jia0lucXJZL3laRUZWWXoyZ21zcGlHWkdUeDI5cVBrMlQvNmRrV01nWmZFTWRSTmw0VzJlWkJTaDRjeUlYa2NBK3NQWE5HaTZrbkdZcTJhZk1NMG9zcVdCNEV2bGZBcFF2cXhRTkpWYUFzcmVNOU5aelJBNCtJWlZyUDFnbEYyLytVQUVzTVNGQ05GNk56TXhTMllzWFI0SVhDQ3RKaURNQmJ3S0pSR2Q5c1hRQnh5NUxhcjRBdmlHSXorN3ZoV0pWTmtuZnlBYjRzaEpJck1Gd0tXRnE1NW5sZWVaeVY4aXIxLyt4cDR1ZGMxc0ZzY09RRnM1cUhyMXRsSklwSFY4OEhPQkJGRmRRVlFmR2YrR1VKU0FlTWFTK0J4TGJhYW5uU0NmODJERmRxOVB1MzducWVvSG5aamEzK2dyUGJScFNEVXIrRXBmSGU3dmx1OWJ3V3paZ3JSZUZ5ODRMVG5ETmhETmc3UGoxRUhkSmZpczl0WjZ4WmEwbEZCaWxuaDRYemR2RG9oRHhBUDRiYUVlVkxsVzcvS3lSbzU4VG5NZk1oZjV2dHBMRStNR0swNkxBWG1pOVNMVmZhWUlkY1dVY3Qwa2dqRDRNTU5GRVRIZzE4bjNJamRpZTFBWk93Wm5hMFFLWWVuMzM3RlpablZLeWR1Z3hEdUp2dURPNzhla1M1S2I3UGV5QmtWRTA1ZVhHNWxJM0hoenNxRzZxK3NTMVNsaU9mWGYrSkhpQkNnQVBBcFM1MFVxemdUeUhhbVV1amRDN0w3a2hlb3ZpZFlIeUlsTXV3RTlQa2xkRVJiYXU1MFFIY0JSSVNwVW9kcjVQUXF2SVY5ME1VYzlzZUFZSTZzY3hDRjNrU1RaK2lUcDZiMUdJb3FTSi92NlpFcXFJbWdzdVhEYlFjRnhFY2o3cUY3SnFGVS9YSVJIcTZxZDFVRXI4aS9vM0NqSHdqM1hqeXdDUSt3bEVaSG5jdm9Hb2FONHNEc0FwbjB2RlNQZnhiS2s5NkNXOGI3TTBwYnIreXZkSzZKYk9IUTkxVkJubGdha21leCt4Vk04L1ByRmpiRnhaOCtwYXZjTVhsM2tLaGdmd1QxRjdtMElkZmE0NEJXNkZrYjRzaXg4UlRyMjJIK0pqcEcxem5MOG9hczJvelJweVJYbWdhbXFGZ2JNYjVMNFZDSG9YUk9BNWdxRGlBTnFFbHhLNEc3Mzc3bkZEWXYzQkJrbXhRdFAySjAwT2UzWENiRnNlVVYxVU1nTktoRXJic0RSSWtNTTVMWHVDQVFLUXFLejFnY0lJV29nV3ZaazN2NUhrN2VCSVNITlJKekszN21nemN5R1dpVXkwZjJGVkszcUFkK201UDFMTWx0NXA5UUVVOE0rVFBjV1Qxb00xcnBiTTg4b2p3MkVQakdvMENWdUsxNzRDeERTSXJ5bnBSZ25MVjE5dkpMa1FaVy90YlRMRnB6ZStKaDNKeDI3UXVKa3pqbFVPcWZmYUY1SHdncmN5czQxQTNTYTN5YzZuSnpLbmN6UWY5R3o4U1F3RUV5MDUyWGFNZVA2UmdZSzhobDVJZ0N6aUJ6Q1pWY0FjN0tNVlBudGI5dnErNFBtT2hudXlDY0lVWmVaTFpuVWY3YkxoREF2SkgwRUw5TE0wYmd6ajhxL1QvZ2N1dVdING9oU0cvRTI4ampHQlYzaVQ0NDZIZHZ1SmkwaFZHNDliRU9YYnVrZWNlNTdPT1ZyM1BkL1h4SzAwMm9HYk9Xb2VaUGYrL0I3RzdWSVFLTHQ5RHFnVDJxL1BITUY5VkpvaTNYYzA1aW11YTI3N3pxZy9FamlpWVRmWitEWTdzU29peGxPbTRKWXoyMXoremlWVTFuaWNJZXk5RFRFRGowaW9hdXBmRURGS1JDVHR3aGtQWGNQNDdMbVk2SEVHa2kxMTVvWXptN0VQL1lkUEFxMUxlRmtKaVVDMzFSc2d2Q0RKQTNlV1RBaHJyeE8vZUh0ZXZMaWRsK1AxM3JXN25ZWWl0MmhaNXZ4cmsvdE0zK0VEZ1ZhM1E2aURyWENrQW1VMXdFc3B3VjZIRFBzbFUrQnNEVjNDMkEzbWJmNlBaQTVxR0RBZkxBNXRzSi9BRWhSWnhia0piTUFPQXFjelUzVnpLVE9yYkxQcXU2elNxNGVNc2JlbzFSSTBuY0IySFczbHlSNVM0cHh4WGR6eUlLelJTNmttVGtaKzZXRzk0L0wvL3NBTlhHSk1HMGFRYkRvWkUvejJoOFAwUzFyaFNyU1VHRW5PbCs4c3N2c3g3eGFORnhzUE1jOU9tUVVxbDhyT0FSZ1BHTS9qOXM3S2FPTnM0WVVaV2UvQWRuanZmSUUwZDB0TFFkd01OeFFlRTJXVzB4V21FT0hsK0t2bTEyOVJLajhXOFZiVElDQTNia3JuUkNmVmo4UXlqNGNpWVZqSGVnN3AyY201Y2Z0cXdvTjJjYWpVZVkzUDBqUW9DeDI1dmt2dGE1bUltS0twakt3UStYTUtINUlibVRyZ0dsSDdXM2JEWG1uUHBwelM4cWZFRUliOU1iWEJXQzU4VFRWZmVnSGdOd2RERUhWcDErZGVTRVdkcUZCejRsLzFEeWpxd0g2TVVueEUvNFl1SkcrSzNlaEFwc09oL0FvYjJ3UEU1eWFnQk9MY0Qxb3d6aHNlaUxtUk1qSTQ3Z2NHWVBJUzdHY0FheXB3STNRR1ZsRHdsZStiWUdOMWc0S2ZRR05iSTl6QkpUOTY2dmNBOHVNcTFoNnk0Q0M4bXQ2RWFTNjIxRFR1QkRvSjczS3dKTmtnYXpJSWNIUVlqTzdhQWxVSXRVWGRNQzFjUFRrSGRVNDJUSmhRaUY4enNER1VKL2RKcEhPV3hsZzdCcmNWb2sxaHBudlBqU0NXYk5vdXVkNG5zblVDTERSZjZyWHF0Ti8wanl6WThxTUg0T1dMTzlCSTV2aDJsVCtTZ2d2VjNjV1cyVDY0NnpqMVFveTh0MURiRXN6WWtWeXROTWRnT3pTRlYrU2daZFBhL21YNXhxckV0VEZURkdqY0g0MEhEY2ZMV2ZoQkxoblE4UjYvSVFMa1VRcTNIdHNsc1RCOUFFSGxuMjhHZmdTaEhJZFpNZkVrRzJZTXVoME5LMER5ZENnQTduTm94OG5HNTlVc2FUdU05RUtnOUw0aU11eVgyMmg2Q3duZkZWVmtmY0xUOHpYdmQvaXRudG5uNTQ3YTdrWVpldG5Bd1JDUGg4MDJlaXl2dFRqb2l0amMxWklpbHMyOVY5anRqd3lnQmpOekIxRU9VQTV6Z0JuM0llMUhIaURib0FGZXFRcU84Uy9QcXNrd0xHRXRkVG04OVVIajhUN2VnaStlRno3ZVFadXFOek85K1dhL0hzaEk2YnFGOVRQZmFFQzd3MDdFTytIZkxkT016RS9jYmc5S0d4RG1pV3ZOejdqejBZUFhnb0YrL0NNZzdNRk55ZmRHZmxhVm5CRkFLUGtOQ0dja0lJSWdDb2x4ZWZTNncvL2FuS3dDaEFGWG5GWmhyeXZRTzAwWXhSQm84dDc4cXByVjEzQjM5TUYybzE4WGptNE9yUjVaenErZCtmTFZubytoRk1uWVorR29ha29kRDNKcVlOcS9EOXEvWEdQaWZCR0g4ekJCZ1JTOXg1aFNJQUdPQ2M2aXZGQ2U1ZGtGTU8xSXhNS1RjbFl6VjZvWlovY1hocHQ3bmtSdzFUL3NDVjFNbTZod2xwWVNWSUlsd3hYWFRlNVFrT01KalIzWWY2UEhkVjFXaHNWSms0RnBpL0Z6cDNNZWJDS0lIbUhuZ0JrTkpoOThCOU9rdFdpaklHSWNlTEpnRk1yZGtzV0dBYW9kWGJoV0V2ZUpWcHhhb09kbVNTUUFYQnpxaUhkVElqZEl1R0dUQzhHT3ZNNVlGaXdsYkV6WW5lMVExZk54djRSVXFGUDFFZDh1SCtucCttTmtoMlFUK2RJVXFJajlNZ0tkOEFmRFRBVTROWVJTcDZRMnNMM2hxbW83d1VBVU5MWTUzbTBtbENiVHY5MXNHQkJJL1RMc2pGRTdPdldiK3VrZ0Yyc2JsMURoRVZ1TVJhSEpZTEdacWdKQWZ6dTlHeUR3NExva2hNZCtjOXM5QTRyWERDbi9paTBoUVFRMmdMU2pwY0U5VGxaR1BxQXZMVkdpbGlwN3dpMnpVYXRVTDBzMHhQZm1hVm02Uk5EZHV4dUtKQVJaNG50T1M2OEJBTlN0M003WlAvYkVDQ3dKSkVUdmRYMnNJUVd0OWViQVFkSWlCVXlsbkhSRFU5UkVvMEF3QUtnQUxJcG5EdU93cFRlYXRwcXNra1Y4WjZaczMyVEt5Z0dYMkJzcXZrblozT3kwNTdVZW01TmJCaDB5N2NmdUs1YjZYck5PaG5KbWxmTnltL1RRSFdteXduM3UweGZKVXJFTG5sblIvMzBFZk9qVGE0c2s2UmR6Mk1YcGlDZENENG1GeElGRGlVT2I0L1V6NTQ4VXV3a0tGTTBIdFRSck50Uys2TUs3RkF5V0NWemcxMTVuenRBS3RmekRmSEV0bHhhRTJ0dnA0a0tTeVBuRmVGWlp6UmVVYk5JR1ZJNzdoUkpTU1VzOXg3S00yUUIyQTE2NFlQd1hQMmQrbCtMbHV3MjFPcGdkclMrQ3V6OUhlMUNIR1JKZmVOd1dMMWpZeXUvcytJc0NuOVRGbE53YjN0L1dGQm54dm4rUXo5b0dNaW5IaHZIckUvbjlQVlFaMEl4eG41WW9GdnZOa1RsWVNnZjFVaU9obGk5VkM5dnpPMU9QWHBNMTdkOUZqQWRDUVpNMis3ak0vS1ZnVnVKdUNlMTVMVmt5MEZxUTFlSkZiZ1hSVFQyWVdOYWVPRWpmcU1SYWVyRUdISzJVK01lTlMwQ21pRkQ0MUZmWVRVamNncFZiMm8rdW1RR1hybnVUNGtzNG95L3ZHQ1NnaS9Ua3FWdU5wM2lWN1BDalNYTk5ZTG54akI2V1J0SzY4MlJDeWMrS21Rb0dhZkdXQ1FvMkpBeEJlRkhNKzdhRVUzY2xiU3FGV2pFc1RoMjdpQ1ZKU0xOUStPZkgzQVNjWnFFNGp1WFg2Rjh5TlRmVGNzZmNmQUg0cmRpSk04OFh2L0dUQVlxSlZaemlLNGZWN0dBU1VmeGRQRGVPQVNoU0o5c3pJRHRzVWk3VlZjQVRRMUlHSHZMcTUxZTlXbmRUdVRWSk9aTU9EaGg3MytNMG1nV0ZmNmRFWmVIajN6VWpCUkRhZUhqWCtpSnN5ZUwyZkx0RU9nbmNIdFZZMnZ4WUhpRXFUNm5hQkxuR2YwUGVrTWlZNkNEdnk4VmVCQzlGQ2pPdkdtdnpybDNhMFFrd2FhOXRReDVwQWtQYUcvbUJpeFF5RUFqQVF5c1lLaVVVMi96UWVwS3BuaFliNzBCSS9sL3lzWWJDd2NTSzRjRXdwamN0anRtTjFMWTRRK2VvcndRRWNrNUhDUmZKMlJNQ2tsb2FmVHQ0SkVXZTZsV0krWjFmTXZnekxUTm51N2MrcFk4MVBTSEZEaVNRWDQzLzE0eExXcGR6Rk9kUFVoVkgyM1UrY3RjMFJGRnpvNnVwelQzeHFVeElPbm5Yb1o2bW9TNDRkUUlOOFFNN21TUDdTL0M1ZlBjbDZxVU53ZEVBVEtHVDZCNTdTbCtsTnlQRFF3eG1yc0dVSFl2M1Jwd3dwN1FnNjgvM1d0Uk05aUcrOUNHNTZWZCtBRU1ubGlKWjVFSmRtREFjUUtscGZWREFSRi9Wcks0SVRIS3RQVDlkR1lRRmZXdjhoNEh5cmFWeGNIME12RVA0UlhMOURwbms0UDhGdWxEUGUwQjRRUm1PbCthWHhvcUl2eWVKRmR5V0xXbEQ3c25OY1FRdGRoa2xMWnBCWkViRkNYTE1kWU9LZzdadm1mU3JmanJQYVppM3RrWnR6TDNWbzlobVY2NGhTRE03WjVDV1hiM0p0V09rYW5pbUJOQXdmdUpabWNTZW5HbnVobzlMOWJ4dXNzbDgxRGJDcFRBUWttZUZNaHl6VXVBUDNYa082YUo1U2RYWG9ncUlUU081cFZoMGJiWUpFQzZ2UlFMeHdQbWlqSXNWbjdYN0xFcXlQVW05dGhDcnJ1cktQRDZ0cHFTemMrWWdpVDF3VjVBV3NCcHhDUmxzS3I2dm1FRGxET2dwNkN1NnNOUTZ6YnhHUDRSYWxmMUVnZXZQalV4U3dHVnd2SFRTUE1uR3BMM0hzZFJaZ2xRU0hLaHV5dElHOFVNZVRtZzlsS0JyaUFYQ21WQnZvVGRnRmpjN3ZucFppMU1DMkNyNUFnazhWZ3BjeHBoK2FQblg1Qmk5VE9icGd4YU9vRW5rTXZqTGQ1aXRjSldwSkQ4dkV2UXVNYVJ3QjN0TXBoSUpDN0tWNStuZmFlc041V1UwM1V6SzVKSkxRVWtiaEQxaU5aM1YzYTFjN1RWbmRpVy9Wb2w3QVlQWkxoTEkwTWpvTFNnR2tPRlpLaTFSMXdleDBoYkhGY2hVOXVsQnVvK0RvZjRVNzlxVzNmYmxwRzNmbWRTb29KQ2ZSK1NtcEJsRUMwU1ZkKzhqTVI0UjkvMkh2UFRUeDJkd2szNnJSR3A4RDZHNlQvQlY4NnhFb3UxN244MWdVU2xIRmttbm9jS2dNNFgxcURmRjdJNk9jcUowNHBUak9jdjZRU0JSTno0RHV4OFlSOVF2ZUlxcEpJYkFZM3ZZWW5SNFpFWVdVRU56N2t5OWhUNlFjOWcrZE1aMFg1bHZGMW9kL1llWngwd1phWlJlTmpaZ3QzTFNPMXU3S2ZhaWE5NDhyaTFYZlQ1SzJmaTZiTkh6MmIwMFpScW1sVGlnc1RUT2NkR1VxcXhkYUQ5Y3dKQll4aVl3U3h5azlPU3QxYmhwYjRsMnJvTWR4TkFueng0bzl6NTI2VzlPdVphd3gyUzJJT1owY2c3dTB2VlU3TU5HeXlZNG45OTBDUE1JVlB0MHE2TmlrQk1qbHh1RXVoSjNEaTF1a2Q3TkVVNzh4M3F3emU5S081Q1ZnaG0vQWpHTlRqMjMyTnhzUjYzb2dSNkVqZEhiVk5id3dMQStaWFBVejVSL3FYSGhueVFpcnBnZXpXMkpzYUcraS95SGVBS3RpRk9qMEpIK1ZNK29QcDNaN2cwNENEcjVXT0JUd1JhKzBjRi96ZXVWd1c4dVk4QUVoWm9Ga0VpL1cvZ05LU0dHMFpIQjVUYm9IbyttT0EvYWczT3VBcVV4azNaNUxTVHNKbTJ0Z0NqQVpBREZrd3BWYmFWcjB1VmROdmhhUDhJTVpzTjMxeUxVYVNMSklJNHhQNExCc2FPN0MxREo2UnhTZkVQRjFheFVjZ3RwTlVYK29ldTdKT0JpSitBaVl1VHJTZy9obEowZHpHZkVBWWJieXlKZ0Z0UVF2RjhJNDJLc3dsbEF5azFSdTFjM0R2Q3RvZGY4VE5weVIrOGpjRUk5THQzVWdaV2V5Y2szaUpxVU5nWWxEajM2S09rY3NsUmtHcU9LRTFJbXQva2N5Wktxc3pGdm5KQ0J4SzQ4SFNCS2ErR2hUcXBJT3hTUG5iUURBbmtnNHdsb1ZybFRQYVBPcDAzZHNhYXNiREF5b2h6TlI5V1IvZ2h6bi9LSVlLVnRsdUJ0ZVJBWVlsU3hMQmh6YUY5RWNlYU9zNVNia3ROTEtWYStLUWpTMGxoMHBzVzBCWWYzUVFqclVkcldpR3RiNzExWW13Zno4cndOdGhJMnNJVjFkWWkyS0plb2RrWitvVGhZeG5hdTIyM2E2NTlsTkthTXplMnllRGl0Q1l6NVUrZS9wdUdCSVpaQXV2NFNpcEl2dGZ4L3BoY2ZOZ1UyaURtZFNoU1RLK2dDdXBueFhkVTBmbFpsV0swMWpYWTN6QUcrVU1ZVWdIMDdTNXdVMW1sWVcvREJHY0RDaXorejEzSjduc0Qxd3RMQldENkdWdUFjYnhRRytFc3BJWW5GUGRObm42blYrTmRMZnJFTFFJSllzL1hJaFpvQlJuZjdENVhwN0I1R2g2TENHSzNqaWlpckdTV2lOSUFoNEw4U3FnL24veE5UOU9ZOWpqQzRpVWRsQ00wY1N1UWREN3N3NWoyYTBhamhVb1p6ZU4rT1hRb1dHM3Bld05OUk5keFlZMmF2TFlWS0FTWHFTb2NQM1FRLzNkdjZQeTVNZmxGSDltWWM3ZVpQUUFqWlVuTlNNQjNrWnd2QVlLMWNJNWViVmRvS2RxTDNhR3VzYmJvQzRNTGxBY2dqSnJ4T2xMa2RHR3ZUMHdJbkNEVzZBY050SXdybWRTNktYUkNPTlF0dldlUnJoTnN1dThWN0hhdUxHaGJ2SDB0Zlp4TjNMRmI1ZmJPcEJDdHVJUXFxZTVXeDkrc1dHcEZ2Y0dpK2tUc0JlalVGNlBsZ0F6RXhhM1JCMXg2ajhyVndDd3AycE1TazM0NjJlb2VaaHdnUmpBMzI4SUJHZXhGZ2V2Z0tWcWtrSm54R0VEZmJpYWI2NGxSOWE4ekpvS2RRS0dXbVZLZXVGZ2toM1FobUdIcnhQMmZ0WU1OVGloWklUZ0Z2eElKQnFvR2JJWSs1SnpQWUJyY0FsUzNvd0Y2ZXcxRkJUek1ZOG9zM2FjaGwxeEJObFMzbVZYS3F4eUNvVUhCUUlYNkYvRUFJOTMxdXpxNTRaQXZrdkpaRUdlaTBnK29NTEFlcDlkN1Bkd1hSeW9UV3RvUkRPMnpsS0pEd25ZamllK2ozVnpOa2ZpeVgwUWh2eXlGU1ZLVzBvamJjYVBpZUdyQlh5ZE16YjZvN2F6cXl3SXdSdTYxaFpaeXlhZlhjcWZxUGhpa2lFcGFEWFdocmdURjFQdXMrOWt1Qll2cVJ1TjRHSjRCWFU0YWNjK3A0ZnNRUVQ3MzhpanlhU1E4dTMvWU9Eb2d1ZDJGMzk0TStpYXUya0Z4TkduY3VOSFdYeHlvQ2FvZ3Fkd0hDbU9yQTFQVjJIbHdSLzhNRmNFTlVZR2cxbjkvOHA4U0tRMlJtcVJmbllTdVZMWmdMVDV6a0NPR010Z3dXNkxKMXoyYitxaTlzN0NMWk8xTFNGd1ZFVGFqdzN3ZlBPQzRhL2JyNkFOMGV3MlZEMFZWQjkxRnVEa1lESG1kdS9HZEMwR29Ib2tNUFpJV2xSMjJVTnhYNjY5MEFudjV1aHp0eXZqM0RONG5pRkxZc0ZHSWJvUTNyWDVQdXNlNWRyK0g1akE0dHAxMG9HTTBBY3dub0kyTEJiSlh3VlRBUjV6QzR0ZFhrYzVOWmpkYTJ3WXVaSEJJWGZReHNyS0thbWtRQ2xFU2NXYkk0QnpRaFdTUVRUYllQN2M1aEtER2V6VjQ5RXFaZnVXbVQ5NUo1dDJkZ0pxUklhT0Y1Z3BvZWxjc0FxUlEwa3hBQkUyVjh4S3hGUFZkcjVvUWNPRGh3K3VqM2hEL0ZnZ0JrSmdtT2tjS1F5aVMvc01pajV5RVRWbWx0R1ZlV1BmSmNQTkszS2RERGNQQ1NVczZiRWNEU3N6S0JKQ0FaMWlvOXcydS9pRThBWEF0RmEwTHhhblh2dnB1SllVZVJxd0c3dC9teVJrNjhoNzhsYThkaXZzczRQVUEzUEVZZlJ3TnU1bjhEQjdBZXB5b28xaE9taXRGQUZSaTF2RDdVdjZLT0ptVk11S1VTd0gweENicDJZMitkNUphNENLd1FnK0IxazcrSjBrSmxYN3BCN2V6SlhXd2dSVFVla3ZWZ0ZUWjhJMkhzZEQrTlcvdUhFOWxiS0YxRWMyaTRyeU9hL3M2QTdHNnFFcEh0dHFkMmgwTGJoamd5L05DUU9tUnlocm1aTzF6ZGxIbVdZeTdIdzQ5WG1SaGo2dHR5MVkxME84N2lrRzVaSnd5MWk1RytaV1Z3K1VGRGRDcUpBczZ1MU44ZUZXN0tXRkFWaEZ1dkVScWEyVi9vc0dBVHliVnFldXFLc3FhL0x1WE1XcnJ0VFpZSFBHU2FQMzRTRXRwa3ZZaUJjWVBNNi9IQlBtM2w2YXU5bjl6OTNLZDJWWENDb3lkTlRKajJtQ2V1VnFjQkYzelJ6RlltTWhIcTcvNlMrdTBlSytYUjd4dzg4QWFVY2RjUTJiV3l6aUh2dzBCMHNWb2hjZkx3aUYzUDUyWXR2cHQwTzNQL1dwWkczdHczaUdjSi8wYWFha0JaUlNqNTlyNTlZL3pSMFBzNmRML09XRVVhMDd5YkU3UXR0a0RZY3JVZUMwL2VrNW51d3hhbUZKZEQ5dU5uT0tzeUVEQjBocUVrRkZoTnNUTWptK25qMWtJRDd2NDcrWkk3ckh4Q3kwV0loM1V4Z1UvTFdqa05YQkZtRWtVSkJNeFgxSStvaXVQR0x6WHNlc3hMdVRZMlIvZHd0Q2tkQzBGYnFBVlNNYjM2dDFOU2JlcjEwNUdIWUZBUEh0bHY3MTlXd2xaQm9Ka3ZjY3lkZVNCQ3RGWllwM25SOHBLNzZTSEU3ZXVTazN1V1hPR3laY3hFZnJRMXVsTXVSUkxNTFdNRGREN2JadWMwTEZ0QzNIeEdJL0krOThkeUN5ZW5GUjUrOHdaYzQrclA0U0hJTkNsSmprVGFuOFpyRFVVVWQvS1kwUHJiSUhISG52YXplQ3M3V0dDVHRPTXdIR09DT0h3Sll3SFR3aE9YZVVPemJlZDREcUh3ck5ENFJsblRNS2pjNHlhM2NXbUZUaHMvc1hwdHhqV29EM0ZSQjdoNVlYcU5tMkVBLzhXalBEK3VQd2wrK25sMW5UUFQyckFqWCthTlM0ZjdncjN1THdjUnE0K081anY5K2hSbThXQW1VTkp1R2ZQalByL1p4VzMyTk1wUjVycTVia1doSmNEQjhhdDlVTFlBNFpQRlJWQWpwN3VscThpWVlKZjZoaFhYZGliMEovWFNRNGtKcHVMdXp5SlpYVjBjeVIyN2tZQVlQY3EyL1B4L3pBVEZYa0p3L0NodEkwWU9pVFZSSDJCUXY2UHdENFFRNjZBNllucU15WTdscE81aDcvNkZhQ3F0RFhXbkhTVnMyU2QxdWd1NGJLOUtBcG90T0RSZVR6K1Mrc2RpSUR1cjlad2JNdE1yUVJ2amdDTzZRWG9OZDdFQnU3eTRpZWFpMDhtekExcGZvWFZSeDV6UERraWhsdmNCWGdvNEtjaitSa1pnZlVOK1lWTkdDRklFVXpVNHpLbTJJVlJOQlh0NjF1enAzOVFZTzBJRHBndFNObXNNRkJENFpHVzJQSVdWWXBMUTZyVGJHVFd6R2JuUmhZek9vdDRKdUJ4U3VGQy90MUo0c3FmRXpta3ZCN0VPRlJlRnBBbTRZTjNka3hOa1M0MWNWbjI4ak9xSHhuNUhZcXBJdHRrZzh2OWYxL3R4OUVkRnRGN0ZtUk5wTnJVdXFuYzFFTk96Smh4Z3VtWU9xQXZFZlQwTUE1cHc5b1dVYzcyVG1WZURIUVNmdGxUTlowNzJkbGV1UkxNdWp6bTc1OVkvTVhPTmhiQ01zSzJaK2lXaDRtWHdFaU0rYU1CWVNoUklmRVExM3ROeHN5TDY2dGoydXg3dHNSK2h1M1VyNnpVVGh0VUZZMW5vZEdmK0RjLzJJVHc3L2NrYmlPSy9RcXRxRE1oNWoyUTR2WlFLbUhrQlhWQ2xtcWdwbTJtS05ZM3Bad3ZTWnZSaHdhelVkK2o5MXZYVFVrazlaKzJqMVhPWmcwRmJTMWJoS1BLTTczdUcvK3VBV1l0L2pEd1lxR3h1MXVMRWJzRFA0WlhVVENsVU9YVVVvNDBDbzhlNm5aVXg3QXFUQWlYcmd1eHUwZUVFWE9wTFJDMnp6dm1FUlEvdHFoSmJlQ29pdk85SGhtMU5DMjJac0pzUGhtazNGN09KTldKbE1VRFJwWDkzR3BUeVIyTUNwRlJTcHRXdEloWStORnJzUStVaGJmRVdkM1dySGhrMEJsRHZIV3h2eUNGbUNVaHpLYlNuTGJ5ZnczQU5aSnliWDB2Vmw0enljQzVrdDZvbmVyYUJuSDFpUGZoS3o0NEFtbFd3QU43N2RxMEtvMG5qc0ZGUGRVdWh1a0xRYW5OMytJMjV5MkxvWjZ1LzR1ZTZPTGx5VERxcFFFcW1sQ0xSanVsSUZ3eWhsSmx2VmFRNDBRUWhlQ0hLWTJqaTNUQ2w5UmlMazJjakVwVE9iY21UTFFOYWx4Q1kzd2Fkbmc2ZFJrM1E3WWJMOTFsbGt6dDlDTElpeWtvQ3JTTVJFOGpDai9lRFAwVDliTjZnS01IQ1ROTzRUaTFSbG9mdUNYQWo4S0g2OGlJM0dxWkxkczV3dEwrS2hkbjZqOWpvNnFzRnQ3c0Zjam16MUs0bDlZVnFXQzd3OU0wSXBFWndISXJ6MUtRZktadkV6YldEOHBiSW5LekJrdXpNVDFqUnEySnlWaXN6SkFESml5ZjJxSlovYnZiR0tYN09RQnl6RTh0M3V3SW5oVWF3OUpIVGo2VW9OaFpBRGlMT1AyWVZVQ1U0dmJNTmN0MHpuRG41N1hOWVR6dDg1eCtsQjEya3ZhcmE1S1ZITTFTZzFvaDlSQ2hGUDFnQ3NhM0w2MGpuWWlyb3RWUEkxYjZUN0VDNC9Fd0ZWdGgzaVNJRFErSjBNVUNOaEducjltb1N2bmt2OTRxL2pDcUVDQ0JFTThnTkdVTzlna0sxbDBxWEduRXlhWlFPWk15bUM2dEVlRXJ0RkEzRFVrTjFvOVp0RUFpeTNHZWU1RXRiTFdOUURjZ2ZIZHFWRXYvWjQvZWRCaEF5L3d5QkNHdEJzMlUycXBVU3M5RmtnUnVmUG1FdEZSc1pnZUFXaXVmZWZXUStTS2JGdFgyWXRoVXU3Tk9qR0VSTk5qUll5QzFYOCs4MVBFeDNDWTZhMkd4ZTIzSGZLNDVzanFKOURIbnFrKzNRMW15cWJxWEs2OTAxUTV3cVM4dWY2V1VmdUV1RWE0TlB6a25pRDJmdElNY2dEREVwRGZ6QUVaS2FnMVJwUVY0cmtSei9YR0h0c3lXQzJFYz0ifQ==" style="display:none;"></div>
+  <div id="dm-content"></div>
+</div>
+
+</main>
+
+<script>
+(function() { // IIFE — nothing leaks to window/global scope except switchTab and toggleLevel (needed by onclick)
+
+// These two must be global for inline onclick handlers
+window.switchTab = function(tabId) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelector(`.tab[data-tab="${tabId}"]`).classList.add('active');
+  document.getElementById(`panel-${tabId}`).classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => switchTab(tab.dataset.tab));
+});
+
+// Level toggle (global for onclick)
+window.toggleLevel = function(header) {
+  header.parentElement.classList.toggle('open');
+}
+
+// Filter tags
+document.querySelectorAll('.filter-bar').forEach(bar => {
+  bar.querySelectorAll('.filter-tag').forEach(tag => {
+    tag.addEventListener('click', () => {
+      bar.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('active'));
+      tag.classList.add('active');
+      const filter = tag.dataset.filter;
+      const panel = bar.closest('.tab-panel');
+
+      // Open all level sections so filtered results are visible
+      panel.querySelectorAll('.level-section').forEach(s => s.classList.add('open'));
+
+      panel.querySelectorAll('.ability-card').forEach(card => {
+        if (filter === 'all' || card.dataset.action === filter) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      // Hide level sections that have zero visible cards after filtering
+      if (filter !== 'all') {
+        panel.querySelectorAll('.level-section').forEach(section => {
+          const visibleCards = section.querySelectorAll('.ability-card:not([style*="display: none"])');
+          if (visibleCards.length === 0) {
+            section.classList.remove('open');
+            section.style.display = 'none';
+          } else {
+            section.style.display = '';
+          }
+        });
+      } else {
+        // "All" — show every section, reset display
+        panel.querySelectorAll('.level-section').forEach(section => {
+          section.style.display = '';
+        });
+      }
+    });
+  });
+});
+
+// Search
+const searchInput = document.getElementById('search');
+searchInput.addEventListener('input', () => {
+  const query = searchInput.value.toLowerCase().trim();
+
+  // Reset all filters to "All" when searching
+  if (query) {
+    document.querySelectorAll('.filter-tag').forEach(t => {
+      t.classList.toggle('active', t.dataset.filter === 'all');
+    });
+  }
+
+  document.querySelectorAll('.ability-card').forEach(card => {
+    const text = card.textContent.toLowerCase();
+    if (!query || text.includes(query)) {
+      card.style.display = '';
+      card.style.opacity = '1';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+  // Open all level sections if searching
+  if (query) {
+    document.querySelectorAll('.level-section').forEach(s => s.classList.add('open'));
+  }
+});
+
+// DM Password Gate — AES-256-GCM Decryption (Web Crypto API)
+// Content is encrypted. Password is the decryption key, not a comparison hash.
+// No plaintext exists anywhere in this file.
+
+async function decryptDmContent(password) {
+  try {
+    const vaultEl = document.getElementById('dm-vault');
+    if (!vaultEl) return false;
+    const blobB64 = vaultEl.getAttribute('data-vault');
+    const blobJson = atob(blobB64);
+    const blob = JSON.parse(blobJson);
+
+    const salt = Uint8Array.from(atob(blob.s), c => c.charCodeAt(0));
+    const iv = Uint8Array.from(atob(blob.iv), c => c.charCodeAt(0));
+    const tag = Uint8Array.from(atob(blob.t), c => c.charCodeAt(0));
+    const ciphertext = Uint8Array.from(atob(blob.d), c => c.charCodeAt(0));
+
+    // Combine ciphertext + auth tag (Web Crypto expects them concatenated)
+    const combined = new Uint8Array(ciphertext.length + tag.length);
+    combined.set(ciphertext);
+    combined.set(tag, ciphertext.length);
+
+    // Derive key with PBKDF2 (100K iterations, SHA-256)
+    const enc = new TextEncoder();
+    const keyMaterial = await crypto.subtle.importKey('raw', enc.encode(password), 'PBKDF2', false, ['deriveKey']);
+    const key = await crypto.subtle.deriveKey(
+      { name: 'PBKDF2', salt: salt, iterations: 100000, hash: 'SHA-256' },
+      keyMaterial,
+      { name: 'AES-GCM', length: 256 },
+      false,
+      ['decrypt']
+    );
+
+    const decrypted = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: iv }, key, combined);
+    const html = new TextDecoder().decode(decrypted);
+
+    // Render into closed Shadow DOM — blocks external querySelector, MutationObserver,
+    // and DevTools Elements tab from reading the decrypted content
+    const container = document.getElementById('dm-content');
+    const shadow = container.attachShadow({ mode: 'closed' });
+
+    // Inject the page's styles into the shadow DOM so content renders correctly
+    const styleClone = document.createElement('style');
+    styleClone.textContent = document.querySelector('style').textContent;
+    shadow.appendChild(styleClone);
+
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = html;
+    shadow.appendChild(wrapper);
+    container.style.display = 'block';
+
+    // Clean up — remove the vault blob from DOM
+    vaultEl.remove();
+
+    // Store ref in closure — not on window, not accessible from console
+    _dmRef.shadow = shadow;
+    _dmRef.container = container;
+
+    return true;
+  } catch (e) {
+    return false; // Wrong password = decryption fails = auth tag mismatch
+  }
+}
+
+// Private ref object — lives in IIFE scope, not on window
+const _dmRef = { shadow: null, container: null };
+
+function relockDm() {
+  const container = _dmRef.container;
+  if (container) {
+    container.style.display = 'none';
+    // Replace element to destroy shadow root (can't detach shadow roots)
+    const newContainer = document.createElement('div');
+    newContainer.id = 'dm-content';
+    container.parentNode.replaceChild(newContainer, container);
+    _dmRef.shadow = null;
+    _dmRef.container = null;
+  }
+  // Show the gate again (but vault is gone — must refresh to re-unlock)
+  document.getElementById('dm-gate').style.display = '';
+  document.getElementById('dm-gate').innerHTML = '<div style="font-size:13px;color:var(--text-dim);padding:40px;text-align:center;">Session locked. Refresh the page to re-authenticate.</div>';
+  document.querySelector('.tab[data-tab="dmlock"]').style.color = 'var(--red-dim)';
+  document.querySelector('.tab[data-tab="dmlock"]').innerHTML = '&#x1F512; DM Only';
+}
+
+document.getElementById('dm-unlock').addEventListener('click', async () => {
+  const input = document.getElementById('dm-password').value;
+
+  // Basic input validation (no sanitization needed — input goes to crypto, not DOM)
+  if (!input || input.length > 64) {
+    document.getElementById('dm-error').style.display = 'block';
+    return;
+  }
+
+  const btn = document.getElementById('dm-unlock');
+  btn.textContent = 'DECRYPTING...';
+  btn.disabled = true;
+
+  // Small delay to let UI update before heavy PBKDF2
+  await new Promise(r => setTimeout(r, 50));
+
+  const success = await decryptDmContent(input);
+
+  if (success) {
+    document.getElementById('dm-gate').innerHTML = '<div style="text-align:center;padding:16px;"><button id="dm-relock" style="background:var(--red-dim);color:var(--text);border:1px solid var(--red);padding:8px 24px;font-family:inherit;font-size:12px;text-transform:uppercase;letter-spacing:1px;cursor:pointer;border-radius:3px;">&#x1F512; Re-Lock Section</button></div>';
+    document.getElementById('dm-relock').addEventListener('click', relockDm);
+    document.getElementById('dm-error').style.display = 'none';
+    document.querySelector('.tab[data-tab="dmlock"]').style.color = 'var(--red)';
+    document.querySelector('.tab[data-tab="dmlock"]').innerHTML = '&#x1F513; DM Only';
+  } else {
+    document.getElementById('dm-error').style.display = 'block';
+    document.getElementById('dm-password').value = '';
+    document.getElementById('dm-password').focus();
+    btn.textContent = 'AUTHENTICATE';
+    btn.disabled = false;
+  }
+});
+
+document.getElementById('dm-password').addEventListener('keydown', e => {
+  if (e.key === 'Enter') document.getElementById('dm-unlock').click();
+});
+
+// Keyboard shortcut: Escape clears search
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    searchInput.value = '';
+    searchInput.dispatchEvent(new Event('input'));
+  }
+  if (e.key === '/' && document.activeElement !== searchInput) {
+    e.preventDefault();
+    searchInput.focus();
+  }
+});
+
+// Floating contextual reference panel
+const refData = {
+  overview: `
+    <h4>Terms Used On This Page</h4>
+    <table>
+      <tr><td>SR</td><td>Short Rest — brief break, recharges some abilities</td></tr>
+      <tr><td>LR</td><td>Long Rest — full rest at base, recharges everything</td></tr>
+      <tr><td>HP</td><td>Hit Points — your health</td></tr>
+      <tr><td>AC</td><td>Armor Class — how hard to hit</td></tr>
+      <tr><td>DC</td><td>Difficulty Class — number to beat on a check/save</td></tr>
+      <tr><td>WIS</td><td>Wisdom — primary stat for all medics</td></tr>
+      <tr><td>DEX</td><td>Dexterity — CM secondary stat</td></tr>
+      <tr><td>INT</td><td>Intelligence — IM and MS secondary stat</td></tr>
+    </table>
+    <h4>Action Types</h4>
+    <table>
+      <tr><td>Action</td><td>Your main thing each turn</td></tr>
+      <tr><td>BA</td><td>Bonus Action — a quick extra on your turn</td></tr>
+      <tr><td>Reaction</td><td>Fires on someone else's turn</td></tr>
+      <tr><td>Passive</td><td>Always on, no action needed</td></tr>
+    </table>
+    <div class="ref-note">If short rests are rare, CM is most affected (Triage is SR-based). IM and MS rely more on unlimited and LR resources.</div>
+  `,
+  base: `
+    <h4>Terms Used On This Page</h4>
+    <table>
+      <tr><td>WIS</td><td>Wisdom — your healing modifier</td></tr>
+      <tr><td>HP</td><td>Hit Points — your health</td></tr>
+      <tr><td>DC</td><td>Difficulty Class — number to beat</td></tr>
+      <tr><td>BA</td><td>Bonus Action</td></tr>
+      <tr><td>WIS mod</td><td>Your Wisdom modifier (WIS 16 = +3)</td></tr>
+      <tr><td>Adjacent</td><td>Next to the target</td></tr>
+    </table>
+  `,
+  cm: `
+    <h4>Terms Used On This Page</h4>
+    <table>
+      <tr><td>SR</td><td>Short Rest — recharges Triage, Combat Stab</td></tr>
+      <tr><td>LR</td><td>Long Rest — recharges Adrenaline, Surgery, Mass Triage, Miraculous Save</td></tr>
+      <tr><td>WIS mod/SR</td><td>Charges = Wisdom modifier per short rest (WIS 16 = 3 charges)</td></tr>
+      <tr><td>1/LR</td><td>1 use per long rest</td></tr>
+      <tr><td>2/LR</td><td>2 uses per long rest</td></tr>
+      <tr><td>FA</td><td>First Aid — 2d6→3d6(L5)→4d6(L8)→5d6(L10)→6d6(L12) + WIS</td></tr>
+      <tr><td>BA</td><td>Bonus Action</td></tr>
+      <tr><td>HP</td><td>Hit Points</td></tr>
+      <tr><td>THP</td><td>Temporary HP — absorbs damage first, then gone</td></tr>
+      <tr><td>AC</td><td>Armor Class</td></tr>
+      <tr><td>DC</td><td>Difficulty Class</td></tr>
+      <tr><td>DEX</td><td>Dexterity — CM secondary stat</td></tr>
+      <tr><td>WIS</td><td>Wisdom — primary stat</td></tr>
+    </table>
+    <h4>CM Compounds</h4>
+    <table>
+      <tr><td>C-47</td><td>Adrenaline Shot. 2d6 THP + atk adv. 1/LR (L5)</td></tr>
+      <tr><td>C-47B</td><td>Adrenaline Surge. 3d6 THP, 2 atk adv. 2/LR (L9)</td></tr>
+      <tr><td>LAZARUS</td><td>LAZARUS-Light. Death immunity 1 round. 1/LR (L12)</td></tr>
+    </table>
+    <div class="ref-note">CM is most rest-dependent. No SR = Triage doesn't refresh. You still have unlimited First Aid.</div>
+  `,
+  im: `
+    <h4>Terms Used On This Page</h4>
+    <table>
+      <tr><td>SR</td><td>Short Rest — recharges Purge, DT, Analysis Paralysis</td></tr>
+      <tr><td>LR</td><td>Long Rest — recharges Experimental Protocol, Fortify, Lazarus</td></tr>
+      <tr><td>WIS mod/SR</td><td>Charges = Wisdom modifier per short rest</td></tr>
+      <tr><td>3/SR</td><td>3 uses per short rest</td></tr>
+      <tr><td>2/LR</td><td>2 uses per long rest</td></tr>
+      <tr><td>BA</td><td>Bonus Action</td></tr>
+      <tr><td>HP</td><td>Hit Points</td></tr>
+      <tr><td>AC</td><td>Armor Class</td></tr>
+      <tr><td>DC</td><td>Difficulty Class</td></tr>
+      <tr><td>CON</td><td>Constitution — saves for nausea, overdose</td></tr>
+      <tr><td>WIS</td><td>Wisdom — primary stat, Purge modifier</td></tr>
+      <tr><td>INT</td><td>Intelligence — IM secondary stat</td></tr>
+    </table>
+    <h4>Mode-Select (Every First Aid)</h4>
+    <table>
+      <tr><td style="color:#20e060">HEAL</td><td>Roll dice, restore HP</td></tr>
+      <tr><td style="color:var(--accent)">CURE</td><td>Purge condition, no HP (costs charge)</td></tr>
+      <tr><td style="color:var(--im-color)">BUFF</td><td>Brace/Steady/Reposition/Fortify, no HP</td></tr>
+    </table>
+    <h4>Compounds</h4>
+    <table>
+      <tr><td>IM-7</td><td>Immunobooster — adv CON vs poison/disease</td></tr>
+      <tr><td>DRG-4</td><td>Trauma Plating — temp HP</td></tr>
+      <tr><td>PS-12</td><td>Pain Suppressant — negate 1st Frightened/Stunned</td></tr>
+      <tr><td>MB-9</td><td>Metabolic Boost — +5ft speed, adv Initiative (L5)</td></tr>
+      <tr><td>AR-5</td><td>Anomalous Resistance — adv CON vs anomalous (L7)</td></tr>
+      <tr><td>CF-2</td><td>Cellular Fortification — resist 1 damage type (L7)</td></tr>
+      <tr><td>RC-7</td><td>Regenerative — big heal + remove all conditions (L9)</td></tr>
+      <tr><td>ECD-3</td><td>Containment Dose — suppress anomalous 1hr (L9)</td></tr>
+      <tr><td>AP-1</td><td>Anomalous Purge — cure anomalous permanently (L10)</td></tr>
+      <tr><td>FR-1</td><td>Fortify — resist all damage 1 round (L11)</td></tr>
+      <tr><td>AM-A/B/C</td><td>Amnestics: 1hr (L6) / 24hr (L8) / 1wk (L11)</td></tr>
+    </table>
+  `,
+  ms: `
+    <h4>Terms Used On This Page</h4>
+    <table>
+      <tr><td>SR</td><td>Short Rest — recharges Cog Triage, Cog Strike, Decontam, Warning</td></tr>
+      <tr><td>LR</td><td>Long Rest — recharges Barrier, Antimemetic Protocol, Identity Fracture, Sovereignty</td></tr>
+      <tr><td>2/SR</td><td>2 uses per short rest</td></tr>
+      <tr><td>3/SR</td><td>3 uses per short rest</td></tr>
+      <tr><td>1/LR</td><td>1 use per long rest</td></tr>
+      <tr><td>2/LR</td><td>2 uses per long rest</td></tr>
+      <tr><td>PB/LR</td><td>Uses = Proficiency Bonus per long rest (L3: 2 uses, L9: 4 uses)</td></tr>
+      <tr><td>BA</td><td>Bonus Action</td></tr>
+      <tr><td>DC</td><td>Difficulty Class</td></tr>
+      <tr><td>WIS</td><td>Wisdom — primary stat</td></tr>
+      <tr><td>INT</td><td>Intelligence — MS secondary stat</td></tr>
+      <tr><td>CON</td><td>Constitution — concentration saves</td></tr>
+    </table>
+    <h4>Foundation Tech</h4>
+    <table>
+      <tr><td>CRV</td><td>Cognitive Resistance Value — your scanner's mental resilience metric</td></tr>
+      <tr><td>SCRAMBLE</td><td>Anti-cognitohazard eyewear. 1/enc→2/enc→always-on</td></tr>
+      <tr><td>BL</td><td>Berryman-Langford — Foundation cognitohazard weapon tech</td></tr>
+      <tr><td>Barrier</td><td>Counter-Memetic Barrier — 15ft field, adv WIS saves</td></tr>
+    </table>
+    <h4>Mnestic Grades</h4>
+    <table>
+      <tr><td>W</td><td>Mild prophylactic — Inoculation (L3)</td></tr>
+      <tr><td>X</td><td>Emergency decontam — Cog Decontam (L4)</td></tr>
+      <tr><td>Y</td><td>Sustained conditioning — Hardening (L7)</td></tr>
+      <tr><td>Z</td><td>Full cognitive purge — Antimemetic Protocol (L9)</td></tr>
+    </table>
+    <div class="ref-note">MS is least SR-dependent. Psych Reading + Residual Imprint are unlimited/LR. Core kit works without short rests.</div>
+  `,
+  dm: `
+    <h4>Terms Used On This Page</h4>
+    <table>
+      <tr><td>CON</td><td>Constitution</td></tr>
+      <tr><td>DC</td><td>Difficulty Class</td></tr>
+      <tr><td>SR / LR</td><td>Short Rest / Long Rest</td></tr>
+      <tr><td>Adjacent</td><td>Next to the target</td></tr>
+      <tr><td>Anomalous</td><td>SCP-designated or supernatural source</td></tr>
+    </table>
+  `,
+  dmlock: `
+    <h4>Terms Used On This Page</h4>
+    <table>
+      <tr><td>SR / LR</td><td>Short Rest / Long Rest</td></tr>
+      <tr><td>DC</td><td>Difficulty Class</td></tr>
+    </table>
+  `
+};
+
+// Update ref panel when tab changes
+const origSwitchTab = window.switchTab;
+window.switchTab = function(tabId) {
+  origSwitchTab(tabId);
+  const refEl = document.getElementById('ref-content');
+  if (refEl && refData[tabId]) {
+    refEl.innerHTML = refData[tabId];
+  }
+};
+// Set initial content
+document.getElementById('ref-content').innerHTML = refData.overview;
+
+})(); // End IIFE — all variables are scoped, nothing on window
+</script>
+</body>
+</html>
