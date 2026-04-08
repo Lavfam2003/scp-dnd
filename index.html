@@ -513,14 +513,26 @@ body {
 
 /* === MOBILE === */
 @media (max-width: 640px) {
-  .header-top { flex-direction: column; align-items: flex-start; }
+  .header-top { flex-direction: column; align-items: flex-start; gap: 8px; }
   .search-box input { width: 100%; }
-  .tab { padding: 10px 14px; font-size: 11px; }
-  .main-content { padding: 16px; }
+  .tab { padding: 8px 10px; font-size: 10px; }
+  .main-content { padding: 12px; }
   .level-header .level-abilities { display: none; }
-  .spec-meta { grid-template-columns: 1fr 1fr; }
-  .progression-grid { grid-template-columns: 36px 1fr 1fr 1fr; font-size: 10px; }
-  .prog-cell { padding: 6px; }
+  .spec-meta { grid-template-columns: 1fr; }
+  .progression-grid { display: none; }
+  .ability-card { padding: 12px; }
+  .ability-name { font-size: 13px; }
+  .ability-desc { font-size: 12px; }
+  .ability-badges { gap: 4px; }
+  .badge { font-size: 9px; padding: 1px 6px; }
+  .scaling-table { font-size: 11px; }
+  .scaling-table td, .scaling-table th { padding: 4px 6px; }
+  .dm-section { padding: 12px; }
+  .classified-banner { padding: 12px 14px; }
+  .classified-banner h2 { font-size: 14px; }
+  .filter-bar { gap: 4px; }
+  .filter-tag { font-size: 10px; padding: 3px 8px; }
+  .level-header .level-badge { width: 30px; height: 30px; font-size: 14px; }
 }
 
 /* === SCROLL === */
