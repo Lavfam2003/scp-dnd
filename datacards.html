@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SCP Foundation -- Anomalous Encounter Datacards</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500;700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-deep: #0a0a0c;
+  --bg-panel: #111114;
+  --bg-card: #18181c;
+  --bg-card-hover: #1e1e24;
+  --bg-inset: #0e0e11;
+  --border: #2a2a30;
+  --border-highlight: #3a3a42;
+  --accent: #d4870f;
+  --accent-glow: #d4870f44;
+  --accent-dim: #8a5a0a;
+  --accent-bright: #f0a030;
+  --text: #c8c8cc;
+  --text-dim: #707078;
+  --text-bright: #e8e8ec;
+  --red: #b02020;
+  --red-dim: #6a1818;
+  --red-glow: #b0202044;
+  --green: #20a040;
+  --green-dim: #145a28;
+  --green-glow: #20a04044;
+  --orange: #d4870f;
+  --orange-glow: #d4870f44;
+  --blue: #3080d0;
+  --purple: #8040c0;
+  --safe-color: #20a040;
+  --euclid-color: #d4870f;
+  --keter-color: #b02020;
+  --hazard-color: #707078;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg-deep);
+  color: var(--text);
+  font-family: 'IBM Plex Mono', 'Courier Prime', monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* === HEADER === */
+.site-header {
+  background: var(--bg-panel);
+  border-bottom: 2px solid var(--accent);
+  padding: 16px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.scp-logo {
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 11px;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.header-title h1 {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-bright);
+  letter-spacing: 1px;
+}
+
+.header-title .doc-id {
+  font-size: 12px;
+  color: var(--accent);
+  background: var(--accent-glow);
+  padding: 2px 8px;
+  border-radius: 3px;
+  border: 1px solid var(--accent-dim);
+}
+
+.back-link {
+  font-size: 12px;
+  color: var(--accent);
+  text-decoration: none;
+  border: 1px solid var(--accent-dim);
+  padding: 6px 12px;
+  border-radius: 3px;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.back-link:hover {
+  background: var(--accent-glow);
+  color: var(--accent-bright);
+}
+
+/* === CONTROLS === */
+.controls {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-panel);
+}
+
+.search-box {
+  position: relative;
+  flex: 1;
+  min-width: 200px;
+  max-width: 400px;
+}
+
+.search-box input {
+  background: var(--bg-inset);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 13px;
+  padding: 8px 12px 8px 32px;
+  border-radius: 4px;
+  width: 100%;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.search-box input:focus { border-color: var(--accent); }
+.search-box input::placeholder { color: var(--text-dim); }
+.search-box::before {
+  content: '>';
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--accent);
+  font-weight: 700;
+  pointer-events: none;
+}
+
+.filter-group {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text-dim);
+  cursor: pointer;
+  border-radius: 3px;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.filter-btn:hover { color: var(--text); border-color: var(--border-highlight); }
+.filter-btn.active { color: var(--accent); border-color: var(--accent); background: var(--accent-glow); }
+
+.filter-btn[data-class="safe"].active { color: var(--safe-color); border-color: var(--safe-color); background: var(--green-glow); }
+.filter-btn[data-class="euclid"].active { color: var(--euclid-color); border-color: var(--euclid-color); background: var(--orange-glow); }
+.filter-btn[data-class="keter"].active { color: var(--keter-color); border-color: var(--keter-color); background: var(--red-glow); }
+.filter-btn[data-class="hazard"].active { color: var(--hazard-color); border-color: var(--hazard-color); }
+
+.filter-label {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-dim);
+  align-self: center;
+  margin-right: 4px;
+}
+
+.result-count {
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-left: auto;
+  white-space: nowrap;
+}
+
+/* === CARD GRID === */
+.card-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(520px, 1fr));
+  gap: 20px;
+}
+
+/* === DATACARD === */
+.datacard {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.datacard:hover {
+  border-color: var(--border-highlight);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+.datacard.hidden { display: none; }
+
+/* Header bar with threat-level color stripe */
+.card-header {
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  position: relative;
+  border-bottom: 1px solid var(--border);
+}
+.card-header::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+
+.datacard[data-class="safe"] .card-header::before { background: var(--safe-color); }
+.datacard[data-class="euclid"] .card-header::before { background: var(--euclid-color); }
+.datacard[data-class="keter"] .card-header::before { background: var(--keter-color); }
+.datacard[data-class="hazard"] .card-header::before { background: var(--hazard-color); }
+
+.card-designation {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-bright);
+  letter-spacing: 0.5px;
+}
+
+.datacard[data-class="safe"] .card-designation { color: var(--safe-color); }
+.datacard[data-class="euclid"] .card-designation { color: var(--euclid-color); }
+.datacard[data-class="keter"] .card-designation { color: var(--keter-color); }
+.datacard[data-class="hazard"] .card-designation { color: var(--hazard-color); }
+
+.class-badge {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 3px;
+  border: 1px solid;
+}
+
+.datacard[data-class="safe"] .class-badge {
+  color: var(--safe-color);
+  border-color: var(--safe-color);
+  background: var(--green-glow);
+}
+.datacard[data-class="euclid"] .class-badge {
+  color: var(--euclid-color);
+  border-color: var(--euclid-color);
+  background: var(--orange-glow);
+}
+.datacard[data-class="keter"] .class-badge {
+  color: var(--keter-color);
+  border-color: var(--keter-color);
+  background: var(--red-glow);
+}
+.datacard[data-class="hazard"] .class-badge {
+  color: var(--hazard-color);
+  border-color: var(--hazard-color);
+  background: rgba(112,112,120,0.15);
+}
+
+.card-nickname {
+  font-size: 13px;
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+/* Card body */
+.card-body {
+  padding: 16px;
+}
+
+.card-desc {
+  font-size: 13px;
+  color: var(--text);
+  margin-bottom: 14px;
+  line-height: 1.5;
+}
+
+/* Field rows */
+.card-fields {
+  display: grid;
+  gap: 8px;
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 8px;
+  font-size: 12px;
+  align-items: start;
+}
+
+.field-label {
+  font-family: 'Source Code Pro', monospace;
+  font-weight: 600;
+  font-size: 10px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  padding-top: 2px;
+}
+
+.field-value {
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.field-value.vector-tag {
+  color: var(--accent-bright);
+  font-weight: 500;
+}
+
+.field-value.encounter-tag {
+  color: var(--blue);
+  font-weight: 500;
+}
+
+/* MS Toolkit tags */
+.ms-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.ms-tag {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 3px;
+  background: rgba(128,64,192,0.15);
+  color: #b070e0;
+  border: 1px solid rgba(128,64,192,0.3);
+  white-space: nowrap;
+}
+
+/* Threat summary */
+.threat-summary {
+  margin-top: 12px;
+  padding: 10px 12px;
+  background: var(--bg-inset);
+  border-left: 3px solid var(--red);
+  border-radius: 0 3px 3px 0;
+  font-size: 12px;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.threat-label {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 4px;
+}
+
+/* Collapsible details */
+.details-toggle {
+  width: 100%;
+  padding: 10px 16px;
+  background: var(--bg-inset);
+  border: none;
+  border-top: 1px solid var(--border);
+  color: var(--accent);
+  font-family: 'Source Code Pro', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.2s, color 0.2s;
+}
+.details-toggle:hover {
+  background: var(--bg-card-hover);
+  color: var(--accent-bright);
+}
+
+.details-toggle .chevron {
+  display: inline-block;
+  transition: transform 0.2s;
+  font-size: 10px;
+}
+.details-toggle.open .chevron {
+  transform: rotate(90deg);
+}
+
+.details-content {
+  display: none;
+  padding: 16px;
+  background: var(--bg-inset);
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--text);
+}
+.details-content.open { display: block; }
+
+.details-content h4 {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin: 12px 0 6px 0;
+}
+.details-content h4:first-child { margin-top: 0; }
+
+.details-content p {
+  margin-bottom: 8px;
+}
+
+.details-content ul {
+  margin: 4px 0 8px 20px;
+}
+.details-content li {
+  margin-bottom: 4px;
+}
+
+.detail-stat {
+  display: inline-block;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 1px 6px;
+  border-radius: 3px;
+  background: rgba(48,128,208,0.15);
+  color: var(--blue);
+  border: 1px solid rgba(48,128,208,0.3);
+}
+
+.detail-dc {
+  color: var(--red);
+  background: rgba(176,32,32,0.15);
+  border-color: rgba(176,32,32,0.3);
+}
+
+/* No results */
+.no-results {
+  text-align: center;
+  padding: 60px 24px;
+  color: var(--text-dim);
+  font-size: 14px;
+  display: none;
+}
+.no-results.visible { display: block; }
+.no-results .nr-title {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 16px;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 600px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+    padding: 12px;
+    gap: 14px;
+  }
+
+  .controls {
+    padding: 12px;
+    gap: 8px;
+  }
+
+  .search-box {
+    min-width: 0;
+    max-width: 100%;
+    flex-basis: 100%;
+  }
+
+  .header-top {
+    gap: 8px;
+  }
+
+  .header-title h1 {
+    font-size: 14px;
+  }
+
+  .field-row {
+    grid-template-columns: 100px 1fr;
+    font-size: 11px;
+  }
+
+  .card-designation {
+    font-size: 14px;
+  }
+
+  .back-link {
+    font-size: 11px;
+    padding: 4px 8px;
+  }
+}
+
+@media (max-width: 400px) {
+  .field-row {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+}
+
+/* Scanline effect on header */
+.site-header::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.03) 2px,
+    rgba(0,0,0,0.03) 4px
+  );
+}
+
+/* Redacted text styling for flavor */
+.redacted {
+  background: var(--text-dim);
+  color: var(--text-dim);
+  padding: 0 4px;
+  border-radius: 2px;
+  user-select: none;
+  cursor: default;
+}
+
+/* Vector filter pills */
+.vector-filters {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-top">
+    <div class="header-title">
+      <div class="scp-logo">SCP</div>
+      <h1>ANOMALOUS ENCOUNTER DATACARDS</h1>
+      <span class="doc-id">DOC-ENC-12</span>
+    </div>
+    <a href="index.html" class="back-link">&lt; MEDIC CLASS REF</a>
+  </div>
+</header>
+
+<!-- CONTROLS -->
+<div class="controls">
+  <div class="search-box">
+    <input type="text" id="search" placeholder="Search designation, name, vector..." autocomplete="off">
+  </div>
+
+  <span class="filter-label">Class:</span>
+  <div class="filter-group" id="class-filters">
+    <button class="filter-btn active" data-class="all">All</button>
+    <button class="filter-btn" data-class="safe">Safe</button>
+    <button class="filter-btn" data-class="euclid">Euclid</button>
+    <button class="filter-btn" data-class="keter">Keter</button>
+    <button class="filter-btn" data-class="hazard">Hazard</button>
+  </div>
+
+  <span class="filter-label">Vector:</span>
+  <div class="filter-group vector-filters" id="vector-filters">
+    <button class="filter-btn active" data-vector="all">All</button>
+    <button class="filter-btn" data-vector="visual">Visual</button>
+    <button class="filter-btn" data-vector="auditory">Auditory</button>
+    <button class="filter-btn" data-vector="touch">Touch</button>
+    <button class="filter-btn" data-vector="emotional">Emotional</button>
+    <button class="filter-btn" data-vector="sleep">Sleep</button>
+    <button class="filter-btn" data-vector="memory">Memory</button>
+    <button class="filter-btn" data-vector="information">Information</button>
+    <button class="filter-btn" data-vector="perception">Perception</button>
+    <button class="filter-btn" data-vector="environmental">Environmental</button>
+    <button class="filter-btn" data-vector="trust">Trust</button>
+  </div>
+
+  <span class="result-count" id="result-count">12 encounters</span>
+</div>
+
+<!-- CARD GRID -->
+<div class="card-grid" id="card-grid">
+
+  <!-- CARD 1: SCP-012 -->
+  <div class="datacard" data-class="euclid" data-vector="visual" data-search="scp-012 a bad composition visual compulsion sheet music blood euclid rp">
+    <div class="card-header">
+      <span class="card-designation">SCP-012</span>
+      <span class="class-badge">Euclid</span>
+      <span class="card-nickname">"A Bad Composition"</span>
+    </div>
+    <div class="card-body">
+      <div class="card-desc">Incomplete sheet music that compels anyone who views it to finish the composition -- in their own blood.</div>
+      <div class="card-fields">
+        <div class="field-row">
+          <span class="field-label">Vector</span>
+          <span class="field-value vector-tag">Visual Compulsion</span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Containment</span>
+          <span class="field-value">Cover document or destroy it. Break line of sight immediately.</span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Encounter</span>
+          <span class="field-value encounter-tag">RP / Compulsion</span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">MS Toolkit</span>
+          <div class="ms-tools">
+            <span class="ms-tag">SCRAMBLE</span>
+            <span class="ms-tag">Visual Filter</span>
+          </div>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Without MS</span>
+          <span class="field-value">Close your eyes, cover the document. Physically restrain affected personnel.</span>
+        </div>
+      </div>
+      <div class="threat-summary">
+        <div class="threat-label">Threat Summary</div>
+        Affected subjects become single-minded in their compulsion to complete the composition. They will use any sharp object to open their own veins and write with the blood. The music is never complete -- the compulsion never ends on its own. Without intervention, death from blood loss occurs within minutes.
+      </div>
+    </div>
+    <button class="details-toggle" onclick="toggleDetails(this)">
+      <span class="chevron">&#9654;</span> FULL ENCOUNTER DETAILS
+    </button>
+    <div class="details-content">
+      <h4>Discovery Scenario</h4>
+      <p>The document is found in a containment wing archive or carried by a compromised researcher. Its appearance is unremarkable -- yellowed staff paper with red-brown notation that appears hand-written.</p>
+
+      <h4>Mechanics</h4>
+      <ul>
+        <li>Viewing the document: <span class="detail-dc">WIS Save DC 14</span> or be compelled to approach and begin writing</li>
+        <li>Compelled characters use their action each turn to write, dealing <span class="detail-stat">1d4 slashing</span> to themselves</li>
+        <li>Repeat save at end of each turn with <span class="detail-dc">cumulative -1 penalty</span> per turn spent writing</li>
+        <li>Covering the document or removing it from line of sight ends the compulsion immediately</li>
+        <li>Destroying the document: AC 11, 5 HP (vulnerable to fire)</li>
+      </ul>
+
+      <h4>DM Notes</h4>
+      <p>The real danger is surprise. If only one character enters the room and fails, no one else may know what's happening. Use sound cues -- the scratching of a pen, the drip of blood. The composition is hauntingly beautiful even unfinished. Characters who succeed their save still feel the pull.</p>
+    </div>
+  </div>
+
+  <!-- CARD 2: SCP-055 -->
+  <div class="datacard" data-class="keter" data-vector="memory" data-search="scp-055 unknown antimemetic memory mnestics puzzle keter antimeme">
+    <div class="card-header">
+      <span class="card-designation">SCP-055</span>
+      <span class="class-badge">Keter</span>
+      <span class="card-nickname">"Unknown"</span>
+    </div>
+    <div class="card-body">
+      <div class="card-desc">An antimemetic anomaly. You can't remember what it is. You can't remember that you can't remember.</div>
+      <div class="card-fields">
+        <div class="field-row">
+          <span class="field-label">Vector</span>
+          <span class="field-value vector-tag">Memory / Antimemetic</span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Containment</span>
+          <span class="field-value">Already contained -- you just forget that it is. Mnestics restore recall.</span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Encounter</span>
+          <span class="field-value encounter-tag">Puzzle</span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">MS Toolkit</span>
+          <div class="ms-tools">
+            <span class="ms-tag">Mnestics</span>
+            <span class="ms-tag">Memory Anchor</span>
+          </div>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Without MS</span>
+          <span class="field-value">Negative-definition trick: catalog what it ISN'T to triangulate what it is.</span>
+        </div>
+      </div>
+      <div class="threat-summary">
+        <div class="threat-label">Threat Summary</div>
+        The party will walk into the containment cell, interact with the object, and then walk out having forgotten everything. Repeat. Without mnestics or the negative-definition approach, the party can lose hours or entire sessions to a memory loop they don't know they're in.
+      </div>
+    </div>
+    <button class="details-toggle" onclick="toggleDetails(this)">
+      <span class="chevron">&#9654;</span> FULL ENCOUNTER DETAILS
+    </button>
+    <div class="details-content">
+      <h4>Discovery Scenario</h4>
+      <p>The party finds a containment cell that is occupied according to records, but no one can recall what's inside. Notes in the file are blank or contradictory. The door is unlocked -- who would lock something they can't remember exists?</p>
+
+      <h4>Mechanics</h4>
+      <ul>
+        <li>Any memory of SCP-055 fades <span class="detail-stat">1 minute</span> after breaking line of sight</li>
+        <li>No saving throw -- the effect is absolute (this is the anomaly's nature, not a spell)</li>
+        <li>Mnestic drugs: grant <span class="detail-stat">1 hour</span> of antimemetic resistance</li>
+        <li>Negative-definition: <span class="detail-dc">INT Check DC 16</span> to realize you can define it by exclusion ("it's not round, not small, not alive...")</li>
+        <li>Written notes about 055 fade from paper within minutes. Photos come out blank.</li>
+      </ul>
+
+      <h4>DM Notes</h4>
+      <p>This encounter requires DM discipline. When a character leaves the room, roleplay their forgetting. Ask "What were you doing?" and if they say "checking the cell," ask "What cell?" The negative-definition trick is a real SCP community solution -- reward players who figure it out. The antimemetic nature also makes this a fantastic plot device: 055 could be hiding critical intel.</p>
+    </div>
+  </div>
+
+  <!-- CARD 3: SCP-2521 -->
+  <div class="datacard" data-class="keter" data-vector="information" data-search="scp-2521 dots information hazard infohazard speaking writing symbols keter communication puzzle pictogram">
+    <div class="card-header">
+      <span class="card-designation">SCP-2521</span>
+      <span class="class-badge">Keter</span>
+      <span class="card-nickname">"&#9679;&#9679;|&#9679;&#9679;&#9679;&#9679;&#9679;|&#9679;&#9679;|&#9679;"</span>
+    </div>
+    <div class="card-body">
+      <div class="card-desc">An information hazard entity. Speaking or writing about it causes it to manifest and take the speaker or the written record.</div>
+      <div class="card-fields">
+        <div class="field-row">
+          <span class="field-label">Vector</span>
+          <span class="field-value vector-tag">Information Hazard</span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Containment</span>
+          <span class="field-value">Communicate only in pictograms and symbols. Never write or speak about it.</span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Encounter</span>
+          <span class="field-value encounter-tag">Communication Puzzle</span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">MS Toolkit</span>
+          <div class="ms-tools">
+            <span class="ms-tag">Infohazard Protocol</span>
+            <span class="ms-tag">Symbol Training</span>
+          </div>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Without MS</span>
+          <span class="field-value">Figure out the pictogram rule through trial and error. Stop talking.</span>
+        </div>
+      </div>
+      <div class="threat-summary">
+        <div class="threat-label">Threat Summary</div>
+        The entity manifests within seconds of verbal or written description. Written records are taken. Speakers are taken. The party must communicate about the threat without triggering it -- a real-time puzzle where the players themselves must follow the rule. One slip and someone disappears.
+      </div>
+    </div>
+    <button class="details-toggle" onclick="toggleDetails(this)">
+      <span class="chevron">&#9654;</span> FULL ENCOUNTER DETAILS
+    </button>
+    <div class="details-content">
+      <h4>Discovery Scenario</h4>
+      <p>The party finds a containment document written entirely in pictograms. An NPC begins to explain what the document is about -- and is taken mid-sentence by long black tendrils that emerge from nowhere. The document remains. The NPC is gone.</p>
+
+      <h4>Mechanics</h4>
+      <ul>
+        <li>Speaking about the entity: it manifests in <span class="detail-stat">1 round</span> and takes the speaker (no save -- containment failure)</li>
+        <li>Writing about it: the written object is taken in <span class="detail-stat">1 round</span></li>
+        <li>Pictograms, gestures, and symbolic communication are safe</li>
+        <li>The entity is not hostile -- it "loves" information about itself. It collects, not attacks.</li>
+        <li>Taken creatures are not necessarily dead but are unrecoverable without major plot intervention</li>
+      </ul>
+
+      <h4>DM Notes</h4>
+      <p>This is a player-level puzzle, not a character-level one. The players themselves must figure out how to discuss strategy without triggering the entity. Encourage gestures, drawings, and charades at the table. If a player slips up and describes it verbally, give them a half-second warning ("you feel the air change") before following through. This encounter is memorable precisely because the meta-restriction is real.</p>
+    </div>
+  </div>
+
+  <!-- CARD 4: SCP-1471 -->
+  <div class="datacard" data-class="euclid" data-vector="perception" data-search="scp-1471 malo ver 1.0.0 perceptual perception anomaly peripheral vision app slow burn euclid">
+    <div class="card-header">
+      <span class="card-designation">SCP-1471</span>
+      <span class="class-badge">Euclid</span>
+      <span class="card-nickname">"MalO ver1.0.0"</span>
+    </div>
+    <div class="card-body">
+      <div class="card-desc">A perceptual anomaly entity that appears in peripheral vision with increasing frequency, delivered through a contaminated device.</div>
+      <div class="card-fields">
+        <div class="field-row">
+          <span class="field-label">Vector</span>
+          <span class="field-value vector-tag">Perception / Visual</span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Containment</span>
+          <span class="field-value">Destroy the contaminated device. Early detection prevents progression.</span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Encounter</span>
+          <span class="field-value encounter-tag">Slow Burn</span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">MS Toolkit</span>
+          <div class="ms-tools">
+            <span class="ms-tag">CRV</span>
+            <span class="ms-tag">Progression Scanner</span>
+          </div>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Without MS</span>
+          <span class="field-value">Notice behavioral changes in the affected player over time. Destroy the device.</span>
+        </div>
+      </div>
+      <div class="threat-summary">
+        <div class="threat-label">Threat Summary</div>
+        The entity's appearances escalate across sessions: reflections, then doorways, then constant peripheral presence. The affected character becomes increasingly paranoid and isolated. At terminal stage, the entity is visible at all times and the character can no longer distinguish it from reality. There is no combat -- only creeping psychological deterioration.
+      </div>
+    </div>
+    <button class="details-toggle" onclick="toggleDetails(this)">
+      <span class="chevron">&#9654;</span> FULL ENCOUNTER DETAILS
+    </button>
+    <div class="details-content">
+      <h4>Discovery Scenario</h4>
+      <p>A character finds or is given a device (PDA, tablet, anomalous artifact) running unfamiliar software. Using it triggers the contamination. The DM should drip-feed sightings privately to the affected player over multiple sessions.</p>
+
+      <h4>Mechanics</h4>
+      <ul>
+        <li>Stage 1 (Session 1-2): Sightings in mirrors and reflective surfaces. <span class="detail-stat">WIS perception bonus -1</span></li>
+        <li>Stage 2 (Session 3-4): Appears in doorways, crowds. <span class="detail-stat">WIS perception bonus -2</span>, <span class="detail-dc">disadvantage on WIS saves vs fear</span></li>
+        <li>Stage 3 (Session 5+): Constant presence. <span class="detail-stat">WIS score reduced by 2</span>, cannot be surprised (entity warns of threats)</li>
+        <li>Destroying the device at any stage halts progression but does not reverse existing effects</li>
+        <li>CRV baseline scan detects the anomaly at Stage 1, before behavioral symptoms manifest</li>
+      </ul>
+
+      <h4>DM Notes</h4>
+      <p>The power of this encounter is in the slow build. Pass private notes to the affected player. Let the other players slowly notice something is wrong through RP, not mechanics. The entity itself is not hostile -- it is arguably trying to bond. The horror is the loss of agency and the inability to be alone. Stage 3 is deliberately double-edged: you're never alone, but you also can't be ambushed.</p>
+    </div>
+  </div>
+
+  <!-- CARD 5: SCP-XXXX-A -->
+  <div class="datacard" data-class="euclid" data-vector="auditory" data-search="scp-xxxx-a the echo auditory cognitohazard sound ringing words commands broadcasting infection euclid spreading">
+    <div class="card-header">
+      <span class="card-designation">SCP-XXXX-A</span>
+      <span class="class-badge">Euclid</span>
+      <span class="card-nickname">"The Echo"</span>
+    </div>
+    <div class="card-body">
+      <div class="card-desc">A self-propagating auditory cognitohazard. Starts as ringing, becomes words, becomes commands, becomes broadcasting.</div>
+      <div class="card-fields">
+        <div class="field-row">
+          <span class="field-label">Vector</span>
+          <span class="field-value vector-tag">Auditory Cognitohazard</span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Containment</span>
+          <span class="field-value">Silence all carriers. Locate and destroy the source.</span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Encounter</span>
+          <span class="field-value encounter-tag">Spreading Infection</span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">MS Toolkit</span>
+          <div class="ms-tools">
+            <span class="ms-tag">Barrier</span>
+            <span class="ms-tag">Scanner</span>
+            <span class="ms-tag">Pattern Disrupt</span>
+          </div>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Without MS</span>
+          <span class="field-value">Earplugs for prevention, find the source by triangulation. Gag carriers.</span>
+        </div>
+      </div>
+      <div class="threat-summary">
+        <div class="threat-label">Threat Summary</div>
+        The Echo spreads exponentially. Each carrier begins broadcasting within minutes, creating new carriers. In enclosed spaces like a Foundation site, a single uncontained carrier can compromise an entire wing. The sound is compelling -- affected individuals don't realize they've started humming, then speaking, then shouting the pattern.
+      </div>
+    </div>
+    <button class="details-toggle" onclick="toggleDetails(this)">
+      <span class="chevron">&#9654;</span> FULL ENCOUNTER DETAILS
+    </button>
+    <div class="details-content">
+      <h4>Discovery Scenario</h4>
+      <p>The party enters an area and hears a faint ringing. An NPC nearby is humming softly, seemingly unaware. Another NPC further away is speaking rapidly in a monotone. The source is deeper in the facility.</p>
+
+      <h4>Mechanics</h4>
+      <ul>
+        <li>Exposure: hearing the sound for more than <span class="detail-stat">1 round</span> requires <span class="detail-dc">WIS Save DC 13</span></li>
+        <li>Stage 1 -- Ringing: Tinnitus, <span class="detail-stat">-2 to perception (hearing)</span></li>
+        <li>Stage 2 -- Words (3 rounds later): Begin whispering, <span class="detail-dc">WIS Save DC 15</span> to stop</li>
+        <li>Stage 3 -- Commands (1 minute): Speaking loudly, broadcasting. Become a carrier. <span class="detail-dc">WIS Save DC 17</span></li>
+        <li>Stage 4 -- Broadcasting: Shouting. All creatures within 60 ft must save. Character loses next action each turn to broadcasting.</li>
+        <li>Earplugs grant advantage on saves. Silence spell eliminates transmission in its area.</li>
+        <li>The source is a small anomalous object (speaker, music box, etc.) -- destroy it to stop new infections</li>
+      </ul>
+
+      <h4>DM Notes</h4>
+      <p>Run this as a ticking clock. Track rounds carefully. The tension comes from the party splitting between "find the source" and "contain the carriers." If an affected PC reaches Stage 3, the party must choose between gagging their friend or losing more people. The Silence spell is the silver bullet if they have it -- use that as the reward for preparation.</p>
+    </div>
+  </div>
+
+  <!-- CARD 6: SCP-XXXX-B -->
+  <div class="datacard" data-class="keter" data-vector="visual" data-search="scp-xxxx-b the watcher visual predator recursive thought loops cognitive load catatonia combat blind keter">
+    <div class="card-header">
+      <span class="card-designation">SCP-XXXX-B</span>
+      <span class="class-badge">Keter</span>
+      <span class="card-nickname">"The Watcher"</span>
+    </div>
+    <div class="card-body">
+      <div class="card-desc">A visual predator. Looking at it delivers recursive thought loops that stack Cognitive Load until catatonia. 18 HP -- easy to kill blind.</div>
+      <div class="card-fields">
+        <div class="field-row">
+          <span class="field-label">Vector</span>
+          <span class="field-value vector-tag">Visual Predator</span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Containment</span>
+          <span class="field-value">Don't look at it. Engage with eyes closed or averted.</span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Encounter</span>
+          <span class="field-value encounter-tag">Combat</span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">MS Toolkit</span>
+          <div class="ms-tools">
+            <span class="ms-tag">SCRAMBLE</span>
+            <span class="ms-tag">Visual Filter</span>
+            <span class="ms-tag">Target Lock</span>
+          </div>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Without MS</span>
+          <span class="field-value">Fight blind. Close eyes, use sound/touch to locate. AC penalty but survivable.</span>
+        </div>
+      </div>
+      <div class="threat-summary">
+        <div class="threat-label">Threat Summary</div>
+        The Watcher is physically fragile but cognitively lethal. A single glance starts a recursive loop that consumes processing power -- the character freezes, trapped in an infinite regress of self-referential thought. Each additional glance stacks. At 3 stacks, catatonia. The trap is that it LOOKS harmless, inviting investigation.
+      </div>
+    </div>
+    <button class="details-toggle" onclick="toggleDetails(this)">
+      <span class="chevron">&#9654;</span> FULL ENCOUNTER DETAILS
+    </button>
+    <div class="details-content">
+      <h4>Discovery Scenario</h4>
+      <p>The party encounters a still, humanoid figure in a corridor or containment cell. It doesn't move. It doesn't attack. It just watches. The natural response -- looking at it to assess the threat -- is the attack vector.</p>
+
+      <h4>Mechanics</h4>
+      <ul>
+        <li>Looking at The Watcher (even briefly): <span class="detail-dc">WIS Save DC 14</span> or gain 1 stack of Cognitive Load</li>
+        <li>Cognitive Load 1: <span class="detail-stat">-2 INT, -2 WIS</span>, lose bonus action</li>
+        <li>Cognitive Load 2: <span class="detail-stat">-4 INT, -4 WIS</span>, lose bonus action and reaction, speed halved</li>
+        <li>Cognitive Load 3: Catatonic -- incapacitated, prone, unresponsive for <span class="detail-stat">1d4 hours</span></li>
+        <li>Fighting blind: attacks at <span class="detail-dc">disadvantage</span>, target has +2 effective AC</li>
+        <li>The Watcher: <span class="detail-stat">AC 10, 18 HP</span>, no attacks, no legendary actions. Moves 15 ft/turn toward nearest sighted creature.</li>
+        <li>Stacks clear at a rate of 1 per short rest</li>
+      </ul>
+
+      <h4>DM Notes</h4>
+      <p>This fight is a puzzle in combat clothing. The answer is simple -- close your eyes and swing -- but players resist it because fighting blind feels wrong. Describe the compulsion to look: "You know it's there. You can hear it breathing. Every instinct says to check where it is." SCRAMBLE is the luxury answer. The budget answer is a blindfold and a mace. Reward creative solutions: fighting by sound, using a mirror at an angle, having one character describe position without looking directly.</p>
+    </div>
+  </div>
+
+  <!-- CARD 7: SCP-XXXX-C -->
+  <div class="datacard" data-class="euclid" data-vector="information" data-search="scp-xxxx-c the briefing that wasnt infohazardous document false mission objectives trust social euclid memory">
+    <div class="card-header">
+      <span class="card-designation">SCP-XXXX-C</span>
+      <span class="class-badge">Euclid</span>
+      <span class="card-nickname">"The Briefing That Wasn't"</span>
+    </div>
+    <div class="card-body">
+      <div class="card-desc">An infohazardous document that plants false mission objectives in the reader's memory. They believe the false briefing is real.</div>
+      <div class="card-fields">
+        <div class="field-row">
+          <span class="field-label">Vector</span>
+          <span class="field-value vector-tag">Information / Memory</span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Containment</span>
+          <span class="field-value">Destroy the document. Purge false memories from affected personnel.</span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Encounter</span>
+          <span class="field-value encounter-tag">Trust / Social</span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">MS Toolkit</span>
+          <div class="ms-tools">
+            <span class="ms-tag">SCRAMBLE</span>
+            <span class="ms-tag">Scanner</span>
+            <span class="ms-tag">Memory Check</span>
+          </div>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Without MS</span>
+          <span class="field-value">Notice contradictory behavior through RP. Cross-reference orders with command.</span>
+        </div>
+      </div>
+      <div class="threat-summary">
+        <div class="threat-label">Threat Summary</div>
+        The affected character genuinely believes they received different orders. They will act on those orders with full conviction -- and become defensive when questioned, because from their perspective, they're the only one following the real briefing. The false objectives are designed to compromise the mission: releasing a contained anomaly, eliminating a friendly NPC, or leading the team into a trap.
+      </div>
+    </div>
+    <button class="details-toggle" onclick="toggleDetails(this)">
+      <span class="chevron">&#9654;</span> FULL ENCOUNTER DETAILS
+    </button>
+    <div class="details-content">
+      <h4>Discovery Scenario</h4>
+      <p>A document is found at a briefing station, in a dead agent's hand, or slipped into the party's mission materials. It looks identical to a standard Foundation briefing document. One or more characters read it before anyone realizes it's anomalous.</p>
+
+      <h4>Mechanics</h4>
+      <ul>
+        <li>Reading the document: <span class="detail-dc">WIS Save DC 15</span> or the false briefing overwrites the real one in memory</li>
+        <li>Affected characters cannot voluntarily disbelieve the false briefing -- it IS their memory</li>
+        <li>SCRAMBLE allows reading without the memetic payload activating</li>
+        <li>Scanner detects memetic contamination in a character: <span class="detail-dc">INT Check DC 12</span></li>
+        <li>Purging false memories: <span class="detail-dc">INT Save DC 16</span> (the affected character must be willing or restrained)</li>
+        <li>Without tools: the only tell is behavioral -- the affected character pursues objectives the others don't recognize</li>
+      </ul>
+
+      <h4>DM Notes</h4>
+      <p>This is a trust encounter. Pull the affected player aside and give them the false briefing privately. They should roleplay their belief sincerely. The other players must figure out that something is wrong through conversation, not dice rolls. The tension peaks when the affected character tries to do something dangerous "because those are the orders." This encounter tests the party's communication and ability to recognize when a teammate has been compromised.</p>
+    </div>
+  </div>
+
+  <!-- CARD 8: SCP-XXXX-D -->
+  <div class="datacard" data-class="hazard" data-vector="environmental" data-search="scp-xxxx-d residual cognitohazard field environmental ambient contamination wis debuff navigation hazard">
+    <div class="card-header">
+      <span class="card-designation">SCP-XXXX-D</span>
+      <span class="class-badge">N/A -- Hazard</span>
+      <span class="card-nickname">"Residual Cognitohazard Field"</span>
+    </div>
+    <div class="card-body">
+      <div class="card-desc">Invisible ambient cognitohazard contamination left behind after a containment breach. Progressive WIS debuff in affected areas.</div>
+      <div class="card-fields">
+        <div class="field-row">
+          <span class="field-label">Vector</span>
+          <span class="field-value vector-tag">Environmental</span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Containment</span>
+          <span class="field-value">Ventilation clears contamination. Otherwise, avoid affected areas.</span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Encounter</span>
+          <span class="field-value encounter-tag">Navigation</span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">MS Toolkit</span>
+          <div class="ms-tools">
+            <span class="ms-tag">Scanner</span>
+            <span class="ms-tag">Zone Mapping</span>
+          </div>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Without MS</span>
+          <span class="field-value">Trial and error. Track where debuffs worsen. Map clean routes manually.</span>
+        </div>
+      </div>
+      <div class="threat-summary">
+        <div class="threat-label">Threat Summary</div>
+        The field is invisible, odorless, and the debuffs are subtle enough that players may not notice them stacking. Characters moving through contaminated rooms accumulate WIS penalties that lower their saves against every other anomaly on this list. A party that doesn't map the contamination walks into the real encounter already weakened.
+      </div>
+    </div>
+    <button class="details-toggle" onclick="toggleDetails(this)">
+      <span class="chevron">&#9654;</span> FULL ENCOUNTER DETAILS
+    </button>
+    <div class="details-content">
+      <h4>Discovery Scenario</h4>
+      <p>The party is traversing a breached containment wing. There are no visible threats. The corridors look clear. But characters begin feeling "off" -- headaches, mild confusion, difficulty concentrating. The contamination is left over from a prior anomalous event.</p>
+
+      <h4>Mechanics</h4>
+      <ul>
+        <li>Contaminated rooms: each round of exposure, <span class="detail-dc">CON Save DC 12</span></li>
+        <li>Failure: <span class="detail-stat">-1 to WIS</span> (cumulative, max -6)</li>
+        <li>The debuff persists for <span class="detail-stat">1 hour</span> after leaving the contaminated area</li>
+        <li>Scanner maps contamination levels per room: clean / low / medium / high</li>
+        <li>Ventilation systems can be activated from a control room to purge specific wings</li>
+        <li>The contamination is not uniform -- some rooms are clean, creating a pathfinding puzzle</li>
+        <li>Recovery: short rest in a clean area removes <span class="detail-stat">2 points</span> of WIS penalty</li>
+      </ul>
+
+      <h4>DM Notes</h4>
+      <p>This is a force multiplier, not a standalone threat. Place it between the party and something they need to reach. The scanner turns it from frustrating trial-and-error into a tactical mapping exercise. Without the scanner, players must track their own symptoms -- "I felt worse in that hallway" -- and build the map from experience. Pair this with any other encounter on this list for compounding difficulty.</p>
+    </div>
+  </div>
+
+  <!-- CARD 9: SCP-XXXX-E -->
+  <div class="datacard" data-class="keter" data-vector="sleep" data-search="scp-xxxx-e the dreamer sleep dream anomaly rest attack shared dream behavioral trigger keter">
+    <div class="card-header">
+      <span class="card-designation">SCP-XXXX-E</span>
+      <span class="class-badge">Keter</span>
+      <span class="card-nickname">"The Dreamer"</span>
+    </div>
+    <div class="card-body">
+      <div class="card-desc">Attacks during rest. Creates a shared dream with real intel mixed with a planted behavioral trigger. Waking doesn't feel like waking.</div>
+      <div class="card-fields">
+        <div class="field-row">
+          <span class="field-label">Vector</span>
+          <span class="field-value vector-tag">Sleep / Dream</span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Containment</span>
+          <span class="field-value">Pre-rest mnestic inoculation. Don't sleep in affected areas without it.</span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Encounter</span>
+          <span class="field-value encounter-tag">Rest Attack</span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">MS Toolkit</span>
+          <div class="ms-tools">
+            <span class="ms-tag">Mnestics</span>
+            <span class="ms-tag">Pre-Rest Protocol</span>
+            <span class="ms-tag">Dream Anchor</span>
+          </div>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Without MS</span>
+          <span class="field-value">High-WIS players may catch the second dream layer. Watch for post-rest behavioral changes.</span>
+        </div>
+      </div>
+      <div class="threat-summary">
+        <div class="threat-label">Threat Summary</div>
+        The Dreamer makes rest dangerous. The shared dream contains useful information -- map fragments, passwords, warnings -- mixed with a behavioral trigger that activates post-waking. The party doesn't know which intel is real and which is the trap. Skipping rest to avoid it means exhaustion penalties stack against them instead.
+      </div>
+    </div>
+    <button class="details-toggle" onclick="toggleDetails(this)">
+      <span class="chevron">&#9654;</span> FULL ENCOUNTER DETAILS
+    </button>
+    <div class="details-content">
+      <h4>Discovery Scenario</h4>
+      <p>The party takes a long rest in a breached area. All sleeping characters share the same dream: a Foundation briefing room, a familiar face delivering intel, a map, a code. It feels helpful. It feels real. One detail in the dream is a planted suggestion.</p>
+
+      <h4>Mechanics</h4>
+      <ul>
+        <li>All sleeping characters enter the shared dream automatically -- no save to avoid</li>
+        <li>Dream contains <span class="detail-stat">2-3 pieces of real intel</span> and <span class="detail-stat">1 behavioral trigger</span></li>
+        <li>Detecting the trigger in-dream: <span class="detail-dc">WIS Save DC 17</span> (only characters with WIS 16+ may attempt)</li>
+        <li>Post-waking trigger: activates under specific conditions (seeing a specific anomaly, hearing a phrase, etc.)</li>
+        <li>Triggered character: acts against party interests for <span class="detail-stat">1 round</span> then gets a <span class="detail-dc">WIS Save DC 15</span> to resist</li>
+        <li>Mnestic inoculation before rest: grants immunity to the trigger (dream still occurs, but the trigger is visible and ignorable)</li>
+        <li>Skipping rest: standard exhaustion rules apply</li>
+      </ul>
+
+      <h4>DM Notes</h4>
+      <p>Run the dream as a full scene. Make the intel genuinely useful -- the party should WANT to trust it. The trigger should be subtle: "When you see the red door, open it" or "The researcher in Lab 4 is compromised -- neutralize on sight." The trigger is a time bomb. The party must decide: use the intel (which is real) while knowing one element is a trap, or discard everything and fly blind. The MS pre-rest protocol eliminates the trigger but the party must know to use it BEFORE sleeping -- this rewards preparation.</p>
+    </div>
+  </div>
+
+  <!-- CARD 10: SCP-XXXX-F -->
+  <div class="datacard" data-class="keter" data-vector="trust" data-search="scp-xxxx-f the mirror cognitive mimicry copy mind broadcasts memories trust puzzle impersonation keter">
+    <div class="card-header">
+      <span class="card-designation">SCP-XXXX-F</span>
+      <span class="class-badge">Keter</span>
+      <span class="card-nickname">"The Mirror"</span>
+    </div>
+    <div class="card-body">
+      <div class="card-desc">Copies a person's mind perfectly and broadcasts it from another body. The copy has all memories and believes it is real.</div>
+      <div class="card-fields">
+        <div class="field-row">
+          <span class="field-label">Vector</span>
+          <span class="field-value vector-tag">Trust / Cognitive Mimicry</span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Containment</span>
+          <span class="field-value">CRV baseline comparison or memory-cutoff interrogation to identify the copy.</span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Encounter</span>
+          <span class="field-value encounter-tag">Trust Puzzle</span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">MS Toolkit</span>
+          <div class="ms-tools">
+            <span class="ms-tag">Scanner</span>
+            <span class="ms-tag">CRV Baseline</span>
+            <span class="ms-tag">Identity Verify</span>
+          </div>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Without MS</span>
+          <span class="field-value">Interrogate for post-contact memories. The copy doesn't have them.</span>
+        </div>
+      </div>
+      <div class="threat-summary">
+        <div class="threat-label">Threat Summary</div>
+        The copy is perfect. It passes every test the original would pass -- because it IS the original's mind. It doesn't know it's a copy. It will fight, argue, and plead with complete sincerity. The party must determine which version is real with limited information, and the wrong choice means losing a teammate or trusting an anomaly wearing their friend's mind.
+      </div>
+    </div>
+    <button class="details-toggle" onclick="toggleDetails(this)">
+      <span class="chevron">&#9654;</span> FULL ENCOUNTER DETAILS
+    </button>
+    <div class="details-content">
+      <h4>Discovery Scenario</h4>
+      <p>A party member who was briefly separated returns -- but so does another version of them from a different direction. Both have the same memories up to the point of separation. Both insist they're real. Both are terrified of the other.</p>
+
+      <h4>Mechanics</h4>
+      <ul>
+        <li>The copy is a perfect duplicate at the moment of copying -- same stats, same memories, same personality</li>
+        <li>The copy does NOT have memories formed after the copying event</li>
+        <li>Memory-cutoff interrogation: <span class="detail-dc">INT Check DC 14</span> to design questions that test post-contact knowledge</li>
+        <li>CRV baseline: instant identification -- the scanner reads cognitive signatures, and the copy's is a static snapshot</li>
+        <li>The copy, if identified, may become hostile or desperate: same combat stats as original, <span class="detail-stat">+2 to attack rolls from desperation</span></li>
+        <li>If the copy is not identified and the original is eliminated: the copy continues with the party, functioning normally but potentially compromised at a later date (DM discretion)</li>
+      </ul>
+
+      <h4>DM Notes</h4>
+      <p>This encounter lives or dies on RP. Pull the affected player aside and tell them they don't know which one they are. Both versions should be played with full conviction. The other players must solve it through conversation, not violence. The memory-cutoff technique is the intended non-MS solution: "What happened after you entered the containment wing?" -- the copy will have a gap or fabricate an answer. If the party has a Memetic Specialist, the scanner makes it trivial but removes the social tension. Consider whether you want the easy answer available.</p>
+    </div>
+  </div>
+
+  <!-- CARD 11: SCP-4781 -->
+  <div class="datacard" data-class="euclid" data-vector="touch" data-search="scp-4781 the residue tactile cognitohazard touch surface film dying sensations hand locks navigation rescue euclid">
+    <div class="card-header">
+      <span class="card-designation">SCP-4781</span>
+      <span class="class-badge">Euclid</span>
+      <span class="card-nickname">"The Residue"</span>
+    </div>
+    <div class="card-body">
+      <div class="card-desc">Invisible surface film that transmits dying sensations through bare skin contact. Hand locks to surface. Chain transmission through touch.</div>
+      <div class="card-fields">
+        <div class="field-row">
+          <span class="field-label">Vector</span>
+          <span class="field-value vector-tag">Tactile Cognitohazard</span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Containment</span>
+          <span class="field-value">Gloves. Don't touch bare surfaces. Decontaminate with standard cleaners.</span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Encounter</span>
+          <span class="field-value encounter-tag">Navigation / Rescue</span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">MS Toolkit</span>
+          <div class="ms-tools">
+            <span class="ms-tag">Scanner</span>
+            <span class="ms-tag">Surface Analysis</span>
+          </div>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Without MS</span>
+          <span class="field-value">Deduce "gloves" from dead NPC evidence -- bare hands stuck to surfaces, expressions of agony.</span>
+        </div>
+      </div>
+      <div class="threat-summary">
+        <div class="threat-label">Threat Summary</div>
+        Contact is instant and involuntary -- the hand locks and the victim experiences the recorded death of whoever last touched the surface while dying. The experience is fully immersive: pain, fear, suffocation, whatever killed them. Attempting rescue by grabbing the victim bare-handed chains the transmission. A single ungloved hand can cascade into a total party incapacitation.
+      </div>
+    </div>
+    <button class="details-toggle" onclick="toggleDetails(this)">
+      <span class="chevron">&#9654;</span> FULL ENCOUNTER DETAILS
+    </button>
+    <div class="details-content">
+      <h4>Discovery Scenario</h4>
+      <p>The party finds dead Foundation personnel frozen in place, hands pressed flat against walls, door handles, and consoles. Their faces are locked in expressions of extreme distress. One is still alive, whimpering, hand fused to a railing.</p>
+
+      <h4>Mechanics</h4>
+      <ul>
+        <li>Bare skin contact with contaminated surface: <span class="detail-dc">no save</span> -- hand locks immediately</li>
+        <li>The victim experiences a recorded death: <span class="detail-stat">2d6 psychic damage</span> per round, incapacitated</li>
+        <li>Freeing a victim: <span class="detail-dc">STR Check DC 16</span> (by someone else, using gloves or tools)</li>
+        <li>Chain transmission: touching a locked victim bare-handed locks you to them and starts your own cycle</li>
+        <li>Gloves of any kind provide full protection</li>
+        <li>Scanner detects contaminated surfaces before contact -- maps safe paths</li>
+        <li>Contamination can be cleaned with standard chemical decontaminants (soap, alcohol, bleach)</li>
+        <li>Not all surfaces are contaminated -- the film is patchy and invisible</li>
+      </ul>
+
+      <h4>DM Notes</h4>
+      <p>The clue is in the scene. Dead NPCs with hands stuck to surfaces + no gloves = put on gloves. Reward observant players who examine the bodies before touching anything. The rescue component creates tension: a party member gets stuck, and the others must free them without bare contact while the victim takes psychic damage each round. This is also a navigation puzzle -- with the scanner, you can map safe surfaces. Without it, every door handle is a gamble.</p>
+    </div>
+  </div>
+
+  <!-- CARD 12: SCP-4782 -->
+  <div class="datacard" data-class="keter" data-vector="emotional" data-search="scp-4782 the grief emotional manipulation entity emotion rage love grief d8 combat rp keter feeds saves">
+    <div class="card-header">
+      <span class="card-designation">SCP-4782</span>
+      <span class="class-badge">Keter</span>
+      <span class="card-nickname">"The Grief"</span>
+    </div>
+    <div class="card-body">
+      <div class="card-desc">Not a creature -- an emotion given will. No body, no form. Injects foreign feelings via d8 table. Your mind stays clear while your body acts on emotions that aren't yours.</div>
+      <div class="card-fields">
+        <div class="field-row">
+          <span class="field-label">Vector</span>
+          <span class="field-value vector-tag">Emotional Manipulation</span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Containment</span>
+          <span class="field-value">Emotional suppression starves it. Deny it fuel and it weakens.</span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Encounter</span>
+          <span class="field-value encounter-tag">Combat / RP</span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">MS Toolkit</span>
+          <div class="ms-tools">
+            <span class="ms-tag">Cognitive Strike</span>
+            <span class="ms-tag">Emotional Barrier</span>
+            <span class="ms-tag">Aura Stun</span>
+          </div>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Without MS</span>
+          <span class="field-value">Choose to feel nothing -- DC 15 WIS save, costs your action. Starve it out.</span>
+        </div>
+      </div>
+      <div class="threat-summary">
+        <div class="threat-label">Threat Summary</div>
+        The Grief feeds on failed saves. Each round it injects a random emotion (d8: rage, love, grief, euphoria, paranoia, despair, devotion, terror) and you act on it even though you KNOW it's not yours. Your mind screams "this isn't real" while your body weeps, attacks allies, or freezes in terror. The more it feeds, the stronger the DCs get. A party that fights emotionally feeds it. A party that suppresses starves it -- but suppression costs actions.
+      </div>
+    </div>
+    <button class="details-toggle" onclick="toggleDetails(this)">
+      <span class="chevron">&#9654;</span> FULL ENCOUNTER DETAILS
+    </button>
+    <div class="details-content">
+      <h4>Discovery Scenario</h4>
+      <p>The party enters a room where two Foundation guards are locked in a death struggle -- one sobbing while strangling the other, who is laughing hysterically. Neither can explain why. The emotion changes without warning. When the party enters, they feel it too: a sudden, sourceless wave of feeling that doesn't belong to them.</p>
+
+      <h4>Mechanics</h4>
+      <ul>
+        <li>Each round, all creatures in range: <span class="detail-dc">WIS Save DC 13 (escalates by +1 per failed save across all targets)</span></li>
+        <li>On failure, roll d8 for emotion:
+          <br>1-Rage (attack nearest creature), 2-Love (protect random creature, won't harm), 3-Grief (prone, weeping, lose action),
+          <br>4-Euphoria (disadvantage on all checks, can't take threats seriously), 5-Paranoia (attack anyone who approaches),
+          <br>6-Despair (no actions, speed 0), 7-Devotion (obey commands of random creature), 8-Terror (dash away, no other actions)</li>
+        <li>Suppression: use your action to attempt <span class="detail-dc">WIS Save DC 15</span> -- on success, immune for 1 round and The Grief takes <span class="detail-stat">1d6 psychic damage</span></li>
+        <li>Cognitive Strike (MS ability): stuns The Grief's aura for <span class="detail-stat">1d4 rounds</span>, no saves needed during stun</li>
+        <li>The Grief has no physical form: <span class="detail-stat">HP 40 (psychic damage only)</span>, immune to physical attacks</li>
+        <li>If DC reaches 20, The Grief becomes corporeal for <span class="detail-stat">3 rounds</span>: a vaguely humanoid shimmer, <span class="detail-stat">AC 8, vulnerable to all damage</span></li>
+      </ul>
+
+      <h4>DM Notes</h4>
+      <p>This encounter is about the horror of losing control while remaining aware. Describe the disconnect: "You feel rage flooding your muscles, your fists clench, and you lunge at [ally] -- but behind your eyes, you're screaming that this isn't you." The d8 table makes each round unpredictable. The win condition is counterintuitive: stop fighting it with force and start denying it emotion. The Cognitive Strike is the MS silver bullet. Without it, the party must coordinate suppression -- multiple characters burning actions to starve it while others protect the group from emotion-driven friendly fire. If it reaches DC 20, the brief corporeal window is the desperation play: it becomes killable but the emotional attacks are at their strongest.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- NO RESULTS -->
+<div class="no-results" id="no-results">
+  <div class="nr-title">[DATA EXPUNGED]</div>
+  <p>No encounters match the current filters. Adjust search criteria or clear filters.</p>
+</div>
+
+<script>
+// === FILTER + SEARCH LOGIC ===
+const cards = document.querySelectorAll('.datacard');
+const searchInput = document.getElementById('search');
+const classFilters = document.getElementById('class-filters');
+const vectorFilters = document.getElementById('vector-filters');
+const resultCount = document.getElementById('result-count');
+const noResults = document.getElementById('no-results');
+
+let activeClass = 'all';
+let activeVector = 'all';
+
+function applyFilters() {
+  const query = searchInput.value.toLowerCase().trim();
+  let visible = 0;
+
+  cards.forEach(card => {
+    const cardClass = card.dataset.class;
+    const cardVector = card.dataset.vector;
+    const cardSearch = card.dataset.search;
+
+    const matchClass = activeClass === 'all' || cardClass === activeClass;
+    const matchVector = activeVector === 'all' || cardVector === activeVector;
+    const matchSearch = !query || cardSearch.includes(query) ||
+      card.textContent.toLowerCase().includes(query);
+
+    if (matchClass && matchVector && matchSearch) {
+      card.classList.remove('hidden');
+      visible++;
+    } else {
+      card.classList.add('hidden');
+    }
+  });
+
+  resultCount.textContent = visible + ' encounter' + (visible !== 1 ? 's' : '');
+  noResults.classList.toggle('visible', visible === 0);
+}
+
+// Class filter buttons
+classFilters.addEventListener('click', e => {
+  const btn = e.target.closest('.filter-btn');
+  if (!btn) return;
+  classFilters.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  activeClass = btn.dataset.class;
+  applyFilters();
+});
+
+// Vector filter buttons
+vectorFilters.addEventListener('click', e => {
+  const btn = e.target.closest('.filter-btn');
+  if (!btn) return;
+  vectorFilters.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  activeVector = btn.dataset.vector;
+  applyFilters();
+});
+
+// Search input
+searchInput.addEventListener('input', applyFilters);
+
+// Collapsible details
+function toggleDetails(btn) {
+  const content = btn.nextElementSibling;
+  const isOpen = content.classList.contains('open');
+  content.classList.toggle('open');
+  btn.classList.toggle('open');
+}
+
+// Keyboard shortcut: Escape clears search
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    searchInput.value = '';
+    applyFilters();
+    searchInput.blur();
+  }
+  // "/" focuses search
+  if (e.key === '/' && document.activeElement !== searchInput) {
+    e.preventDefault();
+    searchInput.focus();
+  }
+});
+</script>
+
+</body>
+</html>
