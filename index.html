@@ -787,6 +787,63 @@ body {
       </ul>
     </div>
   </div>
+
+  <h3 style="color:var(--accent);margin-bottom:12px;font-family:'Source Code Pro',monospace;margin-top:24px;">What Do I Do On My Turn?</h3>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:24px;">
+
+    <!-- CM Flowchart -->
+    <div class="dm-section" style="border-left:3px solid var(--cm-color);padding:16px;">
+      <h3 style="color:var(--cm-color);margin-bottom:10px;border:0;padding:0;">Combat Medic</h3>
+      <div style="font-size:12px;line-height:1.8;color:var(--text);">
+        <strong style="color:var(--accent);">START &rarr;</strong> Is someone at 0 HP?<br>
+        &nbsp;&nbsp;<strong style="color:#20e060;">YES</strong> &rarr; Can you reach them?<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<strong style="color:#20e060;">YES</strong> &rarr; <strong>First Aid</strong> (action) + <strong>Triage</strong> (BA)<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<strong style="color:var(--cm-color);">NO</strong> &rarr; <strong>Trauma Extraction</strong> (action: grab + drag + patch)<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or <strong>Combat Stabilization</strong> (reaction: throw canister)<br>
+        &nbsp;&nbsp;<strong style="color:var(--cm-color);">NO</strong> &rarr; Is someone hurt?<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<strong style="color:#20e060;">YES</strong> &rarr; <strong>First Aid</strong> (action) + <strong>Triage</strong> (BA) on worst off<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<strong style="color:var(--cm-color);">NO</strong> &rarr; <strong>Attack</strong> (action) or hold<br><br>
+        <strong style="color:var(--accent);">ALWAYS CHECK:</strong> Got Triage charges? Use BA to patch. Out of charges? Soft landing (1 last stabilize/condition use).<br>
+        <strong style="color:var(--accent);">REACTION:</strong> Ally drops? Combat Stab OR Emergency Response (pick one).
+      </div>
+    </div>
+
+    <!-- IM Flowchart -->
+    <div class="dm-section" style="border-left:3px solid var(--im-color);padding:16px;">
+      <h3 style="color:var(--im-color);margin-bottom:10px;border:0;padding:0;">Internal Medic</h3>
+      <div style="font-size:12px;line-height:1.8;color:var(--text);">
+        <strong style="color:var(--accent);">START &rarr;</strong> Pick your <strong>mode</strong> (one per action):<br>
+        &nbsp;&nbsp;Someone bleeding badly? &rarr; <strong style="color:#20e060;">HEAL</strong> (roll First Aid dice)<br>
+        &nbsp;&nbsp;Someone has a condition? &rarr; <strong style="color:var(--accent);">CURE</strong> (Purge it, costs charge)<br>
+        &nbsp;&nbsp;Someone about to get hit? &rarr; <strong style="color:var(--im-color);">BUFF</strong> (+2 AC / adv save / reposition)<br><br>
+        <strong style="color:var(--accent);">BONUS ACTION &rarr;</strong> Pick one:<br>
+        &nbsp;&nbsp;<strong>Scan enemy</strong> (Clinical Scanner &rarr; +1 attack for allies on success)<br>
+        &nbsp;&nbsp;<strong>Coach ally</strong> (Directed Triage &rarr; ally spends hit die + your WIS)<br><br>
+        <strong style="color:var(--accent);">REACTION:</strong> Enemy attacking? <strong>Analysis Paralysis</strong> (disadvantage on that attack).
+      </div>
+    </div>
+
+    <!-- MS Flowchart -->
+    <div class="dm-section" style="border-left:3px solid var(--ms-color);padding:16px;">
+      <h3 style="color:var(--ms-color);margin-bottom:10px;border:0;padding:0;">Memetic Specialist</h3>
+      <div style="font-size:12px;line-height:1.8;color:var(--text);">
+        <strong style="color:var(--accent);">START &rarr;</strong> Are there mental threats?<br>
+        &nbsp;&nbsp;<strong style="color:#20e060;">YES</strong> &rarr; Ally compromised? <strong>Cog Decontam</strong> (action: re-save w/ advantage)<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;Need area defense? <strong>Barrier</strong> (action: 15ft adv WIS saves)<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;Need to shut one down? <strong>Cognitive Strike</strong> (action: stun/blind/compel)<br>
+        &nbsp;&nbsp;<strong style="color:var(--ms-color);">NO</strong> &rarr; Someone hurt? <strong>First Aid</strong> (action)<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;Nobody hurt? <strong>First Aid</strong> on self or <strong>attack</strong><br><br>
+        <strong style="color:var(--accent);">BONUS ACTION &rarr;</strong> Pick one:<br>
+        &nbsp;&nbsp;<strong>Scan enemy</strong> (Psych Reading &rarr; allies deal +damage)<br>
+        &nbsp;&nbsp;<strong>Scan ally</strong> (Cog Triage &rarr; advantage on next save)<br><br>
+        <strong style="color:var(--accent);">REACTION:</strong> Ally makes WIS save? <strong>Cog Warning</strong> (advantage).<br>
+        Ally succeeds any save? <strong>Residual Imprint</strong> (adv on next check/save).
+      </div>
+    </div>
+
+  </div>
+
 </div>
 
 <!-- ===================== BASE MEDIC TAB ===================== -->
