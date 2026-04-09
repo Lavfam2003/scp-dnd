@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SCP Foundation — Medic Class v0.12</title>
+<title>SCP Foundation — Medic Class v0.13</title>
 <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500;700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -651,7 +651,7 @@ body {
       <div class="scp-logo">SCP</div>
       <div>
         <h1>MEDIC CLASS PROPOSAL</h1>
-        <span class="version">v0.12 // DRAFT FOR DM REVIEW</span>
+        <span class="version">v0.13 // DRAFT FOR DM REVIEW</span>
       </div>
     </div>
     <div class="search-box">
@@ -723,47 +723,47 @@ body {
       <div class="prog-cell level-num">3</div>
       <div class="prog-cell">Triage, Combat Stabilization</div>
       <div class="prog-cell">Preemptive Treatment, Purge</div>
-      <div class="prog-cell">Memetic Inoculation, Psych Reading, Cog Triage, Residual Imprint</div>
+      <div class="prog-cell">Memetic Inoculation, Psych Reading (choice), Cog Triage</div>
 
       <div class="prog-cell level-num">4</div>
       <div class="prog-cell">Under Fire, Proximity Training, Field Forensics, TMA</div>
-      <div class="prog-cell">Directed Recovery, Directed Triage, Classified Consultation, Clinical Scanner</div>
+      <div class="prog-cell"><strong>Crash Cart</strong>, Directed Triage, Consultation, Scanner</div>
       <div class="prog-cell">Cog Decontamination, Inoculation+</div>
 
       <div class="prog-cell level-num">5</div>
       <div class="prog-cell">Adrenaline Shot, <strong>Trauma Extraction</strong>, FA 3d6</div>
-      <div class="prog-cell">Analysis Paralysis, FA 3d6</div>
-      <div class="prog-cell">Pattern Recognition, SCRAMBLE, FA 3d6</div>
+      <div class="prog-cell"><strong>Directed Recovery</strong>, Analysis Paralysis, FA 3d6</div>
+      <div class="prog-cell">Pattern Recognition, SCRAMBLE (utility), TAA-9, FA 3d6</div>
 
       <div class="prog-cell level-num">6</div>
       <div class="prog-cell">Patch Job + Field Remedy, Triage Point</div>
-      <div class="prog-cell">Amnestics, <strong>Field Triage Protocol</strong></div>
-      <div class="prog-cell">Counter-Memetic Barrier, Advanced CRV</div>
+      <div class="prog-cell">Amnestics, <strong>Contraindication Shot</strong></div>
+      <div class="prog-cell">Counter-Memetic Barrier, Adv. CRV, RAT</div>
 
       <div class="prog-cell level-num">7</div>
       <div class="prog-cell">Field Surgery, Battlefield Awareness, AAMR</div>
-      <div class="prog-cell">Strategic Prep (AR-5, CF-2), Analysis&times;2</div>
-      <div class="prog-cell">Memetic Hardening, Cog Warning, Decontam&times;2</div>
+      <div class="prog-cell">Strategic Prep (AR-5, CF-2), <strong>Polypharmacy</strong>, Analysis&times;2</div>
+      <div class="prog-cell">Memetic Hardening, Cog Warning, Attentional Capture, Decontam&times;2</div>
 
       <div class="prog-cell level-num">8</div>
       <div class="prog-cell">Mass Triage, FA 4d6</div>
-      <div class="prog-cell">Class-B Amnestics, Med Authority, FA 4d6</div>
-      <div class="prog-cell"><strong>Division Induction:</strong> Cognitive Strike, SCRAMBLE&times;2, FA 4d6</div>
+      <div class="prog-cell">Class-B Amnestics, Med Authority, <strong>Field Triage Protocol</strong>, FA 4d6</div>
+      <div class="prog-cell"><strong>Division Induction:</strong> Cognitive Strike, SCRAMBLE 60ft, FA 4d6</div>
 
       <div class="prog-cell level-num">9</div>
       <div class="prog-cell">Adrenaline Surge, Surgery+, Extraction&rarr;BA</div>
-      <div class="prog-cell">Experimental Protocol, DT&times;3</div>
-      <div class="prog-cell">Antimemetic Protocol, CW&times;2, Decontam&times;3</div>
+      <div class="prog-cell">Experimental Protocol, <strong>Field Test</strong>, DT&times;3</div>
+      <div class="prog-cell">Antimemetic Protocol, EPD, CW&times;2, Decontam&times;3</div>
 
       <div class="prog-cell level-num">10</div>
       <div class="prog-cell">Adv. Field Surgery, FA 5d6</div>
       <div class="prog-cell">Protocol HIPPOCRATES, AP-1</div>
-      <div class="prog-cell">Antimemetic Concealment</div>
+      <div class="prog-cell">Antimemetic Concealment, Causal Severance Tag</div>
 
       <div class="prog-cell level-num">11</div>
       <div class="prog-cell">Miraculous Save, Mastery</div>
       <div class="prog-cell">Class-C Amnestics, FA 5d6, Fortify</div>
-      <div class="prog-cell">Adv. BL Weapons, Identity Fracture, SCRAMBLE always-on</div>
+      <div class="prog-cell">Adv. BL Weapons, Identity Fracture, SCRAMBLE neural-paired</div>
 
       <div class="prog-cell level-num">12</div>
       <div class="prog-cell" style="color:var(--cm-color);font-weight:700">One More Breath, FA 6d6</div>
@@ -772,21 +772,42 @@ body {
     </div>
   </div>
 
-  <h3 style="color:var(--accent);margin-bottom:12px;font-family:'Source Code Pro',monospace;margin-top:24px;">v0.12 Changes</h3>
+  <h3 style="color:var(--accent);margin-bottom:12px;font-family:'Source Code Pro',monospace;margin-top:24px;">v0.13 Changes (Goober Feedback Integration)</h3>
   <div class="dm-section">
     <div class="ability-desc">
       <ul>
-        <li><strong style="color:var(--cm-color)">Trauma Extraction</strong> (CM L5) &mdash; Drag ally to safety + free Triage patch</li>
-        <li><strong style="color:var(--cm-color)">Triage soft landing</strong> &mdash; 1 extra use after charges expire (stabilize/condition only)</li>
-        <li><strong style="color:var(--im-color)">Field Triage Protocol</strong> (IM L6) &mdash; Scan &rarr; advantage on next treatment</li>
-        <li><strong style="color:var(--ms-color)">Residual Imprint</strong> (MS L3) &mdash; Reaction on ally save success</li>
-        <li><strong style="color:var(--ms-color)">Identity Fracture rebalanced</strong> (MS L11) &mdash; 1/LR, single target, cognitive backlash</li>
-        <li><strong style="color:var(--im-color)">Lazarus Vital Transfer</strong> (IM L12) &mdash; Half HP cost + anomaly condition</li>
-        <li><strong>L7-12 full writeups</strong> for all three specs</li>
-        <li><strong>8 ambiguity fixes</strong> across all specs</li>
+        <li><strong style="color:var(--im-color)">Crash Cart</strong> (IM L4) &mdash; Reaction: ally drops to 0 HP &rarr; burn compound to auto-stabilize</li>
+        <li><strong style="color:var(--im-color)">Pain Suppression</strong> (IM L5, replaces Brace) &mdash; Ignore Frightened/Charmed/Poisoned 1 turn</li>
+        <li><strong style="color:var(--im-color)">Contraindication Shot</strong> (IM L6) &mdash; Scanner-guided dart: half damage or half speed + no reactions</li>
+        <li><strong style="color:var(--im-color)">Polypharmacy</strong> (IM L7) &mdash; Flush active compound for free condition removal</li>
+        <li><strong style="color:var(--im-color)">Foundation Field Test</strong> (IM L9) &mdash; d100 experimental compound gamble</li>
+        <li><strong style="color:var(--ms-color)">Psych Reading choice mode</strong> (MS L3) &mdash; Targeting Data OR Cognitive Disruption</li>
+        <li><strong style="color:var(--ms-color)">TAA-9 Amnestic Aerosol</strong> (MS L5) &mdash; Adjacent CON save: can't attack 1 round</li>
+        <li><strong style="color:var(--ms-color)">Recursive Attention Card</strong> (MS L6) &mdash; Flash (incapacitate 1/SR) or Plant (area denial 1/LR)</li>
+        <li><strong style="color:var(--ms-color)">Attentional Capture</strong> (MS L7) &mdash; 3 targets: no reactions + halved movement</li>
+        <li><strong style="color:var(--ms-color)">Ennui Protocol Device</strong> (MS L9) &mdash; Apathy field (offensive mirror of Barrier)</li>
+        <li><strong style="color:var(--ms-color)">Causal Severance Tag</strong> (MS L10) &mdash; Strip anomalous defenses</li>
+        <li><strong style="color:var(--ms-color)">Residual Imprint CUT</strong> (MS L3) &mdash; Removed: WIS save redundancy</li>
+        <li><strong style="color:var(--ms-color)">SCRAMBLE &rarr; utility-only</strong> (MS L5) &mdash; Detection + safe reading, no save advantage</li>
+        <li><strong style="color:var(--cm-color)">CM mechanical changes</strong> &mdash; TMA flat d20, Trauma Extraction med check + healing penalty, Triage 3+prof uses, scanner DC scaling</li>
       </ul>
     </div>
   </div>
+  <details style="margin-bottom:16px;">
+    <summary style="color:var(--accent);cursor:pointer;font-family:'Source Code Pro',monospace;font-size:14px;font-weight:700;padding:4px 0;">v0.12 Changes</summary>
+    <div class="dm-section" style="margin-top:8px;">
+      <div class="ability-desc">
+        <ul>
+          <li><strong style="color:var(--cm-color)">Trauma Extraction</strong> (CM L5) &mdash; Drag ally to safety + free Triage patch</li>
+          <li><strong style="color:var(--cm-color)">Triage soft landing</strong> &mdash; 1 extra use after charges expire</li>
+          <li><strong style="color:var(--ms-color)">Identity Fracture rebalanced</strong> (MS L11) &mdash; 1/LR, single target, cognitive backlash</li>
+          <li><strong style="color:var(--im-color)">Lazarus Vital Transfer</strong> (IM L12) &mdash; Half HP cost + anomaly condition</li>
+          <li><strong>L7-12 full writeups</strong> for all three specs</li>
+          <li><strong>8 ambiguity fixes</strong> across all specs</li>
+        </ul>
+      </div>
+    </div>
+  </details>
 
   <h3 style="color:var(--accent);margin-bottom:12px;font-family:'Source Code Pro',monospace;margin-top:24px;">What Do I Do On My Turn?</h3>
 
@@ -816,11 +837,12 @@ body {
         <strong style="color:var(--accent);">START &rarr;</strong> Pick your <strong>mode</strong> (one per action):<br>
         &nbsp;&nbsp;Someone bleeding badly? &rarr; <strong style="color:#20e060;">HEAL</strong> (roll First Aid dice)<br>
         &nbsp;&nbsp;Someone has a condition? &rarr; <strong style="color:var(--accent);">CURE</strong> (Purge it, costs charge)<br>
-        &nbsp;&nbsp;Someone about to get hit? &rarr; <strong style="color:var(--im-color);">BUFF</strong> (+2 AC / adv save / reposition)<br><br>
+        &nbsp;&nbsp;Ally Frightened/Charmed/Poisoned? &rarr; <strong style="color:var(--im-color);">BUFF</strong> (Pain Suppression / Steady / Reposition)<br><br>
         <strong style="color:var(--accent);">BONUS ACTION &rarr;</strong> Pick one:<br>
         &nbsp;&nbsp;<strong>Scan enemy</strong> (Clinical Scanner &rarr; +1 attack for allies on success)<br>
         &nbsp;&nbsp;<strong>Coach ally</strong> (Directed Triage &rarr; ally spends hit die + your WIS)<br><br>
-        <strong style="color:var(--accent);">REACTION:</strong> Enemy attacking? <strong>Analysis Paralysis</strong> (disadvantage on that attack).
+        <strong style="color:var(--accent);">REACTION:</strong> Enemy attacking ally? <strong>Analysis Paralysis</strong> (disadvantage).<br>
+        Ally drops to 0 HP? <strong>Crash Cart</strong> (burn compound &rarr; auto-stabilize at 1 HP).
       </div>
     </div>
 
@@ -835,10 +857,9 @@ body {
         &nbsp;&nbsp;<strong style="color:var(--ms-color);">NO</strong> &rarr; Someone hurt? <strong>First Aid</strong> (action)<br>
         &nbsp;&nbsp;&nbsp;&nbsp;Nobody hurt? <strong>First Aid</strong> on self or <strong>attack</strong><br><br>
         <strong style="color:var(--accent);">BONUS ACTION &rarr;</strong> Pick one:<br>
-        &nbsp;&nbsp;<strong>Scan enemy</strong> (Psych Reading &rarr; allies deal +damage)<br>
+        &nbsp;&nbsp;<strong>Scan enemy</strong> (Psych Reading &rarr; CHOOSE: <strong>Targeting Data</strong> (+dmg) or <strong>Disruption</strong> (disadv on attack))<br>
         &nbsp;&nbsp;<strong>Scan ally</strong> (Cog Triage &rarr; advantage on next save)<br><br>
-        <strong style="color:var(--accent);">REACTION:</strong> Ally makes WIS save? <strong>Cog Warning</strong> (advantage).<br>
-        Ally succeeds any save? <strong>Residual Imprint</strong> (adv on next check/save).
+        <strong style="color:var(--accent);">REACTION:</strong> Ally makes WIS save? <strong>Cog Warning</strong> (advantage, from L7).
       </div>
     </div>
 
@@ -1280,14 +1301,15 @@ body {
     <div class="level-header" onclick="toggleLevel(this)">
       <span class="level-badge" style="border-color:var(--im-color);color:var(--im-color)">4</span>
       <span class="level-title">Level 4</span>
-      <span class="level-abilities">Directed Recovery, Directed Triage, Consultation, Scanner</span>
+      <span class="level-abilities">Crash Cart, Directed Triage, Consultation, Scanner</span>
       <span class="toggle-icon">&#9654;</span>
     </div>
     <div class="level-body">
-      <div class="ability-card" data-action="action">
-        <div class="ability-name">Directed Recovery (Buff Mode)</div>
-        <div class="ability-badges"><span class="badge badge-action">Added to First Aid</span></div>
-        <div class="ability-desc">Choose BUFF mode: <strong>Brace</strong> (+2 AC), <strong>Steady</strong> (advantage on next save), or <strong>Reposition</strong> (reaction to move half speed). Lasts until start of target's next turn.</div>
+      <div class="ability-card" data-action="reaction">
+        <div class="ability-name">Crash Cart</div>
+        <div class="ability-badges"><span class="badge badge-reaction">Reaction</span><span class="badge badge-charges">30ft</span><span class="badge badge-new">NEW v0.13</span></div>
+        <div class="ability-desc"><strong>Trigger:</strong> An ally drops to 0 HP within 30ft. <strong>Cost:</strong> Your reaction + one active Preemptive Treatment compound on that target is consumed. The ally <strong>auto-stabilizes at 1 HP</strong> instead of falling unconscious.</div>
+        <div class="ability-note design">Creates resource tension &mdash; compounds are both ongoing buffs AND emergency saves. Spending a compound to save a life means losing that buff for the rest of the fight.</div>
       </div>
       <div class="ability-card" data-action="bonus">
         <div class="ability-name">Directed Triage</div>
@@ -1319,10 +1341,20 @@ body {
     <div class="level-header" onclick="toggleLevel(this)">
       <span class="level-badge" style="border-color:var(--im-color);color:var(--im-color)">5</span>
       <span class="level-title">Level 5</span>
-      <span class="level-abilities">Analysis Paralysis, Preemptive Treatment +, First Aid 3d6</span>
+      <span class="level-abilities">Directed Recovery, Analysis Paralysis, Preemptive Treatment +, First Aid 3d6</span>
       <span class="toggle-icon">&#9654;</span>
     </div>
     <div class="level-body">
+      <div class="ability-card" data-action="action">
+        <div class="ability-name">Directed Recovery (Buff Mode)</div>
+        <div class="ability-badges"><span class="badge badge-action">Added to First Aid</span><span class="badge badge-new">MOVED v0.13</span></div>
+        <div class="ability-desc">Choose BUFF mode. Pick one compound to administer:<br>
+          &bull; <strong>Pain Suppression (PS-X):</strong> Target ignores Frightened, Charmed, and Poisoned effects for <strong>1 turn</strong>. Condition is NOT removed &mdash; it resumes at the start of target's next turn.<br>
+          &bull; <strong>Steady (NCD-1):</strong> Advantage on next saving throw.<br>
+          &bull; <strong>Reposition:</strong> Target can use reaction to move half speed.<br>
+          Lasts until the start of target's next turn.</div>
+        <div class="ability-note design">Pain Suppression is distinct from Purge: Purge (Cure mode) removes conditions permanently. Suppression overrides them for 1 turn only &mdash; a combat bandage, not a cure.</div>
+      </div>
       <div class="ability-card" data-action="reaction">
         <div class="ability-name">Analysis Paralysis</div>
         <div class="ability-badges"><span class="badge badge-reaction">Reaction</span><span class="badge badge-charges">1 / SR</span><span class="badge badge-charges">30ft</span></div>
@@ -1347,7 +1379,7 @@ body {
     <div class="level-header" onclick="toggleLevel(this)">
       <span class="level-badge" style="border-color:var(--im-color);color:var(--im-color)">6</span>
       <span class="level-title">Level 6</span>
-      <span class="level-abilities">Amnestics, Field Triage Protocol</span>
+      <span class="level-abilities">Amnestics, Contraindication Shot</span>
       <span class="toggle-icon">&#9654;</span>
     </div>
     <div class="level-body">
@@ -1357,11 +1389,14 @@ body {
         <div class="ability-desc">Erases <strong>recent memory</strong> (DM determines scope). WIS save. Combat use: administer to incapacitated enemy. All doses logged. Misuse = investigation.</div>
         <div class="ability-note authorization">Requires amnestics certification (Ethics Committee + Security review).</div>
       </div>
-      <div class="ability-card" data-action="passive">
-        <div class="ability-name">Field Triage Protocol</div>
-        <div class="ability-badges"><span class="badge badge-passive">Passive</span><span class="badge badge-new">NEW v0.12</span></div>
-        <div class="ability-desc">After scanning a creature with Clinical Scanner (BA), your next <strong>First Aid, Triage, or Stabilize</strong> on that target has <strong>advantage on the roll</strong>. One use per scan, resets on rescan.</div>
-        <div class="ability-note design">Rewards the scan-then-treat rhythm without adding a new resource.</div>
+      <div class="ability-card" data-action="action">
+        <div class="ability-name">Contraindication Shot</div>
+        <div class="ability-badges"><span class="badge badge-action">Action</span><span class="badge badge-charges">30ft</span><span class="badge badge-charges">WIS mod / LR</span><span class="badge badge-new">NEW v0.13</span></div>
+        <div class="ability-desc">Requires a prior <strong>Clinical Scanner</strong> scan on the target this combat. Target makes a <strong>CON save (DC 8 + prof + WIS)</strong>. Choose one:<br>
+          &bull; <strong>Vasodilator:</strong> Target's attacks deal <strong>half damage</strong> for 1 turn.<br>
+          &bull; <strong>Neurodepressant:</strong> Target's speed is <strong>halved</strong> and they cannot take <strong>reactions</strong> for 1 turn.<br>
+          <strong>Immune:</strong> Constructs, creatures immune to poison.</div>
+        <div class="ability-note design">The IM's first proactive enemy debuff. Scan-first requirement rewards the clinical workflow &mdash; you can't just shoot blindly.</div>
       </div>
     </div>
   </div>
@@ -1371,7 +1406,7 @@ body {
     <div class="level-header" onclick="toggleLevel(this)">
       <span class="level-badge" style="border-color:var(--im-color);color:var(--im-color)">7</span>
       <span class="level-title">Level 7</span>
-      <span class="level-abilities">Strategic Preparation, Analysis Paralysis &times;2</span>
+      <span class="level-abilities">Strategic Preparation, Polypharmacy, Analysis Paralysis &times;2</span>
       <span class="toggle-icon">&#9654;</span>
     </div>
     <div class="level-body">
@@ -1384,7 +1419,16 @@ body {
       <div class="ability-card" data-action="noncombat">
         <div class="ability-name">Strategic Preparation (CF-2)</div>
         <div class="ability-badges"><span class="badge badge-noncombat">Before Going In / During Rest</span></div>
-        <div class="ability-desc"><strong>Cellular Fortification (Compound CF-2):</strong> Choose one damage type (fire, cold, lightning, acid, necrotic, radiant, or poison). Target gains <strong>resistance to that type for 8 hrs</strong>. Cannot stack &mdash; second injection negates both. Side effects: translucent skin at site, joint stiffness (disadv. Acrobatics 1 hr).</div>
+        <div class="ability-desc"><strong>Cellular Fortification (Compound CF-2):</strong> Choose one damage type (piercing, slashing, bludgeoning, fire, cold, lightning, acid, necrotic, radiant, or poison). Target gains <strong>resistance to that type for 8 hrs</strong>. Cannot stack &mdash; second injection negates both. Side effects: translucent skin at site, joint stiffness (disadv. Acrobatics 1 hr).</div>
+      </div>
+      <div class="ability-card" data-action="passive">
+        <div class="ability-name">Polypharmacy</div>
+        <div class="ability-badges"><span class="badge badge-passive">Passive</span><span class="badge badge-new">NEW v0.13</span></div>
+        <div class="ability-desc">When using First Aid in <strong>Heal mode</strong> on an ally with an active <strong>Preemptive Treatment</strong> compound, you may choose to <strong>Flush</strong>: the compound is consumed and one condition is removed (free Purge, no charge spent).<br>
+          <strong>Non-anomalous conditions:</strong> automatic removal.<br>
+          <strong>Anomalous conditions:</strong> Medicine check with <strong>advantage</strong>.<br>
+          Physical tracking token recommended &mdash; place a marker on allies with active compounds.</div>
+        <div class="ability-note design">Bridges Heal and Cure modes by letting you do both &mdash; at the cost of burning a prep compound. Rewards pre-mission planning.</div>
       </div>
       <div class="ability-card" data-action="passive">
         <div class="ability-name">Analysis Paralysis (Scaling)</div>
@@ -1399,7 +1443,7 @@ body {
     <div class="level-header" onclick="toggleLevel(this)">
       <span class="level-badge" style="border-color:var(--im-color);color:var(--im-color)">8</span>
       <span class="level-title">Level 8</span>
-      <span class="level-abilities">Class-B Amnestics, Medical Authority, First Aid 4d6</span>
+      <span class="level-abilities">Class-B Amnestics, Medical Authority, Field Triage Protocol, First Aid 4d6</span>
       <span class="toggle-icon">&#9654;</span>
     </div>
     <div class="level-body">
@@ -1416,6 +1460,12 @@ body {
         <div class="ability-note authorization">Medical contexts only. Abuse triggers mandatory review and permanent revocation.</div>
       </div>
       <div class="ability-card" data-action="passive">
+        <div class="ability-name">Field Triage Protocol</div>
+        <div class="ability-badges"><span class="badge badge-passive">Passive</span><span class="badge badge-new">MOVED v0.13</span></div>
+        <div class="ability-desc">After scanning a creature with Clinical Scanner (BA), your next <strong>First Aid, Triage, or Stabilize</strong> on that target has <strong>advantage on the roll</strong>. One use per scan, resets on rescan.</div>
+        <div class="ability-note design">Rewards the scan-then-treat rhythm without adding a new resource.</div>
+      </div>
+      <div class="ability-card" data-action="passive">
         <div class="ability-name">First Aid Scaling</div>
         <div class="ability-badges"><span class="badge badge-passive">Passive</span></div>
         <div class="ability-desc">First Aid scales to <strong>4d6 + WIS</strong>. Foundation-grade regenerative compounds (biofoam sealants, dermal matrix patches).</div>
@@ -1428,7 +1478,7 @@ body {
     <div class="level-header" onclick="toggleLevel(this)">
       <span class="level-badge" style="border-color:var(--im-color);color:var(--im-color)">9</span>
       <span class="level-title">Level 9</span>
-      <span class="level-abilities">Experimental Protocol, Directed Triage 3/SR</span>
+      <span class="level-abilities">Experimental Protocol, Foundation Field Test, Directed Triage &times;3</span>
       <span class="toggle-icon">&#9654;</span>
     </div>
     <div class="level-body">
@@ -1442,6 +1492,18 @@ body {
         <div class="ability-name">Experimental Protocol (ECD-3)</div>
         <div class="ability-badges"><span class="badge badge-action">Full Round</span><span class="badge badge-charges">1 / LR (shared)</span></div>
         <div class="ability-desc"><strong>Emergency Containment Dose (ECD-3):</strong> <strong>Suppresses one anomalous effect</strong> <strong>until next combat or scene change</strong> &mdash; paused, not cured. Effect resumes when suppression expires. Side effects: fever, fatigue, metallic taste.</div>
+      </div>
+      <div class="ability-card" data-action="action">
+        <div class="ability-name">Foundation Field Test</div>
+        <div class="ability-badges"><span class="badge badge-action">Action</span><span class="badge badge-charges">Adjacent Ally</span><span class="badge badge-charges">WIS mod doses / LR</span><span class="badge badge-new">NEW v0.13</span></div>
+        <div class="ability-desc">Administer an experimental compound to an adjacent willing ally. Roll <strong>d100</strong> and consult the table:<br>
+          &bull; <strong>1&ndash;5:</strong> Adverse reaction<br>
+          &bull; <strong>6&ndash;15:</strong> Null effect (dose wasted)<br>
+          &bull; <strong>16&ndash;50:</strong> Minor beneficial effect<br>
+          &bull; <strong>51&ndash;90:</strong> Beneficial effect<br>
+          &bull; <strong>91&ndash;99:</strong> Exceptional effect<br>
+          &bull; <strong>100:</strong> Breakthrough &mdash; formula enters your known compounds permanently</div>
+        <div class="ability-note design">Fun gamble mechanic, not core kit. Full d100 table in DM Notes.</div>
       </div>
       <div class="ability-card" data-action="passive">
         <div class="ability-name">Directed Triage (Scaling)</div>
@@ -1583,7 +1645,7 @@ body {
     <div class="level-header" onclick="toggleLevel(this)">
       <span class="level-badge" style="border-color:var(--ms-color);color:var(--ms-color)">3</span>
       <span class="level-title">Level 3 &mdash; Specialization Entry</span>
-      <span class="level-abilities">Inoculation, Psych Reading, Cog Triage, Residual Imprint</span>
+      <span class="level-abilities">Memetic Inoculation, Psychometric Reading (choice mode), Cognitive Triage</span>
       <span class="toggle-icon">&#9654;</span>
     </div>
     <div class="level-body">
@@ -1594,26 +1656,19 @@ body {
       </div>
       <div class="ability-card" data-action="bonus">
         <div class="ability-name">Psychometric Reading</div>
-        <div class="ability-badges"><span class="badge badge-bonus">Bonus Action</span><span class="badge badge-charges">Unlimited</span><span class="badge badge-charges">30ft</span></div>
+        <div class="ability-badges"><span class="badge badge-bonus">Bonus Action</span><span class="badge badge-new">REWORKED v0.13</span><span class="badge badge-charges">Unlimited</span><span class="badge badge-charges">30ft</span></div>
         <div class="ability-desc">
           <strong>On ally:</strong> CRV scan detects cognitive compromise instantly.<br>
-          <strong>On enemy:</strong> Scanner overlays structural vulnerabilities (injury sites, compromised joints, weak points). Next 2 allies to hit add <strong>+1d4 to damage</strong> (precision targeting). DM also provides a behavioral prediction. Scales: +1d6 at L5, +1d8 at L9.
+          <strong>On enemy &mdash; CHOOSE ONE:</strong><br>
+          &bull; <strong>Targeting Data:</strong> Next 2 allies to hit add <strong>+1d4 to damage</strong> (scanner overlays structural vulnerabilities). Scales: +1d6 at L5, +1d8 at L9.<br>
+          &bull; <strong>Cognitive Disruption:</strong> Target has <strong>disadvantage on next attack roll</strong> (no save &mdash; scanner subsonic pulse). L8+: also prevents reactions until start of target's next turn.<br><br>
+          Cannot choose both. One mode per use.
         </div>
       </div>
       <div class="ability-card" data-action="bonus">
         <div class="ability-name">Cognitive Triage</div>
         <div class="ability-badges"><span class="badge badge-bonus">Bonus Action</span><span class="badge badge-charges">2 / SR</span></div>
         <div class="ability-desc">Scan a non-compromised ally and show them stable CRV readout. Target gains <strong>advantage on next saving throw</strong>.</div>
-      </div>
-      <div class="ability-card" data-action="reaction">
-        <div class="ability-name">Residual Imprint</div>
-        <div class="ability-badges">
-          <span class="badge badge-reaction">Reaction</span>
-          <span class="badge badge-new">NEW v0.12</span>
-          <span class="badge badge-charges">PB / LR</span>
-        </div>
-        <div class="ability-desc">When an ally within 30ft <strong>succeeds on a saving throw</strong> (not death saves), that ally gains <strong>advantage on their next ability check or saving throw</strong> before the end of the current combat encounter. Cannot trigger from Cognitive Triage-assisted saves.</div>
-        <div class="ability-note design">Fills the MS reaction gap at L3-6. CRV scanner detects the neural spike from survived exposure &mdash; cognitive profiling from resistance patterns.</div>
       </div>
     </div>
   </div>
@@ -1650,7 +1705,7 @@ body {
     <div class="level-header" onclick="toggleLevel(this)">
       <span class="level-badge" style="border-color:var(--ms-color);color:var(--ms-color)">5</span>
       <span class="level-title">Level 5</span>
-      <span class="level-abilities">Pattern Recognition, SCRAMBLE, Psych Reading&uarr;, First Aid 3d6</span>
+      <span class="level-abilities">Pattern Recognition, SCRAMBLE (utility), TAA-9, First Aid 3d6, Psych Reading +1d6</span>
       <span class="toggle-icon">&#9654;</span>
     </div>
     <div class="level-body">
@@ -1661,13 +1716,32 @@ body {
       </div>
       <div class="ability-card" data-action="passive">
         <div class="ability-name">SCRAMBLE Eyewear</div>
-        <div class="ability-badges"><span class="badge badge-passive">Passive</span><span class="badge badge-charges">1 / Encounter</span></div>
-        <div class="ability-desc">Division PPE. <strong>Once per encounter</strong>, gain <strong>advantage on a WIS save</strong> against a cognitohazard or memetic effect (broad-spectrum pattern library). Glasses recalibrate after first use. Lost if removed/destroyed. Scales: 2/encounter at L8, always-on at L11.</div>
+        <div class="ability-badges"><span class="badge badge-passive">Passive</span><span class="badge badge-new">REWORKED v0.13</span></div>
+        <div class="ability-desc">
+          Division PPE &mdash; now utility-only (save advantage removed). Functions:<br>
+          &bull; <strong>Cognitohazard Detection:</strong> Amber HUD overlay warns of memetic vectors within line of sight.<br>
+          &bull; <strong>Safe Reading:</strong> View cognitohazardous materials through filtered display safely.<br>
+          &bull; <strong>CRV Overlay:</strong> Passive color-coded readout for creatures within 30ft.<br><br>
+          Lost if removed/destroyed. Scales: L8 detection to 60ft + active cognitohazard reading. L11 neurally paired + auto-detect within 60ft.
+        </div>
+      </div>
+      <div class="ability-card" data-action="action">
+        <div class="ability-name">Targeted Amnestic Aerosol (TAA-9)</div>
+        <div class="ability-badges"><span class="badge badge-action">Action</span><span class="badge badge-new">NEW v0.13</span><span class="badge badge-charges">3 / LR</span><span class="badge badge-charges">Adjacent (5ft cone)</span></div>
+        <div class="ability-desc">
+          CON save (DC 8 + prof + WIS).<br>
+          &bull; <strong>Fail &mdash; Amnestic Fog:</strong> Can't attack or use abilities for <strong>1 round</strong>. CAN move/dodge/dash. Damage breaks it.<br>
+          &bull; <strong>Pass:</strong> Disadvantage on next attack.<br>
+          &bull; <strong>Overdose (2nd dose, same target):</strong> Incapacitated + <strong>1d6 psychic</strong>, no save.<br><br>
+          <strong>Out of combat:</strong> Erases ~30 seconds of memory.<br>
+          <strong>Immune:</strong> Constructs, undead, non-breathing creatures.<br>
+          <strong>User side effect:</strong> 3+ canisters/day = DC 12 CON save at LR or memory gaps.
+        </div>
       </div>
       <div class="ability-card" data-action="bonus">
         <div class="ability-name">Psychometric Reading &uarr;</div>
         <div class="ability-badges"><span class="badge badge-bonus">Scaling</span></div>
-        <div class="ability-desc">Damage bonus increases to <strong>+1d6</strong> (improved biometric targeting from field calibration data).</div>
+        <div class="ability-desc">Targeting Data increases to <strong>+1d6</strong>. Cognitive Disruption stays as disadvantage (doesn't scale).</div>
       </div>
       <div class="ability-card" data-action="action">
         <div class="ability-name">First Aid &uarr;</div>
@@ -1682,7 +1756,7 @@ body {
     <div class="level-header" onclick="toggleLevel(this)">
       <span class="level-badge" style="border-color:var(--ms-color);color:var(--ms-color)">6</span>
       <span class="level-title">Level 6</span>
-      <span class="level-abilities">Counter-Memetic Barrier, Adv. CRV Scanner</span>
+      <span class="level-abilities">Counter-Memetic Barrier, Advanced CRV, Recursive Attention Card</span>
       <span class="toggle-icon">&#9654;</span>
     </div>
     <div class="level-body">
@@ -1702,6 +1776,17 @@ body {
         <div class="ability-badges"><span class="badge badge-passive">Upgrade</span></div>
         <div class="ability-desc"><strong>Scan ally:</strong> Learn the <em>specific</em> effect and likely <em>source</em> (not just &ldquo;compromised&rdquo;). <strong>Scan enemy:</strong> Also learn their <strong>WIS score</strong>.</div>
       </div>
+      <div class="ability-card" data-action="action">
+        <div class="ability-name">Recursive Attention Card (RAT)</div>
+        <div class="ability-badges"><span class="badge badge-action">Action</span><span class="badge badge-new">NEW v0.13</span></div>
+        <div class="ability-desc">
+          Anomalous object stored in opaque sleeve. Two modes:<br><br>
+          <strong>Flash</strong> (30ft, single target, 1/SR): WIS save or <strong>incapacitated</strong> until start of your next turn. Damage breaks it. Pass: disadvantage on next attack.<br><br>
+          <strong>Plant</strong> (touch surface, 1/LR): Place face-up, 10ft radius, 10 min. Any creature that sees it saves. MS immune (trained). Allies warned (BA) are immune.<br><br>
+          <strong>Immune:</strong> Blind, no eyes, charmed-immune.<br>
+          <strong>Scales:</strong> L8 Flash hits 2 creatures. L11 Plant lasts 1 hour.
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1710,7 +1795,7 @@ body {
     <div class="level-header" onclick="toggleLevel(this)">
       <span class="level-badge" style="border-color:var(--ms-color);color:var(--ms-color)">7</span>
       <span class="level-title">Level 7</span>
-      <span class="level-abilities">Memetic Hardening, Cognitive Warning, Cog Decontam&uarr;</span>
+      <span class="level-abilities">Memetic Hardening, Cognitive Warning, Attentional Capture, Cog Decontam &times;2</span>
       <span class="toggle-icon">&#9654;</span>
     </div>
     <div class="level-body">
@@ -1735,6 +1820,16 @@ body {
         <div class="ability-badges"><span class="badge badge-action">Scaling</span></div>
         <div class="ability-desc">Now <strong>2 / SR</strong>. Pneumatic mnestic delivery system extends range to <strong>15ft</strong> (no longer touch).</div>
       </div>
+      <div class="ability-card" data-action="action">
+        <div class="ability-name">Attentional Capture</div>
+        <div class="ability-badges"><span class="badge badge-action">Action</span><span class="badge badge-new">NEW v0.13</span><span class="badge badge-charges">2 / SR</span><span class="badge badge-charges">30ft</span></div>
+        <div class="ability-desc">
+          Up to <strong>3 creatures</strong> (targeted, not AoE). INT 4+ only. WIS save (DC 8 + prof + WIS).<br>
+          &bull; <strong>Fail:</strong> Can't take reactions + movement halved away from MS until start of MS's next turn.<br>
+          &bull; <strong>Pass:</strong> Disadvantage on next attack.
+        </div>
+        <div class="ability-note design">Based on Theeuwes (1992) cognitive science research &mdash; involuntary attentional capture by salient stimuli.</div>
+      </div>
     </div>
   </div>
 
@@ -1743,7 +1838,7 @@ body {
     <div class="level-header" onclick="toggleLevel(this)">
       <span class="level-badge" style="border-color:var(--ms-color);color:var(--ms-color)">8</span>
       <span class="level-title" style="color:var(--ms-color)">Level 8 &mdash; Division Induction</span>
-      <span class="level-abilities">Cognitive Strike, SCRAMBLE&times;2</span>
+      <span class="level-abilities">Cognitive Strike, SCRAMBLE 60ft, First Aid 4d6</span>
       <span class="toggle-icon">&#9654;</span>
     </div>
     <div class="level-body">
@@ -1762,7 +1857,7 @@ body {
       <div class="ability-card" data-action="passive">
         <div class="ability-name">Level 8 Scaling</div>
         <div class="ability-badges"><span class="badge badge-passive">Passive</span></div>
-        <div class="ability-desc"><strong>SCRAMBLE:</strong> 2/encounter (up from 1). <strong>First Aid:</strong> 4d6 + WIS.</div>
+        <div class="ability-desc"><strong>SCRAMBLE:</strong> Detection range extends to 60ft, Safe Reading works on active cognitohazards. <strong>First Aid:</strong> 4d6 + WIS.</div>
       </div>
     </div>
   </div>
@@ -1772,7 +1867,7 @@ body {
     <div class="level-header" onclick="toggleLevel(this)">
       <span class="level-badge" style="border-color:var(--ms-color);color:var(--ms-color)">9</span>
       <span class="level-title">Level 9</span>
-      <span class="level-abilities">Antimemetic Protocol, Psych Reading&uarr;, Cog Decontam&uarr;, Cog Warning&uarr;</span>
+      <span class="level-abilities">Antimemetic Protocol, Ennui Protocol Device, Cog Warning &times;2, Cog Decontam &times;3, Psych Reading +1d8</span>
       <span class="toggle-icon">&#9654;</span>
     </div>
     <div class="level-body">
@@ -1786,10 +1881,20 @@ body {
         </div>
         <div class="ability-note authorization">Class-Z existence is classified above standard clearance. Each dose individually tracked. Post-use reporting mandatory.</div>
       </div>
+      <div class="ability-card" data-action="action">
+        <div class="ability-name">Ennui Protocol Device (EPD)</div>
+        <div class="ability-badges"><span class="badge badge-action">Action</span><span class="badge badge-new">NEW v0.13</span><span class="badge badge-charges">1 / LR</span><span class="badge badge-charges">Concentration (1 min)</span></div>
+        <div class="ability-desc">
+          Place emitter on surface within 5ft. <strong>15ft radius</strong> field.<br>
+          Enemies in field: WIS save (DC 8 + prof + WIS) or <strong>Apathetic</strong> &mdash; won't move toward hostiles, won't attack unless attacked first. CAN dodge/dash away. Save end of each turn. Damage breaks it per creature.<br><br>
+          <strong>Concentration competes</strong> with Counter-Memetic Barrier (offensive vs defensive zone &mdash; can't have both active).<br>
+          <strong>Immune:</strong> Charmed-immune creatures.
+        </div>
+      </div>
       <div class="ability-card" data-action="bonus">
         <div class="ability-name">Psychometric Reading &uarr;</div>
         <div class="ability-badges"><span class="badge badge-bonus">Scaling</span></div>
-        <div class="ability-desc">Damage bonus increases to <strong>+1d8</strong>. Predictive model borders on precognition.</div>
+        <div class="ability-desc">Targeting Data increases to <strong>+1d8</strong>. Predictive model borders on precognition.</div>
       </div>
       <div class="ability-card" data-action="action">
         <div class="ability-name">Cognitive Decontamination &uarr;</div>
@@ -1809,7 +1914,7 @@ body {
     <div class="level-header" onclick="toggleLevel(this)">
       <span class="level-badge" style="border-color:var(--ms-color);color:var(--ms-color)">10</span>
       <span class="level-title">Level 10</span>
-      <span class="level-abilities">Antimemetic Concealment</span>
+      <span class="level-abilities">Antimemetic Concealment, Causal Severance Tag</span>
       <span class="toggle-icon">&#9654;</span>
     </div>
     <div class="level-body">
@@ -1824,6 +1929,17 @@ body {
         </div>
         <div class="ability-note">Side effects: <strong>1d4 hours existential unease</strong> post-metabolization. Depersonalization episodes. Division post-op support group attendance mandatory.</div>
       </div>
+      <div class="ability-card" data-action="action">
+        <div class="ability-name">Causal Severance Tag (CST)</div>
+        <div class="ability-badges"><span class="badge badge-action">Action (Melee)</span><span class="badge badge-new">NEW v0.13</span><span class="badge badge-charges">2 / LR</span></div>
+        <div class="ability-desc">
+          Melee attack to apply. <strong>Anomalous targets only</strong> (no effect on mundane).<br><br>
+          <strong>Strips:</strong> Antimemetic camouflage, invisibility, perception-altering auras, illusions. Entity perceived as it truly is.<br>
+          <strong>Also suppresses</strong> one anomalous defensive property (DM chooses).<br>
+          <strong>Duration:</strong> 1 hour. Entity can attempt removal (action + WIS save).
+        </div>
+        <div class="ability-note design">Offensive mirror of Antimemetic Concealment &mdash; what you can hide, you can strip.</div>
+      </div>
     </div>
   </div>
 
@@ -1832,7 +1948,7 @@ body {
     <div class="level-header" onclick="toggleLevel(this)">
       <span class="level-badge" style="border-color:var(--ms-color);color:var(--ms-color)">11</span>
       <span class="level-title">Level 11</span>
-      <span class="level-abilities">Adv. BL Weapons, Identity Fracture, SCRAMBLE always-on</span>
+      <span class="level-abilities">Adv. BL Weapons, Identity Fracture, SCRAMBLE neural-paired</span>
       <span class="toggle-icon">&#9654;</span>
     </div>
     <div class="level-body">
@@ -1859,7 +1975,7 @@ body {
       <div class="ability-card" data-action="passive">
         <div class="ability-name">Level 11 Scaling</div>
         <div class="ability-badges"><span class="badge badge-passive">Passive</span></div>
-        <div class="ability-desc"><strong>SCRAMBLE:</strong> Always active &mdash; advantage on ALL WIS saves vs cognitohazards while worn. <strong>First Aid:</strong> 5d6 + WIS. <strong>Counter-Memetic Barrier:</strong> 2/LR. <strong>Cognitive Warning:</strong> 3/SR.</div>
+        <div class="ability-desc"><strong>SCRAMBLE:</strong> Neurally paired &mdash; auto-detect memetic vectors within 60ft without looking. <strong>First Aid:</strong> 5d6 + WIS. <strong>Counter-Memetic Barrier:</strong> 2/LR. <strong>Cognitive Warning:</strong> 3/SR.</div>
       </div>
     </div>
   </div>
@@ -2278,7 +2394,7 @@ const refData = {
     <table>
       <tr><td style="color:#20e060">HEAL</td><td>Roll dice, restore HP</td></tr>
       <tr><td style="color:var(--accent)">CURE</td><td>Purge condition, no HP (costs charge)</td></tr>
-      <tr><td style="color:var(--im-color)">BUFF</td><td>Brace/Steady/Reposition/Fortify, no HP</td></tr>
+      <tr><td style="color:var(--im-color)">BUFF</td><td>Pain Suppression/Steady/Reposition/Fortify, no HP</td></tr>
     </table>
     <h4>Compounds</h4>
     <table>
@@ -2325,7 +2441,7 @@ const refData = {
       <tr><td>Y</td><td>Sustained conditioning — Hardening (L7)</td></tr>
       <tr><td>Z</td><td>Full cognitive purge — Antimemetic Protocol (L9)</td></tr>
     </table>
-    <div class="ref-note">MS is least SR-dependent. Psych Reading + Residual Imprint are unlimited/LR. Core kit works without short rests.</div>
+    <div class="ref-note">MS is least SR-dependent. Psych Reading is unlimited, TAA-9 is LR-based. Core kit works without short rests.</div>
   `,
   dm: `
     <h4>Terms Used On This Page</h4>
