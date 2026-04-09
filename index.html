@@ -389,6 +389,15 @@ body {
 .ability-note.authorization { border-left-color: var(--red-dim); color: var(--red); }
 .ability-note.warning { border-left-color: var(--red); background: #1a080a; }
 
+/* === ABILITY DETAILS (expandable) === */
+.ability-details { margin-top: 8px; border-top: 1px solid var(--border); padding-top: 4px; }
+.ability-details summary { color: var(--accent); cursor: pointer; font-size: 12px; font-family: 'Source Code Pro', monospace; user-select: none; padding: 4px 0; }
+.ability-details summary:hover { color: var(--accent-bright); }
+.detail-content { color: var(--text-dim); font-size: 12px; line-height: 1.6; padding: 8px 0; }
+.detail-content p { margin-bottom: 8px; }
+.detail-content strong { color: var(--text); }
+.detail-content em { color: var(--text-dim); font-style: italic; }
+
 /* === SCALING TABLE === */
 .scaling-table {
   width: 100%;
@@ -899,6 +908,13 @@ body {
           <span class="badge badge-charges">Adjacent</span>
         </div>
         <div class="ability-desc">Apply Foundation-grade trauma care: hemostatic gel, dermal adhesive strips, pressure bandages, analgesic autoinjector. Heals <strong>2d6 + WIS modifier HP</strong>. Scaling differs by specialization starting at level 5.</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p>Apply Foundation-grade trauma care to a creature you can touch: hemostatic gel to seal wounds, dermal adhesive strips, pressure bandages, and a standard-dose analgesic autoinjector. Heals <strong>2d6 + WIS modifier HP</strong>.</p>
+            <p>Scaling differs by specialization starting at level 5 (see individual class tables). Higher-level healing reflects access to better compounds &mdash; advanced biofoam sealants, regenerative dermal patches, and Foundation pharmacological stimulants that accelerate natural clotting and tissue repair.</p>
+          </div>
+        </details>
       </div>
       <div class="ability-card" data-action="bonus">
         <div class="ability-name">Stabilize</div>
@@ -907,6 +923,13 @@ body {
           <span class="badge badge-charges">Adjacent</span>
         </div>
         <div class="ability-desc">Deploy emergency trauma patch on a dying creature. Target stops making death saves and stabilizes at <strong>0 HP</strong>. They're not conscious or healed &mdash; the patch is buying time.</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p>Deploy an emergency trauma patch on a dying creature within 5 feet &mdash; a pre-loaded adhesive pad containing coagulant gel, a mild stimulant, and a pressure-reactive compression layer. The target stops making death saves and stabilizes at 0 HP.</p>
+            <p>They're not conscious or healed &mdash; the patch is buying time until proper treatment.</p>
+          </div>
+        </details>
       </div>
       <div class="ability-card" data-action="noncombat">
         <div class="ability-name">Medical Assessment</div>
@@ -915,6 +938,14 @@ body {
           <span class="badge badge-charges">Examine a Creature</span>
         </div>
         <div class="ability-desc">Biometric scanner + hands-on exam. Learn current HP, active conditions, toxins, infections, or anomalous contamination markers. DM may require Medicine check for anomalous effects.</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p>Use your biometric scanner and a hands-on examination to evaluate a creature. The scanner reads pulse rate, blood pressure, body temperature, blood oxygen, and pupil response.</p>
+            <p>Cross-referenced with Foundation medical databases (if available) or your own training, this gives you their current HP, active conditions, toxins, infections, or anomalous contamination markers.</p>
+            <p>The DM may require a <strong>Medicine check</strong> for anomalous effects (DC set by the anomaly) &mdash; your scanner flags abnormal readings but can't always interpret them.</p>
+          </div>
+        </details>
       </div>
     </div>
   </div>
@@ -933,7 +964,15 @@ body {
           <span class="badge badge-reaction">Reaction</span>
           <span class="badge badge-charges">30ft Range</span>
         </div>
-        <div class="ability-desc">When an ally within 30 feet takes damage, move up to <strong>half your speed toward them</strong> without provoking opportunity attacks. Must end closer to the ally. Drilled into every Foundation medic from day one.</div>
+        <div class="ability-desc">When an ally within 30 feet takes damage, move up to <strong>15 feet toward them</strong> without provoking opportunity attacks. Must end closer to the ally. Drilled into every Foundation medic from day one.</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p>When an ally within 30 feet takes damage, you can use your reaction to move up to 15 feet toward them without provoking opportunity attacks. This movement must end closer to the injured ally than where you started.</p>
+            <p>You can't use this to move away from danger &mdash; only toward the patient.</p>
+            <p><em>This is drilled into every Foundation medic from day one: when someone gets hit, you move.</em></p>
+          </div>
+        </details>
       </div>
       <div class="ability-card" data-action="bonus">
         <div class="ability-name">Medic's Eye</div>
@@ -946,6 +985,17 @@ body {
           <strong>On an ally:</strong> Exact current HP, max HP, and all active conditions. No check required.<br>
           <strong>On an enemy:</strong> Condition tier (healthy/wounded/bloodied/critical) is <strong>free</strong>. Scanner detail requires a <strong>Medicine check — DC set by the DM</strong> based on the creature. On failure, the scanner returns noise — you know the tier but can't interpret the detail.
         </div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p>Use your biometric scanner to perform a quick tactical assessment of one creature within 30 feet.</p>
+            <p><strong>On an ally:</strong> You learn their exact current HP, max HP, and any common conditions affecting them that the DM would normally share publicly (poisoned, dazed, frightened, etc.). If something else is affecting them beyond common conditions, your scanner may indicate abnormal readings but you lack the training to interpret what they mean. The DM determines what, if anything, the scanner reveals beyond common conditions.</p>
+            <p><strong>On an enemy:</strong> You learn their <strong>condition tier</strong> &mdash; healthy (75-100%), wounded (50-74%), bloodied (25-49%), or critical (below 25%) &mdash; this is <strong>free, no check required</strong>. For the <strong>scanner detail</strong> (one DM-narrated piece of intel &mdash; stress hormones, thermal signature, neural activity, etc.), make a <strong>Medicine check with a DC set by the DM</strong> based on the creature's difficulty and your distance from them. Up close (within 10 feet) is easiest &mdash; you can read posture, breathing, micro-expressions. At range the DC increases as details become harder to pick out. On failure, the scanner returns noise &mdash; you know the tier but can't interpret the detail.</p>
+            <p>Scanner results are provided to you by the DM privately. You decide what information to share with the party and how to relay it in-character.</p>
+            <p><em>The DM determines what the scanner detects. Some entities, anomalies, or situations may cause the scanner to return incomplete data, contradictory readings, or nothing at all &mdash; this is your equipment reaching its limits, not a ruling to argue against.</em></p>
+            <p><em>This is the base-level version of what specializations will later enhance.</em></p>
+          </div>
+        </details>
         <div class="ability-note design">Condition tier is always free so scanning is never wasted. The check gates the useful intel behind enemy difficulty — harder creatures are harder to read.</div>
       </div>
     </div>
@@ -1004,6 +1054,15 @@ body {
         </div>
         <div class="ability-desc">Slap a quick-deploy trauma patch. Heals <strong>1d6 + WIS modifier HP</strong>. WIS modifier charges per short rest.
         <br><br><strong>Soft landing:</strong> When your last charge is spent, retain <strong>one additional use</strong> for stabilize (auto, no healing) or condition removal only. Then fully expended.</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p>Slap a quick-deploy trauma patch on a creature you can touch &mdash; a pre-loaded adhesive pad containing hemostatic gel and a mild analgesic. Heals <strong>1d6 + WIS modifier HP</strong>.</p>
+            <p><strong>Uses:</strong> WIS modifier per short rest (minimum 1). At WIS 14 (+2), that's 2 patches. At WIS 16 (+3), that's 3.</p>
+            <p><strong>Side effects:</strong> Localized numbness at the application site for ~10 minutes, mild inflammation. Repeated application to the same area within an hour can cause chemical burns from the hemostatic gel.</p>
+            <p><strong>Soft landing:</strong> When your last Triage charge is spent, you retain <strong>one additional use</strong> of Triage that can only be used to <strong>stabilize</strong> a creature at 0 HP (auto-stabilize, no healing) or <strong>remove one condition</strong> (as Patch Job, if available). This final use heals <strong>no HP</strong> &mdash; you're out of the good supplies but you still have your training. After this use, Triage is fully expended until your next short rest.</p>
+          </div>
+        </details>
         <div class="ability-note">Side effects: localized numbness ~10 min, mild inflammation. Repeated application &rarr; chemical burns.</div>
       </div>
       <div class="ability-card" data-action="reaction">
@@ -1014,6 +1073,17 @@ body {
           <span class="badge badge-charges">30ft Range</span>
         </div>
         <div class="ability-desc">When ally drops to 0 HP, throw a stabilization canister. <strong>DEX check</strong> &mdash; DC 8 (15ft), DC 12 (30ft), DC 16 (40ft at L7+). Success = auto-stabilize. <strong>Choose one reaction per trigger</strong> &mdash; can't use with Emergency Response on same event.</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p>When an ally within 30 feet (40 feet at level 7+) drops to 0 HP, you can use your reaction to throw an impact-triggered hemostatic foam canister. Make a <strong>DEX check</strong> &mdash; the DC scales with distance:</p>
+            <p><strong>Within 15 feet:</strong> DC 8 (easy toss)<br>
+            <strong>Within 30 feet:</strong> DC 12 (solid throw under pressure)<br>
+            <strong>Within 40 feet (level 7+):</strong> DC 16 (long-range hail mary)</p>
+            <p>On success, the target automatically stabilizes. On failure, the canister lands nearby but doesn't deploy properly &mdash; the target must still make death saves.</p>
+            <p><strong>Reaction choice:</strong> This is a new reaction option alongside Emergency Response (which you still have). When an ally drops, you choose one: move toward them (Emergency Response) or stabilize at range (Combat Stabilization). <strong>You cannot use both on the same trigger &mdash; one reaction per event.</strong></p>
+          </div>
+        </details>
       </div>
     </div>
   </div>
@@ -1031,21 +1101,64 @@ body {
         <div class="ability-name">Under Fire</div>
         <div class="ability-badges"><span class="badge badge-passive">Passive</span></div>
         <div class="ability-desc">Moving to heal/stabilize an ally <strong>does not provoke opportunity attacks</strong>. When you use First Aid or Triage, move up to half speed as part of that action without provoking.</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p>Moving to heal or stabilize an ally does not provoke opportunity attacks, but you must declare your intent to heal a specific target before moving. If you move under this passive and do not heal the declared target, the DM may rule that the movement provoked opportunity attacks.</p>
+            <p>If you use First Aid or Triage on a creature, you can move up to half your speed as part of that action/bonus action without provoking.</p>
+            <p><em>Pure training, no tech. You're just very good at not dying in firefights.</em></p>
+          </div>
+        </details>
       </div>
       <div class="ability-card" data-action="passive">
         <div class="ability-name">Proximity Training</div>
-        <div class="ability-badges"><span class="badge badge-passive">Passive</span><span class="badge badge-charges">Adjacent</span></div>
-        <div class="ability-desc">Adjacent allies add <strong>+1 to death saving throws</strong>.</div>
+        <div class="ability-badges"><span class="badge badge-passive">Passive</span><span class="badge badge-charges">10ft</span></div>
+        <div class="ability-desc">Allies within 10ft who drop to 0 HP choose: <strong>Safe</strong> (+1 to death saves) or <strong>Gamble</strong> (2 fails/2 successes, regain 1d4+CON on self-stabilize). Persists even if you move away.</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p>When an ally drops to 0 HP within 10 feet of you, your combat medical training steadies them. They choose one of the following effects, which persists for the entire time they are downed even if you move away afterward:</p>
+            <p><strong>Safe:</strong> +1 bonus to death saving throws. They know help is close.</p>
+            <p><strong>Gamble:</strong> Death save thresholds decrease to 2 fails / 2 successes (normally 3/3). If they stabilize through their own saves, they regain <strong>1d4 + CON modifier HP</strong> instead of staying at 0 &mdash; they're back on their feet without anyone spending an action. High risk: two failed saves and they're gone. High reward: two successes and they're up.</p>
+            <p>The choice is made when the ally drops. One word to the DM: "safe" or "gamble."</p>
+          </div>
+        </details>
       </div>
       <div class="ability-card" data-action="noncombat">
         <div class="ability-name">Field Forensics</div>
         <div class="ability-badges"><span class="badge badge-noncombat">Exploration — Examine Body/Scene</span></div>
         <div class="ability-desc">Examine bodies/scenes. <strong>Medicine check</strong> &mdash; the DM determines what you learn based on your roll. Higher rolls reveal more: cause of death, time of death, toxicology, whether the scene was staged.</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p>Your medical training extends to analyzing injuries, wounds, and cause of death. You can perform a field-expedient forensic examination of a body, crime scene, or injury to determine:</p>
+            <p>&bull; Cause and mechanism of death/injury (weapon type, caliber, anomalous energy signature based on wound characteristics)<br>
+            &bull; Approximate time of death (based on lividity, temperature, rigor &mdash; field estimates, not lab precision)<br>
+            &bull; Self-inflicted wounds (wound angle, hesitation marks, powder burns)<br>
+            &bull; Obvious inconsistencies between injuries and the reported narrative<br>
+            &bull; Toxicology assessment (identifying common poisons, pharmaceutical agents, or anomalous compounds in tissue)</p>
+            <p>Make a <strong>Medicine check</strong>. The DM determines what you learn based on your roll &mdash; higher rolls reveal more detail and more subtle observations.</p>
+            <p><em>This is a preliminary field assessment, not a formal forensic investigation &mdash; Security Division will conduct the official review later if needed.</em></p>
+          </div>
+        </details>
       </div>
       <div class="ability-card" data-action="noncombat">
         <div class="ability-name">Tactical Medical Assessment</div>
         <div class="ability-badges"><span class="badge badge-noncombat">Before Going In</span></div>
-        <div class="ability-desc"><strong>Medicine check</strong> &mdash; prep the team's self-aid gear and brief injury expectations. On a good roll: party gains <strong>+1 to death saving throws</strong> for the mission. On an exceptional roll: DM provides a medical-reasoning tactical insight.</div>
+        <div class="ability-desc"><strong>Flat d20 (no modifiers)</strong> &mdash; prep the team's self-aid gear and brief injury expectations. DC 10+: party gains <strong>+1 to death saving throws</strong> for the mission. Nat 20: DM provides a medical-reasoning tactical insight. Roll 1-5: misinformation or false confidence.</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p>You prep the team for what you think might happen &mdash; staging tourniquets, marking blood types, briefing self-aid procedures. This is experience and instinct, not guaranteed expertise. You don't know what you're walking into.</p>
+            <p>Roll a <strong>flat d20</strong> (no proficiency or ability modifiers):</p>
+            <p><strong>1-2:</strong> Your assessment is wrong. DM determines the specific penalty.<br>
+            <strong>3-5:</strong> Inconclusive. No benefit, no penalty.<br>
+            <strong>6-9:</strong> Basic prep. No mechanical benefit, but you staged gear competently.<br>
+            <strong>10+:</strong> Solid assessment. All party members gain <strong>+1 to death saving throws</strong> for this mission.<br>
+            <strong>Nat 20:</strong> Exceptional read. +1 death saves plus the DM provides one piece of medical-tactical insight.</p>
+            <p>Does not stack with IM's Classified Consultation or MS's CRV baselines.</p>
+          </div>
+        </details>
       </div>
     </div>
   </div>
@@ -1072,6 +1185,23 @@ body {
           <strong>Failure rider:</strong> Even on failed re-save, advantage on next natural save against that effect.<br>
           <strong>Crash:</strong> Disadvantage on attacks + ability checks until end of next turn.
         </div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p>Compound 47 combat stimulant via autoinjector &mdash; military-grade synthetic catecholamine cocktail, adrenaline dialed up to 11.</p>
+            <p><strong>Effect:</strong> Administer to a <strong>willing</strong> target within <strong>5 feet</strong>. The target gains:</p>
+            <p>&bull; <strong>2d6 temporary HP</strong> (pain suppression and vasoconstriction)<br>
+            &bull; <strong>Advantage on their next attack roll</strong> (heightened reflexes)<br>
+            &bull; <strong>+10 feet movement speed</strong> (stimulant-driven muscle response)<br>
+            &bull; <strong>Duration:</strong> until the end of the target's second turn after injection</p>
+            <p><strong>Crash:</strong> When the effect ends, the target has <strong>disadvantage on attack rolls and ability checks</strong> until the end of their next turn. Shaking hands, tunnel vision, labored breathing. Cannot be prevented or reduced.</p>
+            <p><strong>Consent requirement:</strong> The target must <strong>verbally consent</strong> before injection. They must be <strong>conscious, able to speak, and not under any compulsion</strong>. A Silenced target cannot consent. A Dominated creature cannot give valid consent.</p>
+            <p><strong>Mental Override:</strong> If the target is currently affected by Stun, Domination, Charm, or Fear, the adrenaline shock forces an immediate re-save against the effect (<strong>no advantage</strong>). The Foundation built a pharmacological counter &mdash; a mild anti-psychotic compound &mdash; directly into the stimulant cocktail.</p>
+            <p><strong>Failure rider:</strong> If the mental override re-save <strong>fails</strong>, the target gains <strong>advantage on their next natural save</strong> against that same effect.</p>
+            <p><em>Side effects: elevated heart rate for 1 hour, mild hand tremor, appetite suppression. A second dose within 24 hours risks cardiac arrest (DM discretion).</em></p>
+            <p><em>Authorization: Compound 47 is a restricted Foundation combat stimulant. Each dose is tracked by serial number.</em></p>
+          </div>
+        </details>
         <div class="ability-note authorization">Target must be conscious, able to speak, and not under compulsion. Silenced/Dominated creatures cannot consent.</div>
       </div>
       <div class="ability-card" data-action="action">
@@ -1089,6 +1219,19 @@ body {
           <strong>Behind cover:</strong> Advantage on death saves until your next turn.<br>
           <strong>L9 upgrade:</strong> Can use as bonus action (no free Triage rider).
         </div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p><em>You cross open ground with a body on your shoulder because nobody else will.</em></p>
+            <p>Choose a <strong>willing</strong> or <strong>unconscious</strong> creature within <strong>5 feet</strong>. You drag or carry that creature with you as you move up to your <strong>full movement speed</strong>. Neither you nor the creature provokes <strong>opportunity attacks</strong> during this movement.</p>
+            <p><strong>Stabilization while moving:</strong> If the creature is at <strong>0 HP</strong>, you attempt to stabilize them while moving &mdash; make a <strong>Medicine check (DC set by DM)</strong>. On success, the creature stabilizes at 0 HP. On failure, they remain unstable and continue making death saves. You are applying a tourniquet while sprinting &mdash; it doesn't always work.</p>
+            <p><strong>Free Triage on arrival:</strong> At the end of this movement, if the extracted creature is <strong>stable and conscious</strong>, you may use <strong>Triage</strong> as a <strong>free action</strong> (costs a Triage charge). This Triage heals at a <strong>reduced rate (one die step lower)</strong> &mdash; you're patching on the move, not working in ideal conditions.</p>
+            <p>If you end the movement behind <strong>half cover or better</strong>, the extracted creature gains <strong>advantage on death saving throws</strong> until the start of your next turn.</p>
+            <p><strong>Limitations:</strong> Uses your action &mdash; you cannot First Aid or attack on the same turn. <strong>Once per short rest.</strong></p>
+            <p><em>Side effects: significant physical strain &mdash; after using Trauma Extraction, you have disadvantage on Athletics and Acrobatics checks until the end of your next turn.</em></p>
+            <p><em>Interaction &mdash; Under Fire (L4): Under Fire covers your approach; Trauma Extraction covers the retreat with a body. Emergency Response (L2) gets you in (reaction move toward downed ally); Trauma Extraction gets you both out (next turn).</em></p>
+          </div>
+        </details>
         <div class="ability-note design">Emergency Response gets you in. Trauma Extraction gets you both out. 1/SR + med check + healing penalty keeps this as a dramatic rescue, not a rotation ability.</div>
       </div>
     </div>
@@ -1113,11 +1256,32 @@ body {
           Specialized patch variants: <strong>Ocular flush</strong> (removes Blinded), <strong>Aural stabilizer</strong> (removes Deafened), <strong>Toxin binder</strong> (removes Poisoned), <strong>Field Remedy</strong> (removes Frightened OR Charm re-save, no advantage).
           <br><br><em>Field Remedy does NOT work on Stunned, Incapacitated, or anomalous mental effects.</em>
         </div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p>When you use Triage, you can apply one of these specialized variants instead of (or in addition to) the standard healing patch. <strong>Each variant costs a Triage charge.</strong></p>
+            <p><strong>Variants:</strong></p>
+            <p>&bull; <strong>Ocular flush capsule:</strong> Removes Blinded. Side effect: eyes water for 5 minutes.<br>
+            &bull; <strong>Aural stabilizer:</strong> Removes Deafened. Side effect: faint ringing for 10 minutes.<br>
+            &bull; <strong>Toxin binder:</strong> Removes Poisoned. Side effect: localized discoloration for 24 hours.<br>
+            &bull; <strong>Field Remedy (smelling salts / neural reset):</strong> Removes <strong>Frightened</strong> OR allows target to immediately repeat a saving throw against <strong>Charmed</strong> (no advantage on the re-save &mdash; just a free repeat). Side effect: brief disorientation (disadvantage on next ability check).</p>
+            <p><em>Field Remedy is ammonia inhalant combined with a mild adrenal stimulant &mdash; it shocks the nervous system out of a panic state or gives a charmed mind a jolt of clarity. Crude compared to what the Internal Medic or Memetic Specialist can do, but it's something.</em></p>
+            <p><em>Field Remedy only handles Frightened and Charmed &mdash; the two most common mental conditions in combat. It does NOT work on Stunned, Incapacitated, or anomalous mental effects. For those, you need an Internal Medic or Memetic Specialist.</em></p>
+          </div>
+        </details>
       </div>
       <div class="ability-card" data-action="noncombat">
         <div class="ability-name">Triage Point</div>
-        <div class="ability-badges"><span class="badge badge-noncombat">Before Combat / During Rest</span><span class="badge badge-charges">3 Uses</span></div>
-        <div class="ability-desc">Pre-deploy supply cache at a position. Allies at the point can use BA to spend a hit die + your WIS mod. 3 uses before depleted.</div>
+        <div class="ability-badges"><span class="badge badge-noncombat">Before Combat / During Rest</span><span class="badge badge-charges">3 + Prof Uses</span></div>
+        <div class="ability-desc">Pre-deploy supply cache at a position. Allies at the point can use BA to spend a hit die + your WIS mod. <strong>3 + proficiency bonus</strong> uses before depleted.</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p>Pre-deploy a supply cache at a designated position. Any ally who moves to the triage point can use a bonus action to spend one of their own hit dice and add your WIS modifier to the roll.</p>
+            <p><strong>Uses:</strong> 3 + your proficiency bonus before depleted (5 at L5, 6 at L9, 7 at L13). Scales with your experience &mdash; a senior medic stocks a better cache.</p>
+            <p><em>This is the Combat Medic's pre-combat contribution.</em></p>
+          </div>
+        </details>
       </div>
     </div>
   </div>
@@ -1134,17 +1298,42 @@ body {
       <div class="ability-card" data-action="action">
         <div class="ability-name">Field Surgery</div>
         <div class="ability-badges"><span class="badge badge-action">Full Round Action</span><span class="badge badge-charges">2 / LR</span></div>
-        <div class="ability-desc"><strong>3d8 + WIS HP</strong>, recover 1 hit die. Must remain adjacent. Medicine check (DC 10 + damage) if hit or healing halved. L9: 4d8+WIS, 2 hit dice.</div>
+        <div class="ability-desc"><strong>4d8 + WIS HP</strong>, recover 1 hit die. Must remain adjacent. Medicine check (DC 10 + damage) if hit or healing halved. L9: 5d8+WIS, 2 hit dice.</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p>Full surgical kit. Target regains <strong>4d8 + WIS modifier HP</strong> and recovers one spent hit die. Must remain adjacent throughout the procedure.</p>
+            <p>If you take damage during the procedure, make a <strong>Medicine check (DC = 10 + damage taken)</strong> or healing is halved.</p>
+            <p><strong>Uses:</strong> Twice per long rest.</p>
+            <p><strong>L9 upgrade:</strong> Improves to <strong>5d8 + WIS modifier HP</strong> and recovers <strong>two spent hit dice</strong>. Still twice per long rest.</p>
+          </div>
+        </details>
       </div>
       <div class="ability-card" data-action="passive">
         <div class="ability-name">Battlefield Awareness</div>
         <div class="ability-badges"><span class="badge badge-passive">Passive</span></div>
         <div class="ability-desc">While healing: <strong>advantage on DEX saves, +2 AC</strong>. Combat Stabilization &rarr; 2 canisters/SR, 40ft range.</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p>While healing or performing Field Surgery: <strong>advantage on DEX saves</strong> and <strong>+2 AC</strong>.</p>
+            <p>Combat Stabilization improves: two canisters per short rest, range extends to 40 feet (DC 16 at max range).</p>
+          </div>
+        </details>
       </div>
       <div class="ability-card" data-action="noncombat">
         <div class="ability-name">After-Action Medical Report</div>
         <div class="ability-badges"><span class="badge badge-noncombat">After Combat</span></div>
         <div class="ability-desc"><strong>Medicine check</strong> &mdash; analyze wounds and damage patterns from the fight. On a good roll: party gains <strong>advantage on initiative</strong> vs same enemy type next encounter. On an exceptional roll: DM reveals an unexploited tactical weakness.</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p>Examine casualties, wound patterns, and environmental damage to produce a tactical medical debrief. You're reading the fight backwards through the injuries: what hit whom, from where, how hard, and what the team could do differently next time.</p>
+            <p><strong>DC 15:</strong> Comprehensive wound pattern analysis. Report identifies all enemy attack types, damage ranges, and targeting priorities. Grants the party <strong>advantage on initiative</strong> in their next encounter with the same enemy type.</p>
+            <p><strong>DC 20:</strong> Report identifies a specific tactical weakness the party didn't exploit. DM provides one actionable insight derived from wound analysis. This intel carries forward to future encounters.</p>
+            <p><em>This is NOT an incident report (IM territory) or a contamination sweep (MS territory). This is combat-focused wound forensics &mdash; what hurt us, how, and what we do about it next time.</em></p>
+          </div>
+        </details>
       </div>
     </div>
   </div>
@@ -1160,7 +1349,16 @@ body {
       <div class="ability-card" data-action="action">
         <div class="ability-name">Mass Triage</div>
         <div class="ability-badges"><span class="badge badge-action">Action</span><span class="badge badge-charges">1 / LR</span></div>
-        <div class="ability-desc">Up to <strong>3 allies within 15 feet</strong> each heal for <strong>2d6 + WIS</strong>. L11: 2/LR, 3d6+WIS each.</div>
+        <div class="ability-desc">Up to <strong>3 allies within 15 feet</strong> each heal for <strong>3d6 + WIS</strong>. L11: 2/LR, 4d6+WIS each.</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p>Folding trauma station. Up to <strong>3 allies within 15 feet</strong> each heal for <strong>3d6 + WIS</strong>.</p>
+            <p><strong>Uses:</strong> Once per long rest.</p>
+            <p>First Aid scales to <strong>4d6 + WIS</strong>. Triage reaches <strong>3d6 + WIS</strong> (cap).</p>
+            <p><strong>L11 upgrade (Combat Medic Mastery):</strong> Becomes <strong>twice per long rest</strong>. Each use heals up to 3 allies within 15 feet for <strong>4d6 + WIS modifier HP each</strong>.</p>
+          </div>
+        </details>
       </div>
     </div>
   </div>
@@ -1176,7 +1374,23 @@ body {
       <div class="ability-card" data-action="bonus">
         <div class="ability-name">Adrenaline Surge (Compound 47-B)</div>
         <div class="ability-badges"><span class="badge badge-bonus">Bonus Action</span><span class="badge badge-charges">2 / LR</span></div>
-        <div class="ability-desc"><strong>3d6 temp HP</strong>, advantage on next <strong>two</strong> attacks, +10ft speed. Crash reduced to disadvantage on next attack only. Field Surgery &rarr; 4d8+WIS, 2 hit dice. Trauma Extraction &rarr; bonus action option.</div>
+        <div class="ability-desc"><strong>3d6 temp HP</strong>, advantage on next <strong>two</strong> attacks, +10ft speed. Crash reduced to disadvantage on next attack only. Field Surgery &rarr; 5d8+WIS, 2 hit dice. Trauma Extraction &rarr; bonus action option.</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p>Compound 47-B is a second-generation synthetic catecholamine cocktail &mdash; Foundation pharmacology refined the original Compound 47 to deliver a harder spike with a cleaner metabolic clearance. Same consent requirement as Compound 47.</p>
+            <p>The target gains:</p>
+            <p>&bull; <strong>3d6 temporary HP</strong> (up from 2d6)<br>
+            &bull; <strong>Advantage on their next two attack rolls</strong> (up from one)<br>
+            &bull; <strong>+10 feet movement speed</strong><br>
+            &bull; <strong>Duration:</strong> until the end of the target's second turn after injection<br>
+            &bull; <strong>Mental override and failure rider:</strong> identical to Compound 47</p>
+            <p><strong>Trade-off (reduced):</strong> Disadvantage on <strong>next attack roll only</strong> (improved from all attacks and ability checks). The 47-B formula includes a metabolic buffer that softens the crash.</p>
+            <p><strong>Uses:</strong> Two doses per long rest. Each dose costs your bonus action.</p>
+            <p><strong>Also at L9:</strong> Field Surgery improves to <strong>5d8 + WIS HP</strong>, recovers <strong>two hit dice</strong>. Trauma Extraction can be used as a <strong>bonus action</strong> (no free Triage rider).</p>
+            <p><em>Authorization: Compound 47-B authorization at level 9 reflects demonstrated competence with the original formula.</em></p>
+          </div>
+        </details>
       </div>
     </div>
   </div>
@@ -1192,7 +1406,18 @@ body {
       <div class="ability-card" data-action="action">
         <div class="ability-name">Advanced Field Surgery</div>
         <div class="ability-badges"><span class="badge badge-action">Full Round</span><span class="badge badge-charges">3 / LR</span></div>
-        <div class="ability-desc"><strong>5d8 + WIS HP</strong>, 2 hit dice recovered, <strong>remove one non-anomalous condition</strong>. Survives forced repositioning but surgeon can't voluntarily move.</div>
+        <div class="ability-desc"><strong>6d8 + WIS HP</strong>, 2 hit dice recovered, <strong>remove one non-anomalous condition</strong>. Survives forced repositioning but surgeon can't voluntarily move.</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p>Your surgical kit has been upgraded with Foundation experimental instruments &mdash; a micro-cauterizer array, self-guiding suture threads, and a pharmacological infusion line that delivers targeted compounds directly to damaged tissue.</p>
+            <p>Target one creature you can touch. The target regains <strong>6d8 + WIS modifier HP</strong>, recovers <strong>two spent hit dice</strong>, and you <strong>remove one non-anomalous condition</strong> (Blinded, Deafened, Poisoned, Frightened, Charmed, Stunned, etc.).</p>
+            <p><strong>Uses:</strong> Three per long rest.</p>
+            <p><strong>Repositioning tolerance:</strong> The procedure survives forced movement. However, <strong>the surgeon cannot voluntarily move</strong> during the procedure.</p>
+            <p>If you take damage, Medicine check (DC = 10 + damage taken) or healing halved.</p>
+            <p>First Aid scales to <strong>5d6 + WIS</strong>. <em>(Project PROMETHEUS experimental regenerative compounds.)</em></p>
+          </div>
+        </details>
       </div>
     </div>
   </div>
@@ -1209,11 +1434,25 @@ body {
         <div class="ability-name">Miraculous Save</div>
         <div class="ability-badges"><span class="badge badge-reaction">Reaction</span><span class="badge badge-charges">1 / LR</span></div>
         <div class="ability-desc">When creature adjacent to you is <strong>reduced to 0 HP or fails third death save</strong>: deploy cardiac resuscitation kit. Target drops to <strong>1 HP instead of dying</strong>. Conscious and can act.</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p>When a creature within 5 feet of you is <strong>reduced to 0 HP or fails their third death saving throw</strong>, you can use your reaction to deploy your emergency cardiac resuscitation kit &mdash; defibrillator pad, epinephrine bolus injector, and compression sleeve. Three actions in under two seconds.</p>
+            <p>The target <strong>drops to 1 HP instead of dying.</strong> They are conscious and can act on their next turn.</p>
+            <p><em>Side effects: tachycardia, contact burns from the defibrillator, bruised ribs from the compression sleeve. Narrative only &mdash; no mechanical penalty.</em></p>
+          </div>
+        </details>
       </div>
       <div class="ability-card" data-action="passive">
         <div class="ability-name">Combat Medic Mastery</div>
         <div class="ability-badges"><span class="badge badge-passive">Passive</span></div>
-        <div class="ability-desc">Mass Triage &rarr; <strong>2/LR</strong>, <strong>3d6 + WIS</strong> each.</div>
+        <div class="ability-desc">Mass Triage &rarr; <strong>2/LR</strong>, <strong>4d6 + WIS</strong> each.</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p><strong>Mass Triage</strong> becomes <strong>twice per long rest</strong>. Each use heals up to 3 allies within 15 feet for <strong>4d6 + WIS modifier HP each</strong>.</p>
+          </div>
+        </details>
       </div>
     </div>
   </div>
@@ -1236,6 +1475,19 @@ body {
           &bull; <strong>Can immediately take a reaction</strong><br><br>
           First Aid reaches <strong>6d6 + WIS</strong> (unique to Combat Medic).
         </div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p>Your resuscitation kit has been upgraded with <strong>LAZARUS-Light</strong> &mdash; a single-dose field compound derived from Foundation necromedicine research (Project LAZARUS, classified).</p>
+            <p>When you use <strong>Miraculous Save</strong>, the target also gains:</p>
+            <p>&bull; <strong>3d6 temporary HP</strong><br>
+            &bull; <strong>Immunity to being reduced to 0 HP until the start of your next turn</strong> &mdash; the compound physically will not allow the body to stop<br>
+            &bull; <strong>Can immediately take a reaction</strong></p>
+            <p><strong>Uses:</strong> Once per long rest (shared with Miraculous Save &mdash; One More Breath IS your Miraculous Save, enhanced).</p>
+            <p>First Aid reaches <strong>6d6 + WIS modifier</strong> (unique to Combat Medic).</p>
+            <p><em>Authorization: LAZARUS-Light is NOT part of your standard loadout. Before a high-risk deployment, Foundation Medical R&amp;D may authorize a single dose. This requires Level 4 Medical approval, a documented medical justification, and post-deployment reporting. The dose is signed out, tracked, and accounted for regardless of whether it was used.</em></p>
+          </div>
+        </details>
         <div class="ability-note authorization">LAZARUS-Light requires Level 4 Medical approval + documented justification. Dose tracked regardless of use.</div>
       </div>
     </div>
@@ -1292,11 +1544,32 @@ body {
           &bull; <strong>DRG-4 Trauma Plating:</strong> 1d6+WIS temp HP until LR<br>
           &bull; <strong>PS-12 Pain Suppressant:</strong> Ignore first Frightened or Stunned (single use)
         </div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p>Administer Foundation medical preparations to up to 3 allies. Each treatment takes ~5 minutes (injection, monitoring, logging). Choose one compound per ally:</p>
+            <p><strong>Immunobooster (Compound IM-7):</strong> Advantage on CON saves against poison and disease for 8 hours. Side effect: mild fever and elevated heart rate for 30 minutes.</p>
+            <p><strong>Trauma Plating (DRG-4):</strong> Subdermal polymer gel. 1d6 + WIS temp HP until next long rest. Side effect: stiffness, reduced fine motor sensitivity.</p>
+            <p><strong>Pain Suppressant (Compound PS-12):</strong> Neural inhibitor blocking pain-panic cascade. Target ignores the first instance of Frightened or Stunned (negated, single use). Side effect: mild emotional flattening for 1 hour.</p>
+            <p><em>Candidate selection note: Internal Medic candidates are identified during basic medical training based on aptitude in pharmaceutical science, analytical thinking, and institutional judgment. The Foundation doesn't train pharmacologists from scratch &mdash; it selects personnel who already demonstrate the aptitude and provides advanced Foundation-specific training.</em></p>
+            <p><em>Player complexity note: The Internal Medic is the most decision-intensive specialization. By level 7+, you are managing mode-select choices each turn, compound tracking on multiple allies, Purge and Directed Triage charges, Crash Cart and Polypharmacy eligibility, Contraindication Shot scan prerequisites, and Analysis Paralysis reactions. Physical tokens (coins on minis) for compound tracking are strongly recommended.</em></p>
+          </div>
+        </details>
       </div>
       <div class="ability-card" data-action="action">
         <div class="ability-name">Precision Medicine (Purge)</div>
         <div class="ability-badges"><span class="badge badge-action">Added to First Aid</span><span class="badge badge-charges">WIS mod / SR</span></div>
         <div class="ability-desc">Choose CURE mode: remove one condition. <strong>Non-anomalous = auto.</strong> Anomalous = <strong>Medicine check (DC set by DM)</strong> based on the anomaly's strength. Charge spent on attempt regardless.</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p><strong>Mode-select rule:</strong> Each First Aid, you choose ONE mode: <strong>Heal</strong> (roll First Aid dice normally), <strong>Cure</strong> (Purge a condition &mdash; no HP healed), or <strong>Buff</strong> (Directed Recovery rider &mdash; no HP healed; available at level 5). You cannot combine modes. One action, one effect.</p>
+            <p><strong>Cure Mode &mdash; Purge:</strong> Administer a chelation injector and broad-spectrum antitoxin to remove one condition (blinded, deafened, poisoned, frightened, charmed, etc.).</p>
+            <p><strong>Purge charges:</strong> WIS modifier per short rest (minimum 1). At WIS 14 (+2), that's 2 charges. At WIS 16 (+3), that's 3.</p>
+            <p><strong>Anomalous conditions:</strong> Purge works on anomalous-source conditions (SCP-designated or clearly supernatural), but requires a <strong>Medicine check</strong> &mdash; DC = 10 + half the source entity's save DC (rounded down). On failure, the charge is spent and the condition remains.</p>
+            <p><em>The Internal Medic's core identity &mdash; always having the right answer, but only being able to give one answer per turn.</em></p>
+          </div>
+        </details>
       </div>
     </div>
   </div>
@@ -1314,12 +1587,32 @@ body {
         <div class="ability-name">Crash Cart</div>
         <div class="ability-badges"><span class="badge badge-reaction">Reaction</span><span class="badge badge-charges">30ft</span><span class="badge badge-new">NEW v0.13</span></div>
         <div class="ability-desc"><strong>Trigger:</strong> An ally drops to 0 HP within 30ft. <strong>Cost:</strong> Your reaction + one active Preemptive Treatment compound on that target is consumed. The ally <strong>auto-stabilizes at 1 HP</strong> instead of falling unconscious.</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p>When an ally you can see drops to 0 HP, you can use your reaction to remotely trigger one of your prepared compounds &mdash; the autoinjector fires its emergency payload, flooding the target's system with a concentrated stabilization cocktail. The ally <strong>auto-stabilizes at 1 HP.</strong></p>
+            <p><strong>Cost:</strong> Your reaction + one active Preemptive Treatment compound on the target is <strong>consumed</strong>. If the target has no active compound from you, Crash Cart cannot be used.</p>
+            <p>This creates real resource tension: every Preemptive Treatment compound you place before combat is simultaneously a long-duration buff AND a potential emergency save. Using Crash Cart burns the buff early &mdash; you're trading planned preparation for reactive rescue.</p>
+            <p><em>"Compound PS-12 detected critical vitals &mdash; emergency override. Autoinjecting full payload."</em></p>
+            <p><em>Design note: This fills the IM's reaction gap. CM has Combat Stabilization (reaction heal at 30ft). IM had nothing reactive until Analysis Paralysis at L5. Crash Cart is the IM's "save them NOW" button &mdash; but it costs real resources, making it a genuine decision rather than a free safety net.</em></p>
+          </div>
+        </details>
         <div class="ability-note design">Creates resource tension &mdash; compounds are both ongoing buffs AND emergency saves. Spending a compound to save a life means losing that buff for the rest of the fight.</div>
       </div>
       <div class="ability-card" data-action="bonus">
         <div class="ability-name">Directed Triage</div>
         <div class="ability-badges"><span class="badge badge-bonus">Bonus Action</span><span class="badge badge-charges">2 / SR</span><span class="badge badge-charges">30ft</span></div>
         <div class="ability-desc">Shout medical instructions to a conscious ally. Target spends their <strong>hit die + your WIS mod</strong>. Target must be able to hear you and chooses whether to accept.</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p>You don't carry quick-deploy patches like the Combat Medic. But you can shout precise medical instructions to a conscious ally within 30 feet, coaching them through self-treatment in real time. <strong>The target must be able to hear you</strong> &mdash; a Deafened ally cannot follow verbal instructions.</p>
+            <p>The target spends one of their own <strong>hit dice</strong> and adds your <strong>WIS modifier</strong> to the roll. They heal for that amount. <strong>The target chooses whether to accept</strong> &mdash; if they decline, your bonus action is not spent and you can target someone else or take a different bonus action.</p>
+            <p>This costs the ally's hit die but NOT their reaction. The ally can still use their reaction normally on their turn.</p>
+            <p><em>"Apply pressure above the wound &mdash; no, ABOVE it. Good. Now breathe. You're fine."</em></p>
+            <p><em>DM note: Directed Triage consumes ally hit dice, which are also the primary short-rest healing resource. Over a long attrition day (3+ fights), this can drain the party's rest-healing budget.</em></p>
+          </div>
+        </details>
         <div class="ability-note warning">Uses ally's hit dice &mdash; drains their short rest healing budget over long days.</div>
       </div>
       <div class="ability-card" data-action="bonus">
@@ -1331,12 +1624,33 @@ body {
           <strong>Active scan — enemy (BA):</strong> Condition tier (free) + tactical detail via <strong>Medicine check — DC set by DM</strong> based on creature difficulty. Clinical-grade scanner gives <strong>+2 to this check</strong> vs base Medic's Eye.<br>
           <strong>On successful scan:</strong> Allies who can hear you gain <strong>+1 to attack rolls</strong> vs that target until your next turn.
         </div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p>Your clinical-grade scanner module replaces the standard biometric scanner firmware. It runs continuously in passive mode.</p>
+            <p><strong>Passive (always on, 30ft):</strong> You always know the condition tier of all allies within 30 feet without using your bonus action (healthy/wounded/bloodied/critical). No action required. <strong>Requires you to be conscious.</strong></p>
+            <p><strong>Bonus Action &mdash; Active Scan (ally):</strong> Exact HP, max HP, all conditions. Automatic, no check.</p>
+            <p><strong>Bonus Action &mdash; Active Scan (enemy):</strong> Condition tier (free) plus one <strong>tactical detail</strong> via <strong>Medicine check &mdash; DC set by the DM</strong>. Clinical-grade scanner gives <strong>+2 to this check</strong>. On a <strong>successful enemy scan</strong>, allies who can hear you gain <strong>+1 to attack rolls</strong> against that target until your next turn. Failed scans do not grant the bonus.</p>
+            <p><em>The +1 bonus comes from you reading the enemy's physiological stress responses and calling out moments of vulnerability &mdash; reading bodies, not planning killchains.</em></p>
+          </div>
+        </details>
         <div class="ability-note design">The +1 attack bonus only triggers on a successful scan. Harder enemies are harder to read, which means the +1 is earned, not automatic.</div>
       </div>
       <div class="ability-card" data-action="noncombat">
         <div class="ability-name">Classified Consultation</div>
         <div class="ability-badges"><span class="badge badge-noncombat">Exploration</span></div>
         <div class="ability-desc">Access classified Foundation medical databases via your secure terminal. <strong>Medicine check</strong> &mdash; DM determines what you learn based on your roll. Cross-reference anomalous effects, diseases, or unidentified conditions. Can also research an SCP pre-mission (DM discretion based on clearance).</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p>Secure medical terminal access to classified Foundation databases. When encountering anomalous effects, diseases, or unidentified conditions, spend 10 minutes cross-referencing. Medicine check:</p>
+            <p><strong>DC 10:</strong> General nature (anomalous, memetic, biological, chemical, thaumic)</p>
+            <p><strong>DC 15:</strong> Specific cause, progression timeline, aggravating factors</p>
+            <p><strong>DC 20:</strong> The cure or treatment, if one exists in Foundation records</p>
+            <p>Can also research an SCP pre-mission (DM discretion based on clearance).</p>
+            <p><em>Moved from level 3 to level 4 in v0.7 to reduce ability overload at specialization entry.</em></p>
+          </div>
+        </details>
       </div>
     </div>
   </div>
@@ -1359,22 +1673,55 @@ body {
           &bull; <strong>Focus (FC-1):</strong> Advantage on next ability check.<br>
           Lasts until the start of target's next turn.</div>
         <div class="ability-note design">Pain Suppression is distinct from Purge: Purge (Cure mode) removes conditions permanently. Suppression overrides them for 1 turn only &mdash; a combat bandage, not a cure.</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p>When you use First Aid, you can now choose to <strong>Buff</strong> instead of healing or curing: administer one of the following compounds (no HP healed):</p>
+            <p><strong>Pain Suppression (Compound PS-X):</strong> Selective neural inhibitor targeting the thalamic pain relay. Target <strong>ignores the effects of Frightened, Charmed, or Poisoned</strong> until the start of the target's next turn. The condition is <strong>NOT removed</strong> &mdash; it resumes when the suppression wears off. The target CAN move toward the source of fear while suppressed (the neural inhibitor blocks the panic response). Side effect: mild emotional flattening for 1 hour.</p>
+            <p><strong>Steady (NCD-1):</strong> Advantage on their next saving throw. Side effect: brief "too sharp" sensation.</p>
+            <p><strong>Focus (Compound FC-1):</strong> Targeted nootropic stimulant. Advantage on next ability check. Once per encounter or scene. Side effect: mild jitteriness for 1 hour.</p>
+            <p>Duration: buffs last until start of the TARGET's next turn, not yours.</p>
+            <p><em>Distinct from Purge: Purge REMOVES conditions (costs a charge, can fail on anomalous sources). Pain Suppression OVERRIDES for 1 turn (guaranteed, no charge cost).</em></p>
+          </div>
+        </details>
       </div>
       <div class="ability-card" data-action="reaction">
         <div class="ability-name">Analysis Paralysis</div>
         <div class="ability-badges"><span class="badge badge-reaction">Reaction</span><span class="badge badge-charges">1 / SR</span><span class="badge badge-charges">30ft</span></div>
         <div class="ability-desc">When an ally within 30ft is targeted by an attack you can see, shout a warning. The attack has <strong>disadvantage</strong>. Scanner detects biometric panic in your patient before they register the threat.</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p>When an ally within 30 feet is targeted by an attack you can see, you can use your reaction to shout a warning. The attack has <strong>disadvantage</strong>.</p>
+            <p>Your scanner is passively monitoring your allies' biometrics. When it detects a sudden stress spike &mdash; cortisol surge, heart rate jump, involuntary flinch &mdash; in one of your patients before they consciously register the incoming threat, you react on instinct. "DOWN!" The warning arrives before the attack does.</p>
+            <p>This gives the Internal Medic a prevention-based tool that creates a completely different turn structure from the standard heal cycle.</p>
+            <p><em>Reframing note: You're not predicting enemy behavior or tracking attack vectors. You're reading your own patient's fight-or-flight response and reacting to THAT. The scanner detects biometric panic before your ally knows they're in danger. That's medical pattern recognition, not tactical intelligence.</em></p>
+          </div>
+        </details>
       </div>
       <div class="ability-card" data-action="noncombat">
         <div class="ability-name">Preemptive Treatment (Scaling)</div>
         <div class="ability-badges"><span class="badge badge-noncombat">Before Going In / During Rest</span><span class="badge badge-charges">5 Allies</span></div>
         <div class="ability-desc">Capacity increases to <strong>5 allies</strong>. New compound:<br>
           &bull; <strong>MB-9 Metabolic Boost:</strong> +5ft movement speed and advantage on Initiative for 8 hrs</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p>Capacity increases to <strong>5 allies</strong>. New compound available:</p>
+            <p><strong>Metabolic Boost (Compound MB-9):</strong> +5 feet movement speed and advantage on Initiative for 8 hours. Side effect: increased appetite, mild hand tremor.</p>
+          </div>
+        </details>
       </div>
       <div class="ability-card" data-action="passive">
         <div class="ability-name">First Aid Scaling</div>
         <div class="ability-badges"><span class="badge badge-passive">Passive</span></div>
         <div class="ability-desc">First Aid scales to <strong>3d6 + WIS</strong>. Targeted pharmaceutical compounds (analgesics + tissue stimulants).</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p><em>Targeted pharmaceutical compounds (analgesics + tissue stimulants). Scales 1 level behind Combat Medic in raw dice. But mode-select flexibility (Precision Medicine, Directed Recovery, Directed Triage) makes each action more adaptable &mdash; you choose what the situation needs rather than getting raw throughput.</em></p>
+          </div>
+        </details>
       </div>
     </div>
   </div>
@@ -1392,6 +1739,18 @@ body {
         <div class="ability-name">Amnestic Administration (Class-A)</div>
         <div class="ability-badges"><span class="badge badge-action">Action</span><span class="badge badge-charges">Serial-Tracked</span></div>
         <div class="ability-desc">Erases <strong>recent memory</strong> (DM determines scope). WIS save. Combat use: administer to incapacitated enemy. All doses logged. Misuse = investigation.</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p>Foundation-issued amnestic compounds &mdash; chemical agents targeting memory-encoding processes in the hippocampus.</p>
+            <p><strong>Class-A Amnestic (Compound AM-A):</strong> Autoinjector to a willing or restrained target. Erases preceding hour. WIS save (DC = 8 + proficiency + WIS mod) &mdash; fail = hour cleanly erased, success = fragmented impressions remain.</p>
+            <p><strong>Combat use:</strong> Administer to incapacitated enemy &mdash; erases knowledge of your team.</p>
+            <p>All doses logged by serial number. Misuse triggers automatic investigation.</p>
+            <p><em>Authorization: Amnestic administration requires certification completed between levels 5 and 6. This involves: (1) Advanced neuroscience training on memory formation and pharmacological intervention, (2) Dosage calibration practicals, (3) Security review &mdash; your operational record is evaluated for judgment and trustworthiness, (4) Ethics Committee certification &mdash; you understand when amnestic use is justified, (5) Psychological evaluation &mdash; you are stable enough to erase human memories without it affecting your own mental health.</em></p>
+            <p><em>Your amnestic administration kit is issued upon certification. It was NOT part of your level 3 starting equipment. Each dose is tracked by serial number. Post-administration reporting is mandatory. The Ethics Committee has standing authority to revoke your certification.</em></p>
+            <p><em>Institutional note: Amnestic deployment is technically a Security operation, not a medical one. The Foundation places amnestics under Medical Division authority because the delivery mechanism is pharmaceutical and proper dosing requires medical expertise. Security can REQUEST amnestic support through your Medical chain of command, but cannot directly order you to deploy amnestics.</em></p>
+          </div>
+        </details>
         <div class="ability-note authorization">Requires amnestics certification (Ethics Committee + Security review).</div>
       </div>
       <div class="ability-card" data-action="action">
@@ -1401,6 +1760,20 @@ body {
           &bull; <strong>Vasodilator:</strong> Target's attacks deal <strong>half damage</strong> for 1 turn.<br>
           &bull; <strong>Neurodepressant:</strong> Target's speed is <strong>halved</strong> and they cannot take <strong>reactions</strong> for 1 turn.<br>
           <strong>Immune:</strong> Constructs, creatures immune to poison.</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p>Your scanner data shows the target's system is already under stress &mdash; elevated cortisol, irregular cardiac rhythm, compromised hepatic filtration. A targeted pharmaceutical push could tip them past their physiological limits.</p>
+            <p><strong>Prerequisite:</strong> You must have successfully scanned the target with your Clinical Scanner (bonus action) <strong>this combat.</strong> Without scan data, Contraindication Shot cannot be used on unscanned targets.</p>
+            <p><strong>On hit:</strong> The target makes a <strong>CON save (DC = 8 + proficiency + WIS modifier).</strong> You choose the payload at the time of firing:</p>
+            <p><strong>Vasodilator (Compound VD-3):</strong> Forces rapid blood pressure drop. Target's <strong>attacks deal half damage</strong> until the end of their next turn. Side effect on target: visible flushing, sluggish movement.</p>
+            <p><strong>Neurodepressant (Compound ND-2):</strong> Suppresses motor neuron signaling. Target's <strong>speed is halved</strong> and they <strong>cannot take reactions</strong> until the end of their next turn. Side effect on target: slurred speech, delayed reflexes.</p>
+            <p><strong>Uses:</strong> WIS modifier per long rest (minimum 1). Each dart is a pre-loaded pharmaceutical cartridge.</p>
+            <p><strong>CON save (not WIS)</strong> &mdash; this is a chemical assault on the body, not the mind. Constructs and creatures immune to poison are immune to Contraindication Shot.</p>
+            <p><em>"Scanner shows elevated cortisol, irregular cardiac rhythm, and a compromised hepatic filtration rate. Deploying vasodilator &mdash; their system can't compensate."</em></p>
+            <p><em>Design note: This is the IM's FIRST proactive enemy debuff. Previously, the IM could only buff allies or remove conditions &mdash; entirely reactive. The scanner prerequisite makes it deliberate, not spammable. This is pharmacology, not weakness identification &mdash; the IM isn't finding vulnerabilities (that's ScD territory), they're using medical expertise to worsen an enemy's existing physiological stress.</em></p>
+          </div>
+        </details>
         <div class="ability-note design">The IM's first proactive enemy debuff. Scan-first requirement rewards the clinical workflow &mdash; you can't just shoot blindly.</div>
       </div>
     </div>
@@ -1419,12 +1792,29 @@ body {
         <div class="ability-name">Strategic Preparation (AR-5)</div>
         <div class="ability-badges"><span class="badge badge-noncombat">Before Going In / During Rest</span></div>
         <div class="ability-desc"><strong>Anomalous Resistance (Compound AR-5):</strong> Advantage on CON saves vs anomalous effects for <strong>8 hrs</strong>. No stacking within 24 hrs. IV slow-push autoinjector. Side effects: desaturated color perception, emotional dampening.</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p><strong>Anomalous Resistance (Compound AR-5):</strong> Advantage on CON saves against anomalous effects (anomalous radiation, toxins, parasitic organisms, reality-warping physical effects, thaumic biological interference) for 8 hours. A second dose within 24 hours causes vomiting and severe joint pain &mdash; do not stack.</p>
+            <p>Intravenous infusion via slow-push autoinjector &mdash; a translucent amber solution administered over 90 seconds to avoid vascular shock. The compound reinforces cellular membrane integrity and stabilizes biochemical processes against anomalous disruption at the molecular level.</p>
+            <p>Side effects: muted color perception (everything looks slightly desaturated), mild emotional dampening (reduced startle response, flattened affect) for the full duration.</p>
+            <p><em>Cross-departmental: AR-5 is developed and supplied by Foundation Research Division for field medical use. You administer it and understand the dosage, pharmacokinetics, and side effects, but the thaumic stabilization mechanism is Research's domain, not yours. The compound fortifies the body's resistance to anomalous physical effects &mdash; not the mind. Mental protection is the Memetic Specialist's domain.</em></p>
+          </div>
+        </details>
         <div class="ability-note authorization">Requires Level 3+ Medical clearance and pre-mission requisition noting anticipated anomalous exposure.</div>
       </div>
       <div class="ability-card" data-action="noncombat">
         <div class="ability-name">Strategic Preparation (CF-2)</div>
         <div class="ability-badges"><span class="badge badge-noncombat">Before Going In / During Rest</span></div>
-        <div class="ability-desc"><strong>Cellular Fortification (Compound CF-2):</strong> Choose one damage type (piercing, slashing, bludgeoning, fire, cold, lightning, acid, necrotic, radiant, or poison). Target gains <strong>resistance to that type for 8 hrs</strong>. Cannot stack &mdash; second injection negates both. Side effects: translucent skin at site, joint stiffness (disadv. Acrobatics 1 hr).</div>
+        <div class="ability-desc"><strong>Cellular Fortification (Compound CF-2):</strong> Choose one damage type (piercing, slashing, bludgeoning, fire, cold, lightning, acid, necrotic, or radiant). Target gains <strong>resistance to that type for 8 hrs</strong>. Cannot stack &mdash; second injection negates both. Side effects: translucent skin at site, joint stiffness (disadv. Acrobatics 1 hr).</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p><strong>Cellular Fortification (Compound CF-2):</strong> Subcutaneous gel injector &mdash; a thick, pearlescent compound administered to the upper arm or thigh. CF-2 triggers a controlled inflammatory response that temporarily hardens cellular walls against a specific damage vector. At the time of injection, you select <strong>one damage type</strong> (piercing, slashing, bludgeoning, fire, cold, lightning, acid, necrotic, or radiant). Target gains <strong>resistance to that damage type</strong> for <strong>8 hours</strong>.</p>
+            <p>Side effects: skin at the injection site becomes unnaturally smooth and slightly translucent (visible if inspected), mild joint stiffness (disadvantage on Acrobatics checks for the first hour as the compound settles). CF-2 cannot be stacked &mdash; a second injection before the first expires causes the compounds to conflict, negating both.</p>
+            <p><em>Authorization: CF-2 is standard Foundation pharmacology &mdash; no special authorization beyond your existing Internal Medic credentials, but each dose is still tracked by serial number.</em></p>
+          </div>
+        </details>
       </div>
       <div class="ability-card" data-action="passive">
         <div class="ability-name">Polypharmacy</div>
@@ -1433,6 +1823,18 @@ body {
           <strong>Non-anomalous conditions:</strong> automatic removal.<br>
           <strong>Anomalous conditions:</strong> Medicine check with <strong>advantage</strong>.<br>
           Physical tracking token recommended &mdash; place a marker on allies with active compounds.</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p>Your understanding of drug interactions has reached the point where you can exploit them deliberately. When you use First Aid in <strong>Heal mode</strong> on an ally who currently has one of your <strong>Preemptive Treatment compounds active</strong>, you can choose to <strong>Flush</strong> the compound:</p>
+            <p><strong>Flush:</strong> The active compound burns out in a controlled cascade, and the metabolic byproducts act as a broad-spectrum chelation agent. The compound is <strong>consumed</strong> (buff ends immediately), and one <strong>condition</strong> on the target is <strong>removed</strong> &mdash; this functions as a free Purge that does NOT cost a Purge charge.</p>
+            <p>The Flush works on non-anomalous conditions automatically. Anomalous conditions still require the standard Medicine check (DC = 10 + half source entity's save DC), but the compound interaction gives you <strong>advantage on that check.</strong></p>
+            <p>This means every Preemptive Treatment compound you place before combat serves triple duty: it's a long-duration buff, a Crash Cart emergency trigger, AND a potential free condition removal if you Flush it mid-combat.</p>
+            <p><em>"DRG-4 is still active in his system &mdash; I can use the polymer breakdown to flush the neurotoxin. Cycling the compound... there. Clean."</em></p>
+            <p><em>Tracking note: Use a physical token (coin on mini, card on table) to mark which allies have active compounds. When a compound is consumed (by Crash Cart or Polypharmacy Flush), remove the token.</em></p>
+            <p><em>Design note: Polypharmacy originally had a second option (Boost &mdash; bonus healing from compound interaction). Testing showed Flush always wins because condition removal is more valuable than bonus HP. Simplified to Flush only.</em></p>
+          </div>
+        </details>
         <div class="ability-note design">Bridges Heal and Cure modes by letting you do both &mdash; at the cost of burning a prep compound. Rewards pre-mission planning.</div>
       </div>
       <div class="ability-card" data-action="action">
@@ -1446,12 +1848,35 @@ body {
           &bull; <strong>91&ndash;99:</strong> Exceptional<br>
           &bull; <strong>100:</strong> Breakthrough &mdash; formula permanently learned<br><br>
           <strong>Willing targets only</strong> &mdash; stress hormones cause compound rejection.</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p>Foundation Medical R&D has designated you as a <strong>field tester</strong> for experimental compounds in the development pipeline. Before each mission, you receive a sealed, temperature-controlled, serialized multi-dose vial containing an unstable experimental compound. The compound's effects are unpredictable &mdash; each dose interacts differently with the recipient's unique physiology.</p>
+            <p><strong>Usage:</strong> As an action, inject one dose into an adjacent willing ally (or yourself). Roll <strong>d100</strong> and consult the Foundation Field Test table (DM-only document). The result is immediately applied.</p>
+            <p><strong>Result ranges:</strong></p>
+            <p><strong>1&ndash;5 (Adverse Reaction):</strong> Negative effect &mdash; the compound backfires. Minor harm or debuff.</p>
+            <p><strong>6&ndash;15 (Null Result):</strong> No meaningful effect. Logged as "inconclusive."</p>
+            <p><strong>16&ndash;50 (Minor Beneficial):</strong> Small positive effect &mdash; temporary buff, minor healing, or utility.</p>
+            <p><strong>51&ndash;90 (Beneficial):</strong> Significant positive effect &mdash; meaningful buff, substantial healing, or tactical advantage.</p>
+            <p><strong>91&ndash;99 (Exceptional):</strong> Powerful positive effect &mdash; major buff, large heal, or combat-changing utility.</p>
+            <p><strong>100 (Breakthrough):</strong> Extraordinary result. The compound's effect is powerful AND the formula permanently enters your known formulary &mdash; you can now prepare it as a Preemptive Treatment compound (DM determines specifics).</p>
+            <p><strong>Doses:</strong> WIS modifier per long rest (minimum 1). Each dose is tracked &mdash; spent vials are returned to R&D with your field notes.</p>
+            <p><em>"Compound SER-7749, dose three. Subject is Corporal Reyes, 82kg, no contraindications. Injecting... monitoring..."</em></p>
+            <p><em>Design note: Foundation Field Test is the FUN gamble mechanic &mdash; "R&D sent you mystery juice, roll the dice." The d100 table is DM-only. Moved from L9 to L7 to coincide with Strategic Preparation &mdash; R&D is already trusting you with AR-5 and CF-2 at this level.</em></p>
+          </div>
+        </details>
         <div class="ability-note design">Fun gamble mechanic. R&D trusts you with experimental compounds at the same level they give you AR-5 and CF-2. Full d100 table is DM-only.</div>
       </div>
       <div class="ability-card" data-action="passive">
         <div class="ability-name">Analysis Paralysis (Scaling)</div>
         <div class="ability-badges"><span class="badge badge-passive">Passive</span></div>
         <div class="ability-desc">Analysis Paralysis improves to <strong>2 per short rest</strong>.</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p>Your scanner proficiency and biometric pattern recognition have improved. Two defensive reactions per short rest lets you protect multiple allies across a single engagement.</p>
+          </div>
+        </details>
       </div>
     </div>
   </div>
@@ -1469,24 +1894,59 @@ body {
         <div class="ability-name">Class-B Amnestics (AM-B)</div>
         <div class="ability-badges"><span class="badge badge-action">Action</span><span class="badge badge-charges">Serial-Tracked</span></div>
         <div class="ability-desc">Erases up to <strong>one day</strong> of memory. WIS save (DC 8 + prof + WIS). <strong>Combat autoinjector:</strong> melee attack roll vs unwilling target, on hit deploys amnestic + WIS save. <strong>Overdose risk:</strong> any amnestic in past 48 hrs &rarr; DC 14 CON save or seizures (incapacitated 1 round, 2d6 psychic).</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p>The next grade up from Class-A &mdash; a stronger amnestic compound targeting deeper memory consolidation pathways. AM-B disrupts not just short-term hippocampal encoding but attacks consolidated long-term memories through targeted protein synthesis inhibition.</p>
+            <p><strong>Willing or restrained target:</strong> Autoinjector to the neck or inner arm. Erases up to <strong>24 hours</strong> of memory. WIS save (DC = 8 + proficiency + WIS mod) &mdash; fail = targeted time period cleanly erased, success = fragmentary impressions remain (emotions without context, spatial memory without faces).</p>
+            <p><strong>Unwilling target (combat autoinjector):</strong> Make a <strong>melee attack roll</strong> against the target. On hit, the amnestic deploys via spring-loaded combat injector. The target makes the same WIS save. This is loud, violent, and obvious &mdash; not subtle fieldwork.</p>
+            <p><strong>Narrow therapeutic window:</strong> If you administer AM-B to a target that has received ANY amnestic in the past 48 hours, the target must make a <strong>DC 14 CON save</strong> or suffer seizures &mdash; <strong>incapacitated for 1 round</strong> and takes <strong>2d6 psychic damage</strong>. Even on success, disadvantage on INT checks for 1 hour.</p>
+            <p><em>Authorization: Class-B amnestics require the same certification as Class-A (completed at level 6). The combat autoinjector variant requires an additional field-deployment endorsement.</em></p>
+          </div>
+        </details>
         <div class="ability-note authorization">Requires Class-A/B certification + field-deployment endorsement for combat autoinjector.</div>
       </div>
       <div class="ability-card" data-action="action">
         <div class="ability-name">Foundation Medical Authority</div>
         <div class="ability-badges"><span class="badge badge-action">Action</span><span class="badge badge-charges">1 / LR</span></div>
         <div class="ability-desc"><strong>Medical Override keycard</strong> (Level 4 Medical clearance, biometric). One Foundation system, supply cache, restricted file, or NPC must comply with a reasonable <strong>medical directive</strong>. Opens medical supply caches, patient records, quarantine locks. Does <strong>NOT</strong> open containment cells or override security lockdowns.</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p>You are issued a <strong>Medical Override keycard</strong> &mdash; Level 4 Medical clearance, encoded to your biometrics. When you present this card and invoke medical authority, one Foundation system, locked supply cache, restricted medical file, or NPC must comply with a reasonable medical directive.</p>
+            <p>Examples of valid use: opening a sealed medical supply locker during an emergency, accessing a restricted patient's medical records to determine treatment, overriding a quarantine lock when a patient inside requires immediate care, commandeering medical equipment from another department, or pulling rank on triage priority decisions.</p>
+            <p><strong>Scope limitations:</strong> Medical Override operates within medical contexts only. It opens medical supply caches, accesses restricted patient records, overrides quarantine locks when medically necessary, and grants authority over triage decisions. It does <strong>NOT</strong> open containment cells, override security lockdowns, grant command authority over non-medical personnel, or bypass operational security protocols. Using it outside medical contexts triggers a mandatory review.</p>
+            <p><em>"Medical override, Level Four. Open it."</em></p>
+            <p><em>Institutional note: The keycard is not a skeleton key. It is a narrow grant of authority within your professional domain. The Foundation trusts you with it because you have demonstrated judgment with amnestics, experimental compounds, and classified information for years. Abuse it once and it is revoked permanently.</em></p>
+          </div>
+        </details>
         <div class="ability-note authorization">Medical contexts only. Abuse triggers mandatory review and permanent revocation.</div>
       </div>
       <div class="ability-card" data-action="passive">
         <div class="ability-name">Field Triage Protocol</div>
         <div class="ability-badges"><span class="badge badge-passive">Passive</span><span class="badge badge-new">MOVED v0.13</span></div>
         <div class="ability-desc">After scanning a creature with Clinical Scanner (BA), your next <strong>First Aid, Triage, or Stabilize</strong> on that target has <strong>advantage on the roll</strong>. One use per scan, resets on rescan.</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p>After you use your Clinical Scanner's active scan (bonus action) on a creature, your next <strong>First Aid</strong>, <strong>Triage</strong> (via Directed Triage), or <strong>Stabilize</strong> targeting that same creature has <strong>advantage on the roll</strong> (roll healing dice twice, take the higher result; or advantage on the Medicine check if applicable). One use per scan &mdash; the bonus is consumed when you treat the scanned target, and resets the next time you actively scan them.</p>
+            <p>Your scanner's detailed biometric readout &mdash; internal bleeding sites, compound fracture angles, toxin concentrations &mdash; lets you target treatment with surgical precision instead of working blind.</p>
+            <p>Does not apply to Purge or Directed Recovery &mdash; those modes are pharmaceutical, not wound-treatment, and don't benefit from wound mapping.</p>
+            <p><em>Design note: This rewards the IM's scan-then-treat rhythm without adding a new resource. It creates a two-turn setup (scan on bonus action, treat on next action) that distinguishes the IM's deliberate approach from the CM's raw speed. Moved to L8 from L6 to prevent early-level ability overload.</em></p>
+          </div>
+        </details>
         <div class="ability-note design">Rewards the scan-then-treat rhythm without adding a new resource.</div>
       </div>
       <div class="ability-card" data-action="passive">
         <div class="ability-name">First Aid Scaling</div>
         <div class="ability-badges"><span class="badge badge-passive">Passive</span></div>
         <div class="ability-desc">First Aid scales to <strong>4d6 + WIS</strong>. Foundation-grade regenerative compounds (biofoam sealants, dermal matrix patches).</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p><em>Foundation-grade regenerative compounds &mdash; biofoam sealants with accelerated clotting factors, dermal matrix patches that scaffold new tissue growth, and pharmaceutical-grade analgesic cocktails that go well beyond standard-issue painkillers.</em></p>
+          </div>
+        </details>
       </div>
     </div>
   </div>
@@ -1504,17 +1964,40 @@ body {
         <div class="ability-name">Experimental Protocol (RC-7)</div>
         <div class="ability-badges"><span class="badge badge-action">Full Round</span><span class="badge badge-charges">1 / LR</span></div>
         <div class="ability-desc"><strong>Regenerative Compound (RC-7):</strong> Heals <strong>4d6 + WIS</strong>. All non-anomalous conditions removed. <strong>DC 12 CON save</strong> or nausea (disadvantage on attack rolls 1 round). Visibly unnatural healing &mdash; wounds seal in seconds.</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p>Restricted experimental compounds from Project PROMETHEUS &mdash; the Foundation's classified regenerative medicine research program. These are not field-grade pharmaceuticals. Each compound comes in a sealed, temperature-controlled case with a tamper-evident strip and a serial number that Medical R&D tracks personally.</p>
+            <p><strong>Regenerative Compound (RC-7):</strong> Heals <strong>4d6 + WIS modifier HP</strong>. All non-anomalous conditions removed (blinded, deafened, poisoned, frightened, charmed, stunned, etc. &mdash; if the source is non-anomalous, it's gone). <strong>DC 12 CON save</strong> or suffer nausea &mdash; <strong>disadvantage on attack rolls</strong> for 1 round.</p>
+            <p>Intravenous push via high-pressure autoinjector &mdash; a viscous, faintly luminescent blue-green solution. RC-7 triggers a cascade of accelerated cellular regeneration that is, by any honest medical assessment, beyond what current science should produce. Visibly unnatural healing: wounds seal in seconds, bruising fades before your eyes, broken bones audibly click back into alignment.</p>
+            <p>Side effects: intense hunger for 4 hours, mild hand tremor for 1 hour, faint luminescent tracery visible under the skin at the injection site for 24 hours.</p>
+            <p><em>(RC-7 is a product of Project PROMETHEUS, derived from classified biomedical research. Its exact origins are above your clearance level. What you know: it works, the dosage is precise, and Foundation Medical R&D trusts you enough to carry it.)</em></p>
+          </div>
+        </details>
         <div class="ability-note authorization">Each dose requisitioned from Site medical facility. Level 3+ Medical clearance + documented justification. Post-use reporting mandatory.</div>
       </div>
       <div class="ability-card" data-action="action">
         <div class="ability-name">Experimental Protocol (ECD-3)</div>
         <div class="ability-badges"><span class="badge badge-action">Full Round</span><span class="badge badge-charges">1 / LR (shared)</span></div>
-        <div class="ability-desc"><strong>Emergency Containment Dose (ECD-3):</strong> <strong>Suppresses one anomalous effect</strong> <strong>until next combat or scene change</strong> &mdash; paused, not cured. Effect resumes when suppression expires. Side effects: fever, fatigue, metallic taste.</div>
+        <div class="ability-desc"><strong>Emergency Containment Dose (ECD-3):</strong> <strong>Suppresses one anomalous effect</strong> <strong>for 1 hour</strong> &mdash; paused, not cured. Effect resumes when suppression expires. Side effects: fever, fatigue, metallic taste.</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p><strong>Emergency Containment Dose (ECD-3):</strong> Intramuscular injection &mdash; a clear solution in a red-striped autoinjector. ECD-3 does not heal. It <strong>suppresses one anomalous effect</strong> currently affecting the target for <strong>1 hour</strong> &mdash; the effect is paused, not cured. The anomalous contamination, mutation, or condition is still present but dormant, buying time for proper treatment or containment. When the hour expires, the effect resumes where it left off.</p>
+            <p>Side effects: low-grade fever, fatigue, and a metallic taste in the mouth for the suppression duration.</p>
+          </div>
+        </details>
       </div>
       <div class="ability-card" data-action="passive">
         <div class="ability-name">Directed Triage (Scaling)</div>
         <div class="ability-badges"><span class="badge badge-passive">Passive</span></div>
         <div class="ability-desc">Directed Triage improves to <strong>3 per short rest</strong>.</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p>Three uses per short rest. Your verbal medical coaching has become so refined that you can rapidly triage multiple casualties in a single engagement.</p>
+          </div>
+        </details>
       </div>
     </div>
   </div>
@@ -1532,17 +2015,48 @@ body {
         <div class="ability-name">Protocol HIPPOCRATES</div>
         <div class="ability-badges"><span class="badge badge-action">Action</span><span class="badge badge-charges">1 / LR</span></div>
         <div class="ability-desc">Invoke pre-authorized O5 emergency medical directive. All Foundation personnel and systems in the immediate area must comply with your <strong>medical directives for the current scene</strong>. Goes above Site Directors in medical matters. <strong>Medical directives only</strong>, immediate area only, mandatory post-incident review.</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p>Invoke a pre-authorized emergency medical directive &mdash; Protocol HIPPOCRATES, a standing order signed by the O5 Council years ago that grants temporary emergency medical authority to Level 4+ Medical Officers in immediate life-threatening situations.</p>
+            <p>When triggered, all Foundation personnel and systems in the immediate area must comply with your medical directives for up to <strong>30 minutes</strong>. This goes above Site Directors in medical matters.</p>
+            <p><strong>Scope limitations:</strong></p>
+            <p>&bull; Medical directives only (not operational, not security, not containment)<br>
+            &bull; Immediate area only (not Site-wide)<br>
+            &bull; Time-limited (30 minutes maximum)<br>
+            &bull; Subject to mandatory post-incident review by Medical Division and O5 oversight<br>
+            &bull; Abuse triggers automatic O5 investigation with career-ending consequences</p>
+            <p><em>You are not an O5. You are invoking a protocol that the O5 Council pre-authorized for exactly this situation. The authority is enormous but narrowly scoped. Use it wisely &mdash; every invocation generates a report that the O5 Council reads.</em></p>
+            <p><em>Career milestone note: By level 10, you are not a "field medic" anymore. You are one of the Foundation's senior Medical Division specialists &mdash; the equivalent of a department head with decades of demonstrated loyalty, judgment, and institutional trust. Protocol HIPPOCRATES is the reward for that trust.</em></p>
+          </div>
+        </details>
         <div class="ability-note authorization">Every invocation generates an O5 report. Abuse triggers automatic O5 investigation.</div>
       </div>
       <div class="ability-card" data-action="passive">
         <div class="ability-name">Experimental Protocol (Scaling)</div>
         <div class="ability-badges"><span class="badge badge-passive">Passive</span></div>
         <div class="ability-desc">RC-7 scales to <strong>6d6 + WIS</strong>. Experimental Protocol becomes <strong>2 per long rest</strong>.</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p>RC-7 scales to <strong>6d6 + WIS</strong>. Experimental Protocol becomes usable <strong>twice per long rest</strong>. The increased dosage reflects Project PROMETHEUS's confidence in your field data and your body's demonstrated tolerance for regenerative compounds at this concentration.</p>
+          </div>
+        </details>
       </div>
       <div class="ability-card" data-action="action">
         <div class="ability-name">Anomalous Purge (AP-1)</div>
         <div class="ability-badges"><span class="badge badge-action">Full Round</span><span class="badge badge-charges">1 / LR (separate)</span></div>
         <div class="ability-desc">Biometric-locked autoinjector. Target makes <strong>CON save DC 18</strong>. On success: one <strong>anomalous physical/biological effect permanently cured</strong>. On failure: effect <strong>suppressed 24 hrs</strong> (as ECD-3 but longer). Side effects: crushing fatigue (disadv. STR/DEX checks 24 hrs), nosebleeds, headache. Second dose in 48 hrs risks organ failure. <strong>Physical/biological only</strong> &mdash; mental anomalous effects are Memetic Specialist territory.</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p><strong>Anomalous Purge (Compound AP-1):</strong> Intramuscular injection via a black-striped autoinjector &mdash; the only compound in your kit with a biometric lock requiring your thumbprint to deploy. AP-1 attacks anomalous biological contamination at the cellular level, forcing the body to reject foreign anomalous material the way an immune response rejects a transplant.</p>
+            <p>Target makes a <strong>CON save (DC 18)</strong>. On success, one <strong>anomalous physical or biological effect</strong> is <strong>permanently cured</strong> &mdash; the body expels the contamination entirely. On failure, the effect is <strong>suppressed for 24 hours</strong> (as ECD-3, but longer duration).</p>
+            <p>Side effects regardless of outcome: crushing fatigue (disadvantage on STR and DEX checks) for 24 hours, nosebleeds, and a persistent low-grade headache. A second dose within 48 hours risks organ failure (DM discretion).</p>
+            <p><em>Scope: AP-1 treats physical and biological anomalous effects only &mdash; anomalous radiation exposure, cellular mutation, toxin-class anomalies, parasitic organisms, and similar. Mental anomalous effects (domination, memetic compulsions, cognitive hazards) are outside AP-1's pharmacological mechanism and remain exclusively Memetic Specialist territory via mnestic protocols.</em></p>
+            <p><em>Authorization: AP-1 requires Level 4 Medical clearance and individual dose authorization from Project PROMETHEUS oversight. Each dose is serialized, biometric-locked, and tracked from synthesis to administration or return. Post-use tissue samples from the treated patient are mandatory.</em></p>
+          </div>
+        </details>
         <div class="ability-note authorization">Level 4 Medical clearance + individual dose authorization from Project PROMETHEUS. Biometric-locked, serialized. Post-use tissue samples mandatory.</div>
       </div>
     </div>
@@ -1561,23 +2075,55 @@ body {
         <div class="ability-name">Class-C Amnestics (AM-C)</div>
         <div class="ability-badges"><span class="badge badge-action">Action</span><span class="badge badge-charges">Serial-Tracked</span></div>
         <div class="ability-desc">Erases up to <strong>1 week</strong> of memory. WIS save (DC 8 + prof + WIS). <strong>Guided cognitive interview (10 min, non-combat):</strong> targeted erasure of specific memories &mdash; Medicine check DC 15 for clean excision, failure erases broader window. <strong>Overdose risk (72 hrs):</strong> DC 16 CON save or seizures (incapacitated 1 round, 3d6 psychic, permanent loss of 1d4 random memories).</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p>The highest grade of amnestic you will ever be certified to administer in the field. AM-C attacks deep long-term memory through a combination of protein synthesis disruption and guided neurochemical pathway dissolution. This is surgical-grade memory work.</p>
+            <p><strong>Standard administration (combat or emergency):</strong> Autoinjector to a willing, restrained, or incapacitated target. Erases up to <strong>one week</strong> of memory. WIS save (DC = 8 + proficiency + WIS mod) &mdash; fail = targeted week cleanly erased, success = emotional residue remains (the target feels uneasy about a place, distrusts a person they can't remember meeting, has dreams they can't explain).</p>
+            <p><strong>Guided cognitive interview (10 minutes, non-combat):</strong> With a willing and conscious target in a controlled environment, you can perform <strong>targeted erasure</strong> &mdash; removing specific memories while leaving the surrounding timeline intact. Medicine check DC 15 for clean excision; failure erases a broader window than intended (DM determines collateral memory loss).</p>
+            <p><strong>Overdose risk:</strong> AM-C administered to a target who has received ANY amnestic in the past 72 hours triggers a <strong>DC 16 CON save</strong> &mdash; failure causes seizures (incapacitated 1 round, 3d6 psychic damage) and permanent loss of 1d4 random non-critical memories. Success still causes 1 hour of confusion and disorientation.</p>
+            <p>Side effects (all administrations): 24-hour headache, intermittent deja vu episodes for 1 week, mild anterograde amnesia for 4 hours post-injection.</p>
+            <p><em>Authorization: Class-C amnestic certification is a separate endorsement beyond your Class-A/B credentials. The guided cognitive interview technique requires an additional 40-hour practicum under Ethics Committee supervision. Misuse of targeted erasure is grounds for immediate certification revocation and possible detention.</em></p>
+          </div>
+        </details>
         <div class="ability-note authorization">Separate Class-C endorsement + 40-hour practicum under Ethics Committee. Standing review of every deployment.</div>
       </div>
       <div class="ability-card" data-action="action">
         <div class="ability-name">Fortify (FR-1)</div>
         <div class="ability-badges"><span class="badge badge-action">Added to Buff Mode</span><span class="badge badge-charges">1 / LR</span></div>
         <div class="ability-desc">New Directed Recovery option. Target gains <strong>resistance to all damage</strong> until start of their next turn. <strong>Cost:</strong> target takes <strong>1d4 psychic damage</strong> (pain, cannot be reduced) on application. No HP healed (Buff mode). Single-use compound &mdash; body must metabolize before reapplication.</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p>When you use First Aid in <strong>Buff</strong> mode, you can now choose <strong>Fortify (Compound FR-1)</strong> &mdash; a subdermal reactive gel injected beneath the skin that hardens on impact, distributing kinetic energy across the body's surface. Target gains <strong>resistance to all damage</strong> until the start of their next turn.</p>
+            <p>Side effects: the gel contracts as it hardens, causing sharp pain across the injection site. Target takes <strong>1d4 psychic damage</strong> (pain, not cognitive &mdash; cannot be reduced) when Fortify is applied. After the effect expires, the gel dissolves into the bloodstream &mdash; mild nausea and skin tenderness for 1 hour.</p>
+            <p><strong>Once per long rest.</strong> FR-1 is a single-use compound &mdash; the reactive gel cannot be reapplied until the body fully metabolizes the previous dose.</p>
+            <p><em>Design note: Fortify gives the IM a powerful defensive option but at the cost of their entire First Aid action (no healing) and a long-rest resource. It's a clutch play for keeping the tank alive through a devastating hit, not a routine buff.</em></p>
+          </div>
+        </details>
         <div class="ability-note design">Clutch defensive play at the cost of your entire First Aid action + a LR resource. The pain cost prevents trivial use on healthy allies.</div>
       </div>
       <div class="ability-card" data-action="passive">
         <div class="ability-name">Analysis Paralysis (Scaling)</div>
         <div class="ability-badges"><span class="badge badge-passive">Passive</span></div>
         <div class="ability-desc">Analysis Paralysis improves to <strong>3 per short rest</strong>.</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p>Your scanner's passive biometric monitoring and your own pattern recognition have reached peak capability. Three defensive reactions per short rest gives you reliable protection for your team across sustained engagements.</p>
+          </div>
+        </details>
       </div>
       <div class="ability-card" data-action="passive">
         <div class="ability-name">First Aid Scaling</div>
         <div class="ability-badges"><span class="badge badge-passive">Passive</span></div>
         <div class="ability-desc">First Aid scales to <strong>5d6 + WIS</strong>. Experimental biomedicine from classified research programs.</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p><em>Experimental biomedicine from classified research programs &mdash; compounds that blur the line between conventional pharmacology and the output of Project PROMETHEUS. Your trauma kit at this level contains things that would revolutionize civilian medicine if they were ever declassified.</em></p>
+          </div>
+        </details>
       </div>
     </div>
   </div>
@@ -1601,6 +2147,20 @@ body {
           &bull; <strong>Permanent anomalous residue</strong> (DM determines)<br><br>
           <strong>Vital Transfer:</strong> You drop to <strong>half your current HP</strong> (min 1, can't heal until SR). Gain <strong>Residual Anomaly</strong> condition (DM table, clears on LR).
         </div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p>Revive a creature that <strong>died within the last minute.</strong> You must be adjacent to the body for the full round. The target returns at <strong>1 HP</strong> with the following consequences:</p>
+            <p><strong>Disadvantage on all attack rolls, ability checks, and saving throws for 24 hours.</strong> The body is barely functional after being chemically restarted &mdash; every system is running on emergency power. Muscles seize, vision blurs, hands shake.</p>
+            <p><strong>WIS save (DC 15)</strong> or gain a temporary mental condition lasting <strong>1d6 days</strong> (DM's choice &mdash; catatonia, paranoia, night terrors, dissociative episodes, or compulsive repetition of final moments before death). Death leaves a mark on the mind even when the body recovers.</p>
+            <p><strong>Permanent anomalous residue:</strong> The Lazarus Protocol does something to the boundary between life and death that the Foundation cannot fully explain. The revived individual carries a minor anomalous trait that <strong>never goes away</strong> &mdash; DM determines specifics (faint bioluminescence in the dark, animals become uneasy near them, they no longer dream, a room they sit in drops 2 degrees, their reflection blinks independently). This is not cosmetic flavor. It is a real, detectable anomalous signature.</p>
+            <p><strong>Vital Transfer &mdash; HP Cost:</strong> When you administer the Lazarus Protocol, you <strong>drop to half your current HP (rounded down, minimum 1)</strong>. This cost cannot be reduced, prevented, or healed until you complete a short rest.</p>
+            <p><strong>Vital Transfer &mdash; Residual Anomaly:</strong> You gain the <strong>Residual Anomaly</strong> condition: a minor, temporary anomalous effect from your proximity to the boundary between life and death. The DM rolls or selects from a table (examples: your shadow moves independently for 1d4 hours, you hear faint whispers in empty rooms until your next long rest, your blood temporarily runs cold to the touch, you forget one non-critical personal memory). Residual Anomaly clears on your next long rest.</p>
+            <p>Foundation necromedicine research (Project LAZARUS, classified). The deployment kit is a sealed hardcase containing four compounds administered in precise sequence: cardiac restart agent (epinephrine derivative at 50x standard concentration), neural preservation compound (must reach the brain within 60 seconds of death), mitochondrial reactivation serum (restarts cellular energy production from the organelle level up), and a massive dose of RC-7. The cardiac restart agent synchronizes to YOUR heartbeat as a pacing template &mdash; the strain on your cardiovascular system is immediate and brutal.</p>
+            <p><em>Authorization: The Lazarus Protocol kit is NOT standard medical equipment. It exists in a sealed case stored at your assigned Site's medical facility. To deploy it, you must have requisitioned the kit before the mission &mdash; this requires Level 4 Medical approval and a specific high-risk deployment justification &mdash; or have emergency authorization from Protocol HIPPOCRATES. After use, you file a full incident report. The revived individual is placed under 72-hour medical observation and Foundation monitoring protocols.</em></p>
+            <p><em>Containment implications: The revived individual now carries permanent anomalous residue. By Foundation classification standards, they may be considered an anomalous entity (E-class or equivalent) and are subject to Foundation monitoring protocols. If the anomalous residue manifests dangerously, containment procedures apply. Using Lazarus Protocol to save someone's life may condemn them to Foundation oversight. This should weigh on every decision to use it.</em></p>
+          </div>
+        </details>
         <div class="ability-note authorization">Requires Level 4 Medical approval, high-risk deployment justification. 72-hour observation for revived individual. Containment protocols may apply.</div>
         <div class="ability-note"><em>"Death is a containment breach. Recontain the subject."</em></div>
       </div>
@@ -1675,6 +2235,15 @@ body {
         <div class="ability-name">Memetic Inoculation</div>
         <div class="ability-badges"><span class="badge badge-noncombat">Before Going In / During Rest</span><span class="badge badge-charges">3 Allies</span></div>
         <div class="ability-desc">Class-W mnestic. Each target gains <strong>advantage on next WIS save</strong> against compulsion/charm/memetic effect. Single use per ally.</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p>Administer Class-W mnestic to up to <strong>3 allies</strong> via autoinjector before mission or during a short rest. Mild prophylactic &mdash; reinforces natural memory-consolidation pathways against external cognitive influence.</p>
+            <p>Each target gains advantage on their next WIS save against a compulsion, charm, or memetic effect. Single use &mdash; once spent, the compound has metabolized.</p>
+            <p><strong>Side effects:</strong> Mild headache, elevated heart rate, heightened sensory sensitivity for ~2 hours.</p>
+            <p><em>Authorization: Class-W mnestics are the mildest grade &mdash; medical countermeasures rather than operational tools. Your Medical chain of command authorized these because your team is deploying into a known or suspected cognitohazard zone. The Division supplied them; Medical approved the use.</em></p>
+          </div>
+        </details>
       </div>
       <div class="ability-card" data-action="bonus">
         <div class="ability-name">Psychometric Reading</div>
@@ -1686,11 +2255,33 @@ body {
           &bull; <strong>Tunnel Vision:</strong> Target cannot perceive one ally you choose (not yourself) until start of your next turn. Ally not invisible &mdash; target's brain stops registering them. Breaks if hidden ally attacks the target (Salience Override). Same ally/same enemy consecutive rounds &rarr; WIS save (Adaptation). L8: hide two allies from same target instead of one.<br><br>
           Cannot choose both. One mode per use.
         </div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p>Analyze a target using your CRV scanner (for allies) or behavioral observation training (for enemies).</p>
+            <p><strong>On an ally:</strong> Compare neural activity against baseline CRV profile. Any deviation flags as cognitive compromise &mdash; you know immediately if they're under memetic influence. No check required.</p>
+            <p><strong>On an enemy &mdash; CHOOSE ONE:</strong></p>
+            <p><strong>Targeting Data:</strong> Next two allies to hit add +1d4 to damage. Scanner overlays biometric targeting data &mdash; structural vulnerabilities, injury sites, compromised joints, thin armor points. Precision targeting from real-time biometric intelligence.</p>
+            <p><strong>Tunnel Vision:</strong> Choose one ally (not yourself). Target cannot perceive that ally until start of your next turn. Visual delivery effect. Salience Override: hidden ally attacks target = concealment breaks. Cognitive Adaptation: same ally/same enemy consecutive rounds = WIS save to shake off.</p>
+            <p><strong>DM narrative:</strong> First scan of each enemy per combat, DM provides one behavioral prediction. Subsequent scans provide updates only when situation meaningfully changes.</p>
+            <p>No uses per rest &mdash; scanner runs on battery. <em>Damage bonus applies to DAMAGE rolls on a hit, not attack rolls. L8: hide two allies instead of one.</em></p>
+          </div>
+        </details>
       </div>
       <div class="ability-card" data-action="bonus">
         <div class="ability-name">Cognitive Triage</div>
         <div class="ability-badges"><span class="badge badge-bonus">Bonus Action</span><span class="badge badge-charges">2 / SR</span></div>
         <div class="ability-desc">Scan a non-compromised ally and show them stable CRV readout. Target gains <strong>advantage on next WIS or INT saving throw</strong>. (L7: + CHA saves)</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p>When you use Psychometric Reading on an ally and detect <strong>no cognitive compromise</strong>, you can relay their stable CRV readout back to them &mdash; showing them, in real time, that their mind is intact. The visual confirmation of neural stability steadies them.</p>
+            <p>The target gains <strong>advantage on their next WIS or INT saving throw</strong> before the start of your next turn.</p>
+            <p><strong>Uses:</strong> 2 per short rest. <strong>L7 upgrade:</strong> expands to WIS, INT, or CHA saves.</p>
+            <p>This gives you a second mode for your bonus action. In standard combat: scan an enemy for damage support, or scan an ally for save protection? In mental encounters: scan the compromised ally (detection) or scan the stable ally (protection against the next wave)?</p>
+            <p><em>"Your CRV is green. 340. You're clean. Stay that way."</em></p>
+          </div>
+        </details>
       </div>
     </div>
   </div>
@@ -1708,16 +2299,30 @@ body {
         <div class="ability-name">Cognitive Decontamination</div>
         <div class="ability-badges"><span class="badge badge-action">Action</span><span class="badge badge-charges">1 / SR</span><span class="badge badge-charges">Touch</span></div>
         <div class="ability-desc">
-          Emergency Class-X mnestic injection. Target <strong>re-saves a failed WIS save</strong> against charm/compulsion/fear/memetic effect <strong>with advantage</strong>. If original effect had no save, target makes WIS save vs <strong>DC 15</strong> (success = suppressed until next combat).<br><br>
+          Emergency Class-X mnestic injection. Target <strong>re-saves a failed WIS save</strong> against charm/compulsion/fear/memetic effect <strong>with advantage</strong>. If original effect had no save, target makes WIS save vs <strong>DC 15</strong> (success = suppressed for 1 hour).<br><br>
           <strong>Immunity window:</strong> On successful re-save, target is <strong>immune to that effect from that source</strong> until start of their next turn. No buffer on failure.<br><br>
           Side effects: severe headache, nosebleed, 30s disorientation.
         </div>
         <div class="ability-note authorization">Class-X is emergency medical &mdash; stronger than W, still within medical authorization.</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p>Administer emergency Class-X mnestic injection. Floods neural pathways, forcing re-evaluation of all current cognitive states. Touch a creature &mdash; they repeat a failed WIS save with advantage. If original had no save: WIS vs DC 15 (success = suppressed 1 hour).</p>
+            <p><strong>Immunity window:</strong> On successful re-save, immune to same effect/source until start of next turn. No buffer on failure.</p>
+            <p><strong>1/SR.</strong> Side effects: severe headache (1-2 hrs), nosebleed, 30s disorientation. Scaling: L7 2/SR + 15ft range. L9 3/SR + 30ft.</p>
+          </div>
+        </details>
       </div>
       <div class="ability-card" data-action="noncombat">
         <div class="ability-name">Memetic Inoculation &uarr;</div>
         <div class="ability-badges"><span class="badge badge-noncombat">Scaling</span></div>
         <div class="ability-desc">Now <strong>5 allies</strong>, each dose grants advantage on next <strong>2 WIS saves</strong> (up from 1).</div>
+        <details class="ability-details">
+          <summary>Full Details</summary>
+          <div class="detail-content">
+            <p>Higher-grade mnestic (Class-W+). Now inoculate up to <strong>5 allies</strong>, each dose grants advantage on next <strong>TWO</strong> WIS saves instead of one.</p>
+          </div>
+        </details>
       </div>
     </div>
   </div>
@@ -1735,6 +2340,7 @@ body {
         <div class="ability-name">Pattern Recognition</div>
         <div class="ability-badges"><span class="badge badge-passive">Passive</span></div>
         <div class="ability-desc"><strong>Proficiency in WIS saves</strong> (expertise if already proficient). <strong>Advantage on all saves vs Charm.</strong> Result of years of Division conditioning and controlled-exposure therapy.</div>
+        <details class="ability-details"><summary>Full Details</summary><div class="detail-content"><p>Result of Antimemetics Division conditioning &mdash; controlled exposure therapy, thousands of hours of cognitive resistance drills, mnestic conditioning cycles that physically altered your neural architecture. Your CRV is in the top 1% of Foundation personnel. The Division identified you early because of that score.</p><p><em>The conditioning didn't happen between levels 4 and 5. It's been happening since the Foundation identified your CRV potential. Level 5 represents your conditioning reaching a threshold where it provides passive combat benefit.</em></p></div></details>
       </div>
       <div class="ability-card" data-action="passive">
         <div class="ability-name">SCRAMBLE Eyewear</div>
@@ -1747,6 +2353,7 @@ body {
           &bull; <strong>Delivery Channel Assessment:</strong> Flags which sensory channels the target uses (visual cortex, auditory processing, respiratory system) &mdash; tells you which tools will work.<br><br>
           Lost if removed/destroyed. Scales: L8 detection to 60ft + active cognitohazard reading. L11 neurally paired + auto-detect within 60ft.
         </div>
+        <details class="ability-details"><summary>Full Details</summary><div class="detail-content"><p>SCRAMBLE-derivative smart glasses, Division PPE. Pattern-recognition algorithms flag cognitohazardous patterns before conscious processing &mdash; "MEMETIC VECTOR DETECTED" amber HUD overlay.</p><p><strong>Safe Reading:</strong> View cognitohazardous materials through filtered display. Content reconstructed with hazardous pattern stripped.</p><p><strong>CRV Overlay:</strong> Color-coded readout within 30ft (green/amber/red).</p><p><strong>Delivery Channel Assessment:</strong> Flags which sensory channels target uses before deployment.</p><p><strong>Scaling:</strong> L8: Detection 60ft + active cognitohazards. L11: Neurally paired, auto-detect 60ft without looking.</p><p><em>SCRAMBLE famously failed against SCP-096. These are derivative &mdash; improved but not infallible. SCRAMBLE = DETECTION/UTILITY, conditioning = RESISTANCE.</em></p></div></details>
       </div>
       <div class="ability-card" data-action="action">
         <div class="ability-name">Targeted Amnestic Aerosol (TAA-9)</div>
@@ -1755,21 +2362,24 @@ body {
           Belt-mounted dispersal unit. CON save (DC 8 + prof + WIS).<br>
           &bull; <strong>Fail &mdash; Amnestic Fog:</strong> Can't attack, use abilities, or take reactions for <strong>1 round</strong>. Target moves randomly (DM rolls d4 for direction, 10ft) or stands confused. Damage breaks it.<br>
           &bull; <strong>Pass:</strong> Disadvantage on next attack.<br>
-          &bull; <strong>Overdose (2nd dose, same target):</strong> CON save (same DC). Fail: incapacitated + <strong>1d6 psychic</strong>. Pass: 1d6 psychic + disadv. on ability checks 1 round.<br><br>
+          &bull; <strong>Overdose (2nd dose, same target):</strong> CON save (DC + 2). Fail: incapacitated + <strong>1d6 psychic</strong>. Pass: 1d6 psychic + disadv. on ability checks 1 round.<br><br>
           <strong>Out of combat:</strong> Erases ~30 seconds of memory.<br>
           <strong>Immune:</strong> Constructs, undead, non-breathing creatures.<br>
           <strong>User side effect:</strong> 3+ canisters/day = DC 12 CON save at LR or memory gaps.
         </div>
+        <details class="ability-details"><summary>Full Details</summary><div class="detail-content"><p>Belt-mounted pressurized dispersal unit. <strong>Chemical/CON delivery channel.</strong> 10ft cone, CON save (DC = 8 + prof + WIS). Constructs, undead, non-breathing = immune.</p><p><strong>Failed save &mdash; Amnestic Fog:</strong> Cannot attack, use abilities, or take reactions for 1 round. DM rolls d4 for random movement direction (10ft). Stands confused if blocked. <strong>Damage breaks fog.</strong> Legendary actions still function.</p><p><strong>Successful save:</strong> Disadvantage on next attack roll.</p><p><strong>Overdose (2nd dose, same encounter):</strong> CON save at <strong>DC + 2</strong> (neurological compounding). Fail: incapacitated 1 round + 1d6 psychic. Success: 1d6 psychic + disadvantage on ability checks 1 round.</p><p><strong>Out of combat:</strong> Erases ~30 seconds of short-term memory. Still requires CON save.</p><p>3 charges/LR, serialized and tracked. <strong>Scaling:</strong> L8: fail-by-5 = Fog lasts until end of target's next turn. L9: cone extends to 15ft.</p><p><em>TAA-9 classified as "temporary cognitive interference" not "amnestic administration" &mdash; legal fiction letting you carry it without full amnestic certification.</em></p></div></details>
       </div>
       <div class="ability-card" data-action="bonus">
         <div class="ability-name">Psychometric Reading &uarr;</div>
         <div class="ability-badges"><span class="badge badge-bonus">Scaling</span></div>
         <div class="ability-desc">Targeting Data increases to <strong>+1d6</strong>. Tunnel Vision unchanged (doesn't scale until L8).</div>
+        <details class="ability-details"><summary>Full Details</summary><div class="detail-content"><p>Targeting Data increases to +1d6 (improved biometric targeting resolution from accumulated field calibration data). Still applies to next two allies to hit. Tunnel Vision remains one ally hidden &mdash; perceptual exclusion doesn't need to scale.</p></div></details>
       </div>
       <div class="ability-card" data-action="action">
         <div class="ability-name">First Aid &uarr;</div>
         <div class="ability-badges"><span class="badge badge-action">Scaling</span></div>
         <div class="ability-desc">Scales to <strong>3d6 + WIS</strong>.</div>
+        <details class="ability-details"><summary>Full Details</summary><div class="detail-content"><p>Better compounds. Same scaling as Internal Medic. The MS's value is in Psychometric Reading's scaling damage bonus and their anti-mental toolkit.</p></div></details>
       </div>
     </div>
   </div>
@@ -1793,11 +2403,13 @@ body {
           &bull; <strong>Physical Hardening:</strong> Concentration saves from physical damage made <strong>with advantage</strong>.
         </div>
         <div class="ability-note authorization">First operational (non-medical) Division hardware. You signed a different form for this one.</div>
+        <details class="ability-details"><summary>Full Details</summary><div class="detail-content"><p>Deploy a portable SCRAMBLE-derivative emitter array. 15-foot radius, moves with you (clipped to gear). Concentration (up to 1 minute). Once per long rest.</p><p><strong>Field Effect:</strong> Allies gain advantage on WIS saves against mental effects. Enemies have disadvantage on attempts to charm, frighten, or compel. Cognitohazardous objects are temporarily suppressed. The emitter broadcasts broad-spectrum neural white noise that raises the cognitive resistance threshold within the field.</p><p><strong>Mental Immunity:</strong> Concentration cannot be broken by mental effects (Stun, Charm, Domination, Fear from mental/memetic sources). The hardware sustains itself even if the operator's mind is temporarily compromised.</p><p><strong>Physical Hardening:</strong> Concentration saves from physical damage made with advantage. At CON +1 vs DC 10, failure rate drops from 40% to 16% per hit.</p><p><em>This is the first piece of operational (non-medical) Division equipment you receive. You signed a different requisition form &mdash; Division, not Medical. Your handler is now checking in regularly. This is the transition point.</em></p></div></details>
       </div>
       <div class="ability-card" data-action="passive">
         <div class="ability-name">Advanced CRV Scanner (v3.0)</div>
         <div class="ability-badges"><span class="badge badge-passive">Upgrade</span></div>
         <div class="ability-desc"><strong>Scan ally:</strong> Learn the <em>specific</em> effect and likely <em>source</em> (not just &ldquo;compromised&rdquo;). <strong>Scan enemy:</strong> Also learn their <strong>WIS score</strong>.</div>
+        <details class="ability-details"><summary>Full Details</summary><div class="detail-content"><p>Firmware v3.0. When scanning an ally, you now learn the <em>specific</em> effect and its likely <em>source</em> &mdash; not just "compromised" but "Class-IV visual cognitohazard consistent with SCP-████'s pattern." When scanning an enemy, you also learn their <strong>WIS score</strong> (useful for planning Cognitive Strike deployment later).</p></div></details>
       </div>
       <div class="ability-card" data-action="action">
         <div class="ability-name">Recursive Attention Card (RAT)</div>
@@ -1809,6 +2421,7 @@ body {
           <strong>Immune:</strong> Blind, no eyes, charmed-immune.<br>
           <strong>Scales:</strong> L8 Flash hits 2 creatures. L11 Plant lasts 1 hour.
         </div>
+        <details class="ability-details"><summary>Full Details</summary><div class="detail-content"><p>A laminated card containing a self-referential visual pattern &mdash; a manufactured cognitohazard designed by the Division's Applied Pattern Research group. The pattern exploits a neurological vulnerability in visual processing: the brain attempts to parse the self-referencing structure, enters a recursive loop, and locks up. Stored in an opaque sleeve when not in use.</p><p><strong>Flash (Action, 30ft, single target, 1/SR):</strong> Hold card up at one creature. WIS save (DC = 8 + prof + WIS). <strong>Fail:</strong> Target's visual cortex enters recursive loop &mdash; uses movement to approach card and action to study it. Provokes opportunity attacks. <strong>Damage breaks the loop.</strong> <strong>Pass:</strong> Disadvantage on next attack.</p><p><strong>Plant (Action, touch surface, 1/LR):</strong> Place face-up. 10ft radius, 10 minutes. Any creature that enters/starts turn within range and can see it must save. Same effects. <strong>You are immune</strong> (trained). Allies warned (bonus action) are immune.</p><p><strong>Immune:</strong> Blind, no eyes, charmed-immune. <strong>Delivery channel: Visual.</strong></p><p><strong>Scaling:</strong> L8: Flash hits 2 creatures within 10ft of each other. L11: Plant lasts 1 hour.</p><p>The card is reusable and doesn't degrade. It IS an anomalous object &mdash; leaving it exposed constitutes a containment breach.</p><p><em>RAT is Division field equipment, not a weapon in Foundation classification ("controlled cognitohazardous material for field deployment"). Flash = combat/threat suppression. Plant requires situational justification &mdash; retrieve it after use.</em></p></div></details>
       </div>
     </div>
   </div>
@@ -1832,16 +2445,19 @@ body {
           <strong>Trade-off &mdash; Cognitive Lockdown:</strong> Target <strong>cannot benefit from beneficial mental effects</strong> (morale, telepathy, bardic inspiration analogs) <em>except</em> from the MS who applied it (keyed neurochemical signature).
         </div>
         <div class="ability-note authorization">Class-Y is operational conditioning, not medical. Issued under Division authority. Medical was notified, not consulted.</div>
+        <details class="ability-details"><summary>Full Details</summary><div class="detail-content"><p>Administer a sustained-release Class-Y mnestic implant. The compound integrates into the target's neural architecture over 30 seconds, establishing a persistent cognitive firewall.</p><p>For 8 hours, the target gains: advantage on all WIS saves against mental/memetic effects + resistance to psychic damage (halved).</p><p><strong>Trade-off &mdash; Cognitive Lockdown:</strong> Target cannot benefit from beneficial mental effects (bardic inspiration analogs, morale effects, telepathic communication). The mnestic hardens against ALL external cognitive influence. <strong>Exception &mdash; Operator Recognition:</strong> The MS who administered it can still use their own abilities on the Hardened target (keyed neurochemical signature).</p><p><strong>Side effects:</strong> Emotional blunting, reduced dream activity, mild depersonalization for 2-4 hours after metabolization. Targets describe feeling "sealed in."</p></div></details>
       </div>
       <div class="ability-card" data-action="reaction">
         <div class="ability-name">Cognitive Warning</div>
         <div class="ability-badges"><span class="badge badge-reaction">Reaction</span><span class="badge badge-charges">1 / SR</span><span class="badge badge-charges">30ft</span></div>
         <div class="ability-desc">When ally within 30ft must make a WIS save, use reaction to grant them <strong>advantage on that save</strong>. CRV scanner detects incoming cognitive intrusion milliseconds before impact. Scales: <strong>2/SR</strong> at L9, <strong>3/SR</strong> at L11.</div>
+        <details class="ability-details"><summary>Full Details</summary><div class="detail-content"><p>When an ally within 30 feet would be forced to make a WIS saving throw, you can use your reaction to shout a warning before the effect fully engages. The ally gains advantage on that save.</p><p>Your CRV scanner detected the incoming cognitive intrusion &mdash; neural interference pattern, anomalous frequency spike, or memetic carrier wave &mdash; milliseconds before it reached the target. Your reaction is trained to the point of reflex.</p><p><strong>Uses:</strong> 1/SR at L7-8. 2/SR at L9-10. 3/SR at L11+.</p><p>This fills the MS's reaction gap. Warning gives the ally a better chance to resist; Sovereignty (L12) shields the ally and absorbs the effect entirely. They are sequential tools.</p></div></details>
       </div>
       <div class="ability-card" data-action="action">
         <div class="ability-name">Cognitive Decontamination &uarr;</div>
         <div class="ability-badges"><span class="badge badge-action">Scaling</span></div>
         <div class="ability-desc">Now <strong>2 / SR</strong>. Pneumatic mnestic delivery system extends range to <strong>15ft</strong> (no longer touch).</div>
+        <details class="ability-details"><summary>Full Details</summary><div class="detail-content"><p>You now carry a pneumatic mnestic delivery system (Division-issued, belt-mounted) that extends range to 15 feet &mdash; no longer requires touch. The launcher fires a single-use Class-X microdose dart that penetrates skin on impact and delivers the mnestic payload in under one second. Faster, safer, and you don't have to cross a firefight to reach the compromised ally.</p></div></details>
       </div>
       <div class="ability-card" data-action="action">
         <div class="ability-name">Attentional Capture</div>
@@ -1853,6 +2469,7 @@ body {
           <strong>Immune:</strong> INT 3 or lower, deaf, Silence effect.
         </div>
         <div class="ability-note design">Based on Theeuwes (1992) cognitive science research &mdash; involuntary attentional capture by salient stimuli.</div>
+        <details class="ability-details"><summary>Full Details</summary><div class="detail-content"><p>Exploit involuntary attentional capture. Using your CRV scanner's emitter array, project a calibrated <strong>auditory salience burst</strong> at up to 3 creatures within 30 feet. <strong>Delivery channel: Auditory/WIS.</strong> Each target must have INT 4+ (conscious attention processing required). Deaf creatures and creatures in Silence are immune.</p><p><strong>Failed save:</strong> Target's attention is involuntarily locked onto you. Must use movement to approach you by most direct route. Attacks against creatures other than you are made with disadvantage. Cannot take reactions. Until start of your next turn. They are not charmed &mdash; they are <em>fixated</em>.</p><p><strong>Successful save:</strong> Disadvantage on next attack (partial capture disrupts focus).</p><p><strong>Uses:</strong> 2 per short rest.</p><p><em>"Three hostiles, clustered. Calibrating salience burst to their cortisol signatures &mdash; engaging attentional lock."</em></p><p>Based on real cognitive science: Theeuwes (1992) demonstrated salient stimuli capture attention involuntarily regardless of task relevance. The Division weaponized this research.</p><p><strong>Design:</strong> First multi-target offensive control tool. Combined with RAT (area denial) and Tunnel Vision (perceptual exclusion), the L7 MS has a genuine control suite.</p></div></details>
       </div>
     </div>
   </div>
@@ -1876,11 +2493,13 @@ body {
           &bull; <strong>Cognitive Dissociation</strong> (Broadcast, CHA save): Uses action to Dodge or Disengage (perceives fight as someone else's problem). Can't take reactions. <em>Save:</em> drops one held item.
         </div>
         <div class="ability-note authorization">BL payload certification required. Ethics: Overload/Dissociation = flashbang equivalent. Compulsion requires documentation.</div>
+        <details class="ability-details"><summary>Full Details</summary><div class="detail-content"><p>Deploy a weaponized Berryman-Langford cognitohazard. Select payload type before deployment. Each uses a different delivery channel with a different save. All saves DC = 8 + prof + WIS.</p><p><strong>Cognitive Overload (Visual/INT):</strong> Compressed memetic pattern via scanner. Fail: target reveals tactical intel aloud (DM provides genuine info &mdash; enemy plans, weaknesses, reinforcements) then uses remaining action covering mouth/eyes. One turn of free intel + wasted action. Pass: disadvantage on next ability check.</p><p><strong>Implanted Compulsion (Auditory/WIS):</strong> Subaudible carrier frequency with embedded behavioral directive. Fail: moves full speed in chosen direction (no OAs) then uses action to interact with nearest object (open door, drop item, pull lever). Pass: moves 10ft in chosen direction, retains action.</p><p><strong>Cognitive Dissociation (Broadcast/CHA):</strong> Broad-spectrum neural interference severing sense of self-agency. Fail: uses action to Dodge or Disengage (perceives combat as someone else's problem), cannot take reactions. Pass: drops one held item.</p><p><em>Authorization: BL payloads require Division weapons certification covering payload construction theory, target selection, safety protocols, SCRAMBLE confirmation, and environmental containment. Implanted Compulsion (temporary override of free will) requires post-op documentation and Ethics Committee review.</em></p></div></details>
       </div>
       <div class="ability-card" data-action="passive">
         <div class="ability-name">Level 8 Scaling</div>
         <div class="ability-badges"><span class="badge badge-passive">Passive</span></div>
         <div class="ability-desc"><strong>SCRAMBLE:</strong> Detection range extends to 60ft, Safe Reading works on active cognitohazards. <strong>First Aid:</strong> 4d6 + WIS.</div>
+        <details class="ability-details"><summary>Full Details</summary><div class="detail-content"><p><strong>SCRAMBLE Eyewear:</strong> Detection range extends to 60ft. Safe Reading now works on active cognitohazards (not just static materials) &mdash; you can observe an ongoing memetic event through the glasses' filtered display.</p><p><strong>First Aid:</strong> Scales to 4d6 + WIS (Foundation-grade regenerative compounds).</p><p><strong>Psychometric Reading (Tunnel Vision):</strong> Can now hide <strong>two allies</strong> from the same target instead of one.</p><p><strong>Psychometric Reading (Tunnel Vision L8 upgrade):</strong> Reaction denial on Cognitive Disruption now gated behind WIS save &mdash; disadvantage on attack is still no-save, but reaction denial requires failed WIS save.</p></div></details>
       </div>
     </div>
   </div>
@@ -1903,6 +2522,7 @@ body {
           <strong>Side effects:</strong> <strong>1d4 hours</strong> hypercognitive state &mdash; concentration checks at <strong>disadvantage</strong>. Intrusive memory recall possible.
         </div>
         <div class="ability-note authorization">Class-Z existence is classified above standard clearance. Each dose individually tracked. Post-use reporting mandatory.</div>
+        <details class="ability-details"><summary>Full Details</summary><div class="detail-content"><p>Administer a Class-Z mnestic &mdash; the highest grade in Foundation inventory. A single autoinjector, contents temperature-sensitive and individually serial-numbered. The compound hits like a detonation inside the skull: every neural pathway fires simultaneously, every suppressed memory surfaces, every implanted thought is dragged into conscious awareness and rejected.</p><p>Touch a creature (including yourself). <strong>All mental effects currently affecting the target are immediately removed</strong>, regardless of source, duration, or save DC. Domination, memetic compulsion, cognitohazardous influence, anomalous charm, implanted suggestions, fear effects &mdash; everything. Gone.</p><p>The target is then <strong>immune to all new mental effects for 10 minutes</strong>. Neural architecture in refractory state. This immunity cannot be bypassed short of Keter-class reality alteration.</p><p><strong>Side effects:</strong> 1d4 hours of hypercognitive state &mdash; perceives connections and patterns in everything observed. Concentration checks at disadvantage. Intrusive recall of forgotten/suppressed memories. Foundation provides post-exposure counseling.</p></div></details>
       </div>
       <div class="ability-card" data-action="action">
         <div class="ability-name">Ennui Protocol Device (EPD)</div>
@@ -1913,21 +2533,25 @@ body {
           <strong>Concentration competes</strong> with Counter-Memetic Barrier (offensive vs defensive zone &mdash; can't have both active).<br>
           <strong>Immune:</strong> Charmed-immune creatures, constructs without emotional processing.
         </div>
+        <details class="ability-details"><summary>Full Details</summary><div class="detail-content"><p>Deploy a calibrated apathy broadcast emitter &mdash; originally designed for crowd dispersal during containment breaches, repurposed for field operations. <strong>Delivery channel: Broadcast/CHA.</strong> Place on surface within 5ft. Generates a 15-foot radius field of suppressive cognitive interference.</p><p><strong>Effect:</strong> Any enemy entering or starting turn within field makes <strong>CHA save</strong> (DC = 8 + prof + WIS). Resisting requires force of personality &mdash; knowing who you are and what you want strongly enough that ambient apathy cannot erode it. Failed save = <strong>Apathetic:</strong> won't move toward hostiles, won't attack unless attacked first. CAN dodge, dash away, take non-hostile actions. Not incapacitated &mdash; just don't care enough to fight. Save end of each turn. <strong>Damage breaks apathy for that creature.</strong></p><p><strong>Concentration:</strong> Requires your concentration (monitoring/adjusting broadcast frequency). Cannot maintain Barrier and EPD simultaneously &mdash; choose to defend allies (Barrier) or suppress enemies (EPD). Core L9 strategic decision.</p><p><em>"Deploying EPD. Hostiles within the field will lose combat motivation &mdash; they'll stand down unless engaged. We have a window."</em></p><p>EPD is the offensive mirror of Counter-Memetic Barrier. Barrier creates a protected zone. EPD creates a zone where enemies don't want to fight. Placed emitter (not carried) means you don't stand in your own apathy field.</p></div></details>
       </div>
       <div class="ability-card" data-action="bonus">
         <div class="ability-name">Psychometric Reading &uarr;</div>
         <div class="ability-badges"><span class="badge badge-bonus">Scaling</span></div>
         <div class="ability-desc">Targeting Data increases to <strong>+1d8</strong>. Predictive model borders on precognition.</div>
+        <details class="ability-details"><summary>Full Details</summary><div class="detail-content"><p>Damage bonus increases to +1d8. Years of behavioral analysis have built a predictive model in your head that borders on precognition &mdash; you're not reading body language anymore, you're running a neural network trained on thousands of hours of combat observation. Your callouts arrive before the target commits to their action. Still applies to next two allies to hit.</p></div></details>
       </div>
       <div class="ability-card" data-action="action">
         <div class="ability-name">Cognitive Decontamination &uarr;</div>
         <div class="ability-badges"><span class="badge badge-action">Scaling</span></div>
         <div class="ability-desc">Now <strong>3 / SR</strong>. Range extends to <strong>30ft</strong> (improved dart stabilization).</div>
+        <details class="ability-details"><summary>Full Details</summary><div class="detail-content"><p>Pneumatic delivery system upgraded &mdash; range extends to 30 feet (improved launch pressure and dart stabilization). You can now decontaminate from across a room without repositioning.</p></div></details>
       </div>
       <div class="ability-card" data-action="reaction">
         <div class="ability-name">Cognitive Warning &uarr;</div>
         <div class="ability-badges"><span class="badge badge-reaction">Scaling</span></div>
         <div class="ability-desc">Scales to <strong>2 / SR</strong>.</div>
+        <details class="ability-details"><summary>Full Details</summary><div class="detail-content"><p>Cognitive Warning improves to 2 uses per short rest.</p></div></details>
       </div>
     </div>
   </div>
@@ -1951,6 +2575,7 @@ body {
           <strong>Breaks on hostile action</strong> (for that creature only &mdash; others stay concealed). Counter-Memetic Barrier mental immunity applies to concentration.
         </div>
         <div class="ability-note">Side effects: <strong>1d4 hours existential unease</strong> post-metabolization. Depersonalization episodes. Division post-op support group attendance mandatory.</div>
+        <details class="ability-details"><summary>Full Details</summary><div class="detail-content"><p>Administer FORGOTTEN-7 &mdash; experimental antimemetic from Division's Applied Concealment Research group. <strong>Dosing:</strong> 1 action per target per round, touch range. Self + up to 3 willing allies (4 rounds max). Effect activates once all intended targets are dosed &mdash; the compound synchronizes across all recipients simultaneously.</p><p>For up to 1 hour, all dosed creatures are <strong>antimemetically shielded</strong>. Not invisible &mdash; <em>irrelevant</em>. Light still reflects. Sound still carries. But cognitive processing required to register their presence is suppressed at the neurological level.</p><p>Enemies who haven't been alerted: <strong>WIS save</strong> (DC = 8 + prof + WIS) to notice. On failure, brain doesn't process the shielded creature's existence. Succeeding enemies can alert others (each must save independently).</p><p><strong>Breaks on hostile action</strong> (for that creature only). Concentration uses Counter-Memetic Barrier's mental immunity backbone.</p><p><strong>Side effects:</strong> 1d4 hours of existential unease post-metabolization. Subjects report feeling "unreal," questioning existence, brief depersonalization. Division post-op support group attendance mandatory.</p><p><em>This is infiltration, not invisibility. High-WIS enemies can still detect you. Hostile-action break prevents combat-cloak abuse. Concentration means no FORGOTTEN-7 + Barrier simultaneously.</em></p></div></details>
       </div>
       <div class="ability-card" data-action="action">
         <div class="ability-name">Causal Severance Tag (CST)</div>
@@ -1962,6 +2587,7 @@ body {
           <strong>Duration:</strong> 1 hour. Entity can attempt removal (action + WIS save).
         </div>
         <div class="ability-note design">Offensive mirror of Antimemetic Concealment &mdash; what you can hide, you can strip.</div>
+        <details class="ability-details"><summary>Full Details</summary><div class="detail-content"><p>An adhesive mnestic strip encoded with a micro-pattern that forces consensus-reality perception on contact. <strong>Delivery channel: Tactile (melee attack roll).</strong></p><p><strong>Application:</strong> Make a melee attack roll. On hit, the tag adheres and activates. Target must be an <strong>anomalous entity</strong> &mdash; no effect on mundane creatures.</p><p><strong>Reality Pinning:</strong> All antimemetic camouflage, invisibility, perception-altering auras, and illusion effects are <strong>suppressed for 1 hour</strong>. Entity perceived as it truly is.</p><p><strong>Anomalous Suppression:</strong> One anomalous defensive property suppressed (DM chooses &mdash; regeneration, phase-shifting, damage immunity, reality-bending evasion).</p><p><strong>Removal:</strong> Entity can attempt as an action &mdash; WIS save (your DC) to identify and peel it off. Failure = tag reasserts, action wasted. Duration: 1 hour or until removed. 2/LR, individually serial-tracked.</p><p><em>"Tagging the entity. Forcing consensus-reality perception &mdash; its camouflage won't work anymore."</em></p><p>CST is the offensive mirror of Antimemetic Concealment. Concealment hides your team from cognition. CST pins the enemy TO cognition. At L10, you have both sides of the antimemetic coin.</p></div></details>
       </div>
     </div>
   </div>
@@ -1979,6 +2605,7 @@ body {
         <div class="ability-name">Advanced BL Weaponization</div>
         <div class="ability-badges"><span class="badge badge-action">Upgrade</span></div>
         <div class="ability-desc">Cognitive Strike: <strong>60ft range, 2 targets, 2/SR</strong>. Both targets face same payload. Identity Fracture is single-target only.</div>
+        <details class="ability-details"><summary>Full Details</summary><div class="detail-content"><p>Cognitive Strike deployment upgraded with Division field-tested improvements:</p><p><strong>Range:</strong> Increases to 60 feet (improved emitter array with focused-beam delivery).</p><p><strong>Targets:</strong> Deploy against 2 targets simultaneously with a single action. Both must be in range. One payload type per deployment (both face same payload). Each saves independently. <strong>Exception:</strong> Identity Fracture is always single-target &mdash; payload too complex to split.</p><p><strong>Uses:</strong> Increases to 2 per short rest (improved payload synthesis).</p></div></details>
       </div>
       <div class="ability-card" data-action="action" style="border-left-color:var(--red)">
         <div class="ability-name" style="color:var(--red)">Identity Fracture (<span class="redacted" onclick="this.classList.toggle('revealed')">Cognitohazard-Aleph</span>)</div>
@@ -1994,11 +2621,13 @@ body {
           <strong>Witness cost:</strong> Allies DC 10 WIS or Frightened of you for 1 round.
         </div>
         <div class="ability-note authorization">Thaumiel-class. Pre-authorization from Division command + Ethics Committee waiver. Post-use investigation mandatory. May be prohibited against human targets.</div>
+        <details class="ability-details"><summary>Full Details</summary><div class="detail-content"><p>Choose one creature within 60 feet. <strong>Single target only</strong> &mdash; the payload requires focused delivery. On a failed WIS save, the target enters total ego dissolution &mdash; they do not know who they are, where they are, or what they want.</p><p><strong>Effects:</strong> Cannot attack, defend, take actions/reactions, auto-fails DEX saves. WIS save at end of each turn to recover. Maximum duration: 1 minute (10 rounds).</p><p><strong>Cognitive backlash:</strong> After use, you suffer disadvantage on all WIS saves and cannot activate Counter-Memetic Barrier until short rest. Your CRV baseline spikes &mdash; you are measurably less "yourself."</p><p><strong>Witness cost:</strong> Allies who see deployment make DC 10 WIS save or Frightened of you for 1 round. Their fear is not irrational &mdash; they just watched you erase someone.</p><p><em>Identity Fracture is the MS's nuclear option &mdash; 1/LR, single target, with personal cost that strips your defensive axis (WIS saves + Barrier) until you rest. The trade: strongest defense for strongest offense. Save it for the moment that matters.</em></p><p><em>Authorization: Thaumiel-class. Deployment requires pre-authorization from Division command AND Ethics Committee waiver per deployment. Post-use investigation mandatory. Use against human targets may be prohibited entirely unless classified as anomalous.</em></p></div></details>
       </div>
       <div class="ability-card" data-action="passive">
         <div class="ability-name">Level 11 Scaling</div>
         <div class="ability-badges"><span class="badge badge-passive">Passive</span></div>
         <div class="ability-desc"><strong>SCRAMBLE:</strong> Neurally paired &mdash; auto-detect memetic vectors within 60ft without looking. <strong>First Aid:</strong> 5d6 + WIS. <strong>Counter-Memetic Barrier:</strong> 2/LR. <strong>Cognitive Warning:</strong> 3/SR.</div>
+        <details class="ability-details"><summary>Full Details</summary><div class="detail-content"><p><strong>SCRAMBLE Eyewear:</strong> Neurally paired. Glasses fully integrated with your mnestic-conditioned neural architecture &mdash; detection algorithms run through your conditioning, not just hardware. Auto-detect any memetic vector within 60ft without needing to look at it. Combined with Pattern Recognition, your passive detection and cognitive defense are unmatched among non-anomalous Foundation personnel.</p><p><strong>First Aid:</strong> 5d6 + WIS (advanced biomedicine).</p><p><strong>Counter-Memetic Barrier:</strong> Improves to 2/LR.</p><p><strong>Cognitive Warning:</strong> 3/SR.</p></div></details>
       </div>
     </div>
   </div>
@@ -2016,6 +2645,7 @@ body {
         <div class="ability-name">Containment-Class Inoculation</div>
         <div class="ability-badges"><span class="badge badge-noncombat">Between Missions — Safe Location Only</span><span class="badge badge-charges">1 / LR</span></div>
         <div class="ability-desc"><strong>Permanently</strong> restructure a creature's neural pathways to be immune to one specific anomaly's mental effects. Requires <strong>controlled environment</strong> (secure room, no interruptions — cannot be done in the field), willing target, knowledge of the anomaly's signature. Painful procedure (DC 15 CON save, 2d6 psychic on fail). Irreversible.</div>
+        <details class="ability-details"><summary>Full Details</summary><div class="detail-content"><p>The culmination of your Division training. Using Class-Z mnestic (direct-input mode), CRV scanner locked to target's neural architecture, and prolonged controlled-exposure conditioning, you <strong>permanently restructure a creature's neural pathways</strong> to be immune to one specific anomaly's mental influence.</p><p><strong>Requirements:</strong> 10 minutes uninterrupted. Knowledge of the anomaly's memetic signature (scanned or briefed). Willing, conscious target with informed consent. Controlled environment (secure room, no interruptions).</p><p><strong>Procedure:</strong> Target experiences 10 minutes of the anomaly's full memetic influence while Class-Z teaches their brain to recognize and reject it. DC 15 CON save at 5-minute mark &mdash; failure = 2d6 psychic damage but procedure continues. At conclusion, target is <strong>permanently immune</strong> to that specific anomaly's mental effects. Forever. Cannot be removed or overridden.</p><p><strong>Permanent. Irreversible.</strong> Target's brain is different. CRV baseline shifts. Dreams change. One anomaly per application &mdash; separate procedure (and LR) for each.</p><p><em>"We don't contain the anomaly. We contain its ability to affect us."</em></p><p><em>Authorization: Ethics Committee pre-auth (48-hour minimum), written informed consent (two witnesses), medical team on standby, 72-hour post-procedure monitoring. The paperwork alone takes longer than the conditioning.</em></p></div></details>
       </div>
       <div class="ability-card" data-action="reaction" style="border-left-color:var(--ms-color)">
         <div class="ability-name" style="color:var(--ms-color)">Cognitive Sovereignty</div>
@@ -2024,6 +2654,7 @@ body {
           When an ally within 30ft would <strong>fail a WIS save</strong> against a mental/memetic effect: generate a counter-signal shielding their cognition while <strong>lowering your own defenses</strong> to compensate. Ally is unaffected. You then make the WIS save yourself — the effect reaches you because you opened yourself to it.<br><br>
           <em>"I see it. I see what it's doing to you. Look at me. LOOK AT ME. I'll take it."</em>
         </div>
+        <details class="ability-details"><summary>Full Details</summary><div class="detail-content"><p>When an ally within 30 feet would <strong>fail</strong> a WIS saving throw against a mental/memetic effect, use your reaction to shield their cognition. You generate a counter-signal via CRV scanner while deliberately lowering your own cognitive defenses to absorb the overflow.</p><p><strong>The ally automatically succeeds</strong> on the save &mdash; completely unaffected. You shielded their mind and absorbed what broke through.</p><p><strong>You must then make a WIS save yourself</strong> against the same DC. Your Pattern Recognition (proficiency/expertise), mnestic conditioning (advantage vs Charm), and other bonuses apply. On success, your conditioning holds. On failure, you suffer the full effect.</p><p>Works against effects that don't normally allow saves &mdash; you shield the ally and make a WIS save (DC = 15 or source's DC, whichever higher). <strong>Cannot be used on yourself.</strong></p><p>Cognitive Sovereignty does not compete with Cognitive Warning &mdash; Warning gives advantage on a save the ally might still fail; Sovereignty triggers AFTER the ally has already failed. Sequential tools: Warning is first line, Sovereignty is last.</p><p><em>"I see it. I see what it's doing to you. Look at me. LOOK AT ME. I'll take it."</em></p><p><em>A medic's duty is to stay functional. Deliberately exposing yourself to a cognitohazard violates that principle. But you are not acting as a medic &mdash; you are acting as a Division operative. Containing cognitohazards is literally your primary mission.</em></p></div></details>
       </div>
     </div>
   </div>
