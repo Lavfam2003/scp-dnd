@@ -742,7 +742,7 @@ body {
 
       <div class="prog-cell level-num">7</div>
       <div class="prog-cell">Field Surgery, Battlefield Awareness, AAMR</div>
-      <div class="prog-cell">Strategic Prep (AR-5, CF-2), <strong>Polypharmacy</strong>, Analysis&times;2</div>
+      <div class="prog-cell">Strategic Prep (AR-5, CF-2), <strong>Polypharmacy</strong>, <strong>Field Test</strong>, Analysis&times;2</div>
       <div class="prog-cell">Memetic Hardening, Cog Warning, Attentional Capture, Decontam&times;2</div>
 
       <div class="prog-cell level-num">8</div>
@@ -752,7 +752,7 @@ body {
 
       <div class="prog-cell level-num">9</div>
       <div class="prog-cell">Adrenaline Surge, Surgery+, Extraction&rarr;BA</div>
-      <div class="prog-cell">Experimental Protocol, <strong>Field Test</strong>, DT&times;3</div>
+      <div class="prog-cell">Experimental Protocol, DT&times;3</div>
       <div class="prog-cell">Antimemetic Protocol, EPD, CW&times;2, Decontam&times;3</div>
 
       <div class="prog-cell level-num">10</div>
@@ -780,7 +780,7 @@ body {
         <li><strong style="color:var(--im-color)">Pain Suppression</strong> (IM L5, replaces Brace) &mdash; Ignore Frightened/Charmed/Poisoned 1 turn</li>
         <li><strong style="color:var(--im-color)">Contraindication Shot</strong> (IM L6) &mdash; Scanner-guided dart: half damage or half speed + no reactions</li>
         <li><strong style="color:var(--im-color)">Polypharmacy</strong> (IM L7) &mdash; Flush active compound for free condition removal</li>
-        <li><strong style="color:var(--im-color)">Foundation Field Test</strong> (IM L9) &mdash; d100 experimental compound gamble</li>
+        <li><strong style="color:var(--im-color)">Foundation Field Test</strong> (IM L7, moved from L9) &mdash; d100 experimental compound gamble</li>
         <li><strong style="color:var(--ms-color)">Psych Reading choice mode</strong> (MS L3) &mdash; Targeting Data OR Tunnel Vision</li>
         <li><strong style="color:var(--ms-color)">TAA-9 Amnestic Aerosol</strong> (MS L5) &mdash; 10ft cone CON save: amnestic fog (random movement, can't attack)</li>
         <li><strong style="color:var(--ms-color)">Recursive Attention Card</strong> (MS L6) &mdash; Flash (compelled approach 1/SR) or Plant (area denial 1/LR)</li>
@@ -1411,7 +1411,7 @@ body {
     <div class="level-header" onclick="toggleLevel(this)">
       <span class="level-badge" style="border-color:var(--im-color);color:var(--im-color)">7</span>
       <span class="level-title">Level 7</span>
-      <span class="level-abilities">Strategic Preparation, Polypharmacy, Analysis Paralysis &times;2</span>
+      <span class="level-abilities">Strategic Preparation, Polypharmacy, Foundation Field Test, Analysis Paralysis &times;2</span>
       <span class="toggle-icon">&#9654;</span>
     </div>
     <div class="level-body">
@@ -1434,6 +1434,19 @@ body {
           <strong>Anomalous conditions:</strong> Medicine check with <strong>advantage</strong>.<br>
           Physical tracking token recommended &mdash; place a marker on allies with active compounds.</div>
         <div class="ability-note design">Bridges Heal and Cure modes by letting you do both &mdash; at the cost of burning a prep compound. Rewards pre-mission planning.</div>
+      </div>
+      <div class="ability-card" data-action="action">
+        <div class="ability-name">Foundation Field Test</div>
+        <div class="ability-badges"><span class="badge badge-action">Action</span><span class="badge badge-charges">Adjacent Ally</span><span class="badge badge-charges">WIS mod doses / LR</span><span class="badge badge-new">NEW v0.13</span></div>
+        <div class="ability-desc">Administer an experimental compound to an adjacent willing ally (or self). Roll <strong>d100</strong>, DM reads the result:<br>
+          &bull; <strong>1&ndash;5:</strong> Adverse reaction<br>
+          &bull; <strong>6&ndash;15:</strong> Null effect (dose wasted)<br>
+          &bull; <strong>16&ndash;50:</strong> Minor beneficial<br>
+          &bull; <strong>51&ndash;90:</strong> Beneficial<br>
+          &bull; <strong>91&ndash;99:</strong> Exceptional<br>
+          &bull; <strong>100:</strong> Breakthrough &mdash; formula permanently learned<br><br>
+          <strong>Willing targets only</strong> &mdash; stress hormones cause compound rejection.</div>
+        <div class="ability-note design">Fun gamble mechanic. R&D trusts you with experimental compounds at the same level they give you AR-5 and CF-2. Full d100 table is DM-only.</div>
       </div>
       <div class="ability-card" data-action="passive">
         <div class="ability-name">Analysis Paralysis (Scaling)</div>
@@ -1483,7 +1496,7 @@ body {
     <div class="level-header" onclick="toggleLevel(this)">
       <span class="level-badge" style="border-color:var(--im-color);color:var(--im-color)">9</span>
       <span class="level-title">Level 9</span>
-      <span class="level-abilities">Experimental Protocol, Foundation Field Test, Directed Triage &times;3</span>
+      <span class="level-abilities">Experimental Protocol, Directed Triage &times;3</span>
       <span class="toggle-icon">&#9654;</span>
     </div>
     <div class="level-body">
@@ -1497,18 +1510,6 @@ body {
         <div class="ability-name">Experimental Protocol (ECD-3)</div>
         <div class="ability-badges"><span class="badge badge-action">Full Round</span><span class="badge badge-charges">1 / LR (shared)</span></div>
         <div class="ability-desc"><strong>Emergency Containment Dose (ECD-3):</strong> <strong>Suppresses one anomalous effect</strong> <strong>until next combat or scene change</strong> &mdash; paused, not cured. Effect resumes when suppression expires. Side effects: fever, fatigue, metallic taste.</div>
-      </div>
-      <div class="ability-card" data-action="action">
-        <div class="ability-name">Foundation Field Test</div>
-        <div class="ability-badges"><span class="badge badge-action">Action</span><span class="badge badge-charges">Adjacent Ally</span><span class="badge badge-charges">WIS mod doses / LR</span><span class="badge badge-new">NEW v0.13</span></div>
-        <div class="ability-desc">Administer an experimental compound to an adjacent willing ally. Roll <strong>d100</strong> and consult the table:<br>
-          &bull; <strong>1&ndash;5:</strong> Adverse reaction<br>
-          &bull; <strong>6&ndash;15:</strong> Null effect (dose wasted)<br>
-          &bull; <strong>16&ndash;50:</strong> Minor beneficial effect<br>
-          &bull; <strong>51&ndash;90:</strong> Beneficial effect<br>
-          &bull; <strong>91&ndash;99:</strong> Exceptional effect<br>
-          &bull; <strong>100:</strong> Breakthrough &mdash; formula enters your known compounds permanently</div>
-        <div class="ability-note design">Fun gamble mechanic, not core kit. Full d100 table in DM Notes.</div>
       </div>
       <div class="ability-card" data-action="passive">
         <div class="ability-name">Directed Triage (Scaling)</div>
