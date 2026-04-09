@@ -837,7 +837,7 @@ body {
         <strong style="color:var(--accent);">START &rarr;</strong> Pick your <strong>mode</strong> (one per action):<br>
         &nbsp;&nbsp;Someone bleeding badly? &rarr; <strong style="color:#20e060;">HEAL</strong> (roll First Aid dice)<br>
         &nbsp;&nbsp;Someone has a condition? &rarr; <strong style="color:var(--accent);">CURE</strong> (Purge it, costs charge)<br>
-        &nbsp;&nbsp;Ally Frightened/Charmed/Poisoned? &rarr; <strong style="color:var(--im-color);">BUFF</strong> (Pain Suppression / Steady / Reposition)<br><br>
+        &nbsp;&nbsp;Ally Frightened/Charmed/Poisoned? &rarr; <strong style="color:var(--im-color);">BUFF</strong> (Pain Suppression / Steady / Focus)<br><br>
         <strong style="color:var(--accent);">BONUS ACTION &rarr;</strong> Pick one:<br>
         &nbsp;&nbsp;<strong>Scan enemy</strong> (Clinical Scanner &rarr; +1 attack for allies on success)<br>
         &nbsp;&nbsp;<strong>Coach ally</strong> (Directed Triage &rarr; ally spends hit die + your WIS)<br><br>
@@ -1075,16 +1075,17 @@ body {
         <div class="ability-badges">
           <span class="badge badge-action">Action</span>
           <span class="badge badge-new">NEW v0.12</span>
+          <span class="badge badge-charges">1 / SR</span>
           <span class="badge badge-charges">Adjacent</span>
         </div>
         <div class="ability-desc">
           Grab willing/unconscious creature adjacent to you. Move your <strong>full speed</strong> dragging them &mdash; <strong>no opportunity attacks</strong> for either of you.<br>
-          <strong>At 0 HP:</strong> Auto-stabilize on grab.<br>
-          <strong>End of movement:</strong> Free Triage on the extracted creature (costs a charge).<br>
+          <strong>At 0 HP:</strong> Medicine check to stabilize (DC set by DM). Failure = they remain unstable.<br>
+          <strong>End of movement (stable + conscious only):</strong> Free Triage at <strong>reduced rate (one die step lower)</strong>. Costs a charge.<br>
           <strong>Behind cover:</strong> Advantage on death saves until your next turn.<br>
           <strong>L9 upgrade:</strong> Can use as bonus action (no free Triage rider).
         </div>
-        <div class="ability-note design">Emergency Response gets you in. Trauma Extraction gets you both out.</div>
+        <div class="ability-note design">Emergency Response gets you in. Trauma Extraction gets you both out. 1/SR + med check + healing penalty keeps this as a dramatic rescue, not a rotation ability.</div>
       </div>
     </div>
   </div>
@@ -1351,7 +1352,7 @@ body {
         <div class="ability-desc">Choose BUFF mode. Pick one compound to administer:<br>
           &bull; <strong>Pain Suppression (PS-X):</strong> Target ignores Frightened, Charmed, and Poisoned effects for <strong>1 turn</strong>. Condition is NOT removed &mdash; it resumes at the start of target's next turn.<br>
           &bull; <strong>Steady (NCD-1):</strong> Advantage on next saving throw.<br>
-          &bull; <strong>Reposition:</strong> Target can use reaction to move half speed.<br>
+          &bull; <strong>Focus (FC-1):</strong> Advantage on next ability check.<br>
           Lasts until the start of target's next turn.</div>
         <div class="ability-note design">Pain Suppression is distinct from Purge: Purge (Cure mode) removes conditions permanently. Suppression overrides them for 1 turn only &mdash; a combat bandage, not a cure.</div>
       </div>
@@ -1732,7 +1733,7 @@ body {
           CON save (DC 8 + prof + WIS).<br>
           &bull; <strong>Fail &mdash; Amnestic Fog:</strong> Can't attack or use abilities for <strong>1 round</strong>. CAN move/dodge/dash. Damage breaks it.<br>
           &bull; <strong>Pass:</strong> Disadvantage on next attack.<br>
-          &bull; <strong>Overdose (2nd dose, same target):</strong> Incapacitated + <strong>1d6 psychic</strong>, no save.<br><br>
+          &bull; <strong>Overdose (2nd dose, same target):</strong> CON save (same DC). Fail: incapacitated + <strong>1d6 psychic</strong>. Pass: 1d6 psychic + disadv. on ability checks 1 round.<br><br>
           <strong>Out of combat:</strong> Erases ~30 seconds of memory.<br>
           <strong>Immune:</strong> Constructs, undead, non-breathing creatures.<br>
           <strong>User side effect:</strong> 3+ canisters/day = DC 12 CON save at LR or memory gaps.
@@ -2394,7 +2395,7 @@ const refData = {
     <table>
       <tr><td style="color:#20e060">HEAL</td><td>Roll dice, restore HP</td></tr>
       <tr><td style="color:var(--accent)">CURE</td><td>Purge condition, no HP (costs charge)</td></tr>
-      <tr><td style="color:var(--im-color)">BUFF</td><td>Pain Suppression/Steady/Reposition/Fortify, no HP</td></tr>
+      <tr><td style="color:var(--im-color)">BUFF</td><td>Pain Suppression/Steady/Focus/Fortify, no HP</td></tr>
     </table>
     <h4>Compounds</h4>
     <table>
