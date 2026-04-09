@@ -1540,7 +1540,7 @@ body {
         <div class="ability-badges"><span class="badge badge-noncombat">Before Going In / During Rest</span><span class="badge badge-charges">3 Allies</span></div>
         <div class="ability-desc">
           Administer compounds to up to 3 allies. Choose one per ally:<br>
-          &bull; <strong>IM-7 Immunobooster:</strong> Advantage on CON saves vs poison/disease, 8 hrs<br>
+          &bull; <strong>IM-7 Immunobooster:</strong> Advantage on CON saves vs poison/disease, until next LR<br>
           &bull; <strong>DRG-4 Trauma Plating:</strong> 1d6+WIS temp HP until LR<br>
           &bull; <strong>PS-12 Pain Suppressant:</strong> Ignore first Frightened or Stunned (single use)
         </div>
@@ -1548,7 +1548,7 @@ body {
           <summary>Full Details</summary>
           <div class="detail-content">
             <p>Administer Foundation medical preparations to up to 3 allies. Each treatment takes ~5 minutes (injection, monitoring, logging). Choose one compound per ally:</p>
-            <p><strong>Immunobooster (Compound IM-7):</strong> Advantage on CON saves against poison and disease for 8 hours. Side effect: mild fever and elevated heart rate for 30 minutes.</p>
+            <p><strong>Immunobooster (Compound IM-7):</strong> Advantage on CON saves against poison and disease until next long rest. Side effect: mild fever and elevated heart rate for 30 minutes.</p>
             <p><strong>Trauma Plating (DRG-4):</strong> Subdermal polymer gel. 1d6 + WIS temp HP until next long rest. Side effect: stiffness, reduced fine motor sensitivity.</p>
             <p><strong>Pain Suppressant (Compound PS-12):</strong> Neural inhibitor blocking pain-panic cascade. Target ignores the first instance of Frightened or Stunned (negated, single use). Side effect: mild emotional flattening for 1 hour.</p>
             <p><em>Candidate selection note: Internal Medic candidates are identified during basic medical training based on aptitude in pharmaceutical science, analytical thinking, and institutional judgment. The Foundation doesn't train pharmacologists from scratch &mdash; it selects personnel who already demonstrate the aptitude and provides advanced Foundation-specific training.</em></p>
@@ -1703,12 +1703,12 @@ body {
         <div class="ability-name">Preemptive Treatment (Scaling)</div>
         <div class="ability-badges"><span class="badge badge-noncombat">Before Going In / During Rest</span><span class="badge badge-charges">5 Allies</span></div>
         <div class="ability-desc">Capacity increases to <strong>5 allies</strong>. New compound:<br>
-          &bull; <strong>MB-9 Metabolic Boost:</strong> +5ft movement speed and advantage on Initiative for 8 hrs</div>
+          &bull; <strong>MB-9 Metabolic Boost:</strong> +5ft movement speed and advantage on Initiative until next LR</div>
         <details class="ability-details">
           <summary>Full Details</summary>
           <div class="detail-content">
             <p>Capacity increases to <strong>5 allies</strong>. New compound available:</p>
-            <p><strong>Metabolic Boost (Compound MB-9):</strong> +5 feet movement speed and advantage on Initiative for 8 hours. Side effect: increased appetite, mild hand tremor.</p>
+            <p><strong>Metabolic Boost (Compound MB-9):</strong> +5 feet movement speed and advantage on Initiative until next long rest. Side effect: increased appetite, mild hand tremor.</p>
           </div>
         </details>
       </div>
@@ -1795,7 +1795,7 @@ body {
         <details class="ability-details">
           <summary>Full Details</summary>
           <div class="detail-content">
-            <p><strong>Anomalous Resistance (Compound AR-5):</strong> Advantage on CON saves against anomalous effects (anomalous radiation, toxins, parasitic organisms, reality-warping physical effects, thaumic biological interference) for 8 hours. A second dose within 24 hours causes vomiting and severe joint pain &mdash; do not stack.</p>
+            <p><strong>Anomalous Resistance (Compound AR-5):</strong> Advantage on CON saves against anomalous effects (anomalous radiation, toxins, parasitic organisms, reality-warping physical effects, thaumic biological interference) until next long rest. A second dose within 24 hours causes vomiting and severe joint pain &mdash; do not stack.</p>
             <p>Intravenous infusion via slow-push autoinjector &mdash; a translucent amber solution administered over 90 seconds to avoid vascular shock. The compound reinforces cellular membrane integrity and stabilizes biochemical processes against anomalous disruption at the molecular level.</p>
             <p>Side effects: muted color perception (everything looks slightly desaturated), mild emotional dampening (reduced startle response, flattened affect) for the full duration.</p>
             <p><em>Cross-departmental: AR-5 is developed and supplied by Foundation Research Division for field medical use. You administer it and understand the dosage, pharmacokinetics, and side effects, but the thaumic stabilization mechanism is Research's domain, not yours. The compound fortifies the body's resistance to anomalous physical effects &mdash; not the mind. Mental protection is the Memetic Specialist's domain.</em></p>
@@ -1806,7 +1806,7 @@ body {
       <div class="ability-card" data-action="noncombat">
         <div class="ability-name">Strategic Preparation (CF-2)</div>
         <div class="ability-badges"><span class="badge badge-noncombat">Before Going In / During Rest</span></div>
-        <div class="ability-desc"><strong>Cellular Fortification (Compound CF-2):</strong> Choose one damage type (piercing, slashing, bludgeoning, fire, cold, lightning, acid, necrotic, or radiant). Target gains <strong>resistance to that type for 8 hrs</strong>. Cannot stack &mdash; second injection negates both. Side effects: translucent skin at site, joint stiffness (disadv. Acrobatics 1 hr).</div>
+        <div class="ability-desc"><strong>Cellular Fortification (Compound CF-2):</strong> Choose one damage type (piercing, slashing, bludgeoning, fire, cold, lightning, acid, necrotic, or radiant). Target gains <strong>resistance to that type until next LR</strong>. Cannot stack &mdash; second injection negates both. Side effects: translucent skin at site, joint stiffness (disadv. Acrobatics 1 hr).</div>
         <details class="ability-details">
           <summary>Full Details</summary>
           <div class="detail-content">
@@ -2051,8 +2051,8 @@ body {
           <summary>Full Details</summary>
           <div class="detail-content">
             <p><strong>Anomalous Purge (Compound AP-1):</strong> Intramuscular injection via a black-striped autoinjector &mdash; the only compound in your kit with a biometric lock requiring your thumbprint to deploy. AP-1 attacks anomalous biological contamination at the cellular level, forcing the body to reject foreign anomalous material the way an immune response rejects a transplant.</p>
-            <p>Target makes a <strong>CON save (DC 18)</strong>. On success, one <strong>anomalous physical or biological effect</strong> is <strong>permanently cured</strong> &mdash; the body expels the contamination entirely. On failure, the effect is <strong>suppressed for 24 hours</strong> (as ECD-3, but longer duration).</p>
-            <p>Side effects regardless of outcome: crushing fatigue (disadvantage on STR and DEX checks) for 24 hours, nosebleeds, and a persistent low-grade headache. A second dose within 48 hours risks organ failure (DM discretion).</p>
+            <p>Target makes a <strong>CON save (DC 18)</strong>. On success, one <strong>anomalous physical or biological effect</strong> is <strong>permanently cured</strong> &mdash; the body expels the contamination entirely. On failure, the effect is <strong>suppressed until next long rest</strong> (as ECD-3).</p>
+            <p>Side effects regardless of outcome: crushing fatigue (disadvantage on STR and DEX checks) until next long rest, nosebleeds, and a persistent low-grade headache. A second dose within 48 hours risks organ failure (DM discretion).</p>
             <p><em>Scope: AP-1 treats physical and biological anomalous effects only &mdash; anomalous radiation exposure, cellular mutation, toxin-class anomalies, parasitic organisms, and similar. Mental anomalous effects (domination, memetic compulsions, cognitive hazards) are outside AP-1's pharmacological mechanism and remain exclusively Memetic Specialist territory via mnestic protocols.</em></p>
             <p><em>Authorization: AP-1 requires Level 4 Medical clearance and individual dose authorization from Project PROMETHEUS oversight. Each dose is serialized, biometric-locked, and tracked from synthesis to administration or return. Post-use tissue samples from the treated patient are mandatory.</em></p>
           </div>
@@ -2142,7 +2142,7 @@ body {
         <div class="ability-badges"><span class="badge badge-action">Full Round</span><span class="badge badge-charges">1 / LR</span></div>
         <div class="ability-desc">
           Revive a creature that <strong>died within the last minute</strong>. Target returns at 1 HP with:<br>
-          &bull; Disadvantage on all rolls for 24 hours<br>
+          &bull; Disadvantage on all rolls until next long rest<br>
           &bull; WIS save DC 15 or temporary mental condition (1d6 days)<br>
           &bull; <strong>Permanent anomalous residue</strong> (DM determines)<br><br>
           <strong>Vital Transfer:</strong> You drop to <strong>half your current HP</strong> (min 1, can't heal until SR). Gain <strong>Residual Anomaly</strong> condition (DM table, clears on LR).
@@ -2151,7 +2151,7 @@ body {
           <summary>Full Details</summary>
           <div class="detail-content">
             <p>Revive a creature that <strong>died within the last minute.</strong> You must be adjacent to the body for the full round. The target returns at <strong>1 HP</strong> with the following consequences:</p>
-            <p><strong>Disadvantage on all attack rolls, ability checks, and saving throws for 24 hours.</strong> The body is barely functional after being chemically restarted &mdash; every system is running on emergency power. Muscles seize, vision blurs, hands shake.</p>
+            <p><strong>Disadvantage on all attack rolls, ability checks, and saving throws until next long rest.</strong> The body is barely functional after being chemically restarted &mdash; every system is running on emergency power. Muscles seize, vision blurs, hands shake.</p>
             <p><strong>WIS save (DC 15)</strong> or gain a temporary mental condition lasting <strong>1d6 days</strong> (DM's choice &mdash; catatonia, paranoia, night terrors, dissociative episodes, or compulsive repetition of final moments before death). Death leaves a mark on the mind even when the body recovers.</p>
             <p><strong>Permanent anomalous residue:</strong> The Lazarus Protocol does something to the boundary between life and death that the Foundation cannot fully explain. The revived individual carries a minor anomalous trait that <strong>never goes away</strong> &mdash; DM determines specifics (faint bioluminescence in the dark, animals become uneasy near them, they no longer dream, a room they sit in drops 2 degrees, their reflection blinks independently). This is not cosmetic flavor. It is a real, detectable anomalous signature.</p>
             <p><strong>Vital Transfer &mdash; HP Cost:</strong> When you administer the Lazarus Protocol, you <strong>drop to half your current HP (rounded down, minimum 1)</strong>. This cost cannot be reduced, prevented, or healed until you complete a short rest.</p>
