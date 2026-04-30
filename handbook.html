@@ -1,0 +1,2322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>SCP Foundation — Employee Handbook</title>
+<script data-goatcounter="https://lavfam.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500;700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-deep: #0a0a0c;
+  --bg-panel: #111114;
+  --bg-card: #18181c;
+  --bg-card-hover: #1e1e24;
+  --bg-inset: #0e0e11;
+  --border: #2a2a30;
+  --border-highlight: #3a3a42;
+  --accent: #d4870f;
+  --accent-glow: #d4870f44;
+  --accent-dim: #8a5a0a;
+  --accent-bright: #f0a030;
+  --text: #c8c8cc;
+  --text-dim: #707078;
+  --text-bright: #e8e8ec;
+  --red: #b02020;
+  --red-dim: #6a1818;
+  --green: #20a040;
+  --blue: #3080d0;
+  --purple: #8040c0;
+  --sci-color: #3090d0;
+  --eng-color: #d0a020;
+  --goc-color: #c04040;
+  --unk-color: #707078;
+  --action-color: #e04030;
+  --bonus-color: #20a040;
+  --reaction-color: #d4870f;
+  --passive-color: #3080d0;
+  --noncombat-color: #707078;
+  --light-color: #20a040;
+  --med-color: #d4870f;
+  --heavy-color: #e04030;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg-deep);
+  color: var(--text);
+  font-family: 'IBM Plex Mono', 'Courier Prime', monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* === HEADER === */
+.site-header {
+  background: var(--bg-panel);
+  border-bottom: 2px solid var(--accent);
+  padding: 20px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+}
+
+.header-top {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; flex-wrap: wrap;
+}
+
+.header-title { display: flex; align-items: center; gap: 12px; }
+
+.scp-logo {
+  width: 40px; height: 40px;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 11px;
+  color: var(--accent); flex-shrink: 0;
+}
+
+.header-title h1 {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 18px; font-weight: 700;
+  color: var(--text-bright);
+  letter-spacing: 1px;
+}
+
+.header-title .version {
+  font-size: 12px;
+  color: var(--accent);
+  background: var(--accent-glow);
+  padding: 2px 8px;
+  border-radius: 3px;
+  border: 1px solid var(--accent-dim);
+}
+
+.search-box { position: relative; flex-shrink: 0; }
+
+.search-box input {
+  background: var(--bg-inset);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 13px;
+  padding: 8px 12px 8px 32px;
+  border-radius: 4px;
+  width: 260px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.search-box input:focus { border-color: var(--accent); }
+.search-box input::placeholder { color: var(--text-dim); }
+
+.search-box::before {
+  content: '>';
+  position: absolute;
+  left: 12px; top: 50%;
+  transform: translateY(-50%);
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* === MAIN TABS === */
+.tab-bar {
+  display: flex; gap: 2px;
+  padding: 0 24px;
+  background: var(--bg-panel);
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.tab-bar::-webkit-scrollbar { height: 0; }
+
+.tab {
+  padding: 12px 20px;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 12px; font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+}
+
+.tab:hover { color: var(--text); background: var(--bg-card); }
+.tab.active { color: var(--accent); border-bottom-color: var(--accent); background: var(--bg-card); }
+
+/* === SUB TABS === */
+.subtab-bar {
+  display: flex;
+  gap: 2px;
+  margin-bottom: 20px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 4px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.subtab-bar::-webkit-scrollbar { height: 0; }
+
+.subtab {
+  padding: 6px 14px;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  background: transparent;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s;
+}
+
+.subtab:hover { color: var(--text); background: var(--bg-card); }
+.subtab.active { color: var(--accent-bright); background: var(--accent-glow); }
+
+/* Class-tinted sub-tabs */
+.subtab[data-tint="sci"].active { color: var(--sci-color); background: #3090d022; }
+.subtab[data-tint="eng"].active { color: var(--eng-color); background: #d0a02022; }
+.subtab[data-tint="goc"].active { color: var(--goc-color); background: #c0404022; }
+.subtab[data-tint="unk"].active { color: var(--text-bright); background: #70707822; }
+
+.subpanel { display: none; animation: fadein 0.2s ease-out; }
+.subpanel.active { display: block; }
+
+@keyframes fadein {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* === MAIN CONTENT === */
+.main-content {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* === CLASSIFIED BANNER === */
+.classified-banner {
+  border: 1px solid var(--red-dim);
+  background: linear-gradient(135deg, #1a0808, #0a0a0c);
+  padding: 16px 20px;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.classified-banner::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--red);
+}
+
+.classified-banner h2 {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 16px; font-weight: 700;
+  color: var(--text-bright);
+  margin-bottom: 4px;
+}
+
+.classified-banner .subtitle {
+  font-size: 12px;
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+.spec-meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.meta-item { font-size: 12px; }
+
+.meta-item .label {
+  color: var(--text-dim);
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 1px;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.meta-item .value { color: var(--text-bright); }
+
+/* === SECTION HEADINGS === */
+.section-heading {
+  font-family: 'Source Code Pro', monospace;
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin: 24px 0 12px 0;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-heading:first-child { margin-top: 0; }
+
+.section-heading::before {
+  content: '';
+  width: 8px; height: 8px;
+  background: var(--accent);
+  display: inline-block;
+}
+
+.section-heading .count {
+  margin-left: auto;
+  color: var(--text-dim);
+  font-size: 10px;
+  letter-spacing: 1px;
+  font-weight: 400;
+}
+
+/* === ABILITY / WEAPON CARDS === */
+.ability-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  padding: 16px;
+  margin-top: 12px;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.ability-card:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-highlight);
+}
+
+.ability-card[data-action="action"] { border-left-color: var(--action-color); }
+.ability-card[data-action="bonus"] { border-left-color: var(--bonus-color); }
+.ability-card[data-action="full"] { border-left-color: var(--passive-color); }
+.ability-card[data-action="reaction"] { border-left-color: var(--reaction-color); }
+.ability-card[data-action="passive"] { border-left-color: var(--passive-color); }
+.ability-card[data-action="multi"] { border-left-color: var(--purple); }
+
+.ability-card[data-weight="light"] { border-left-color: var(--light-color); }
+.ability-card[data-weight="med"] { border-left-color: var(--med-color); }
+.ability-card[data-weight="heavy"] { border-left-color: var(--heavy-color); }
+
+.ability-name {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 15px; font-weight: 700;
+  color: var(--text-bright);
+  margin-bottom: 6px;
+}
+
+.ability-badges {
+  display: flex; gap: 6px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 2px;
+  border: 1px solid;
+}
+
+.badge-action { color: var(--action-color); border-color: var(--action-color); background: #e0403018; }
+.badge-bonus { color: var(--bonus-color); border-color: var(--bonus-color); background: #20a04018; }
+.badge-full { color: var(--passive-color); border-color: var(--passive-color); background: #3080d018; }
+.badge-reaction { color: var(--reaction-color); border-color: var(--reaction-color); background: #d4870f18; }
+.badge-passive { color: var(--passive-color); border-color: var(--passive-color); background: #3080d018; }
+.badge-multi { color: var(--purple); border-color: var(--purple); background: #8040c018; }
+.badge-light { color: var(--light-color); border-color: var(--light-color); background: #20a04018; }
+.badge-med { color: var(--med-color); border-color: var(--med-color); background: #d4870f18; }
+.badge-heavy { color: var(--heavy-color); border-color: var(--heavy-color); background: #e0403018; }
+.badge-pending { color: var(--text-dim); border-color: var(--text-dim); background: #70707818; }
+.badge-tbd { color: var(--red); border-color: var(--red-dim); background: #b0202018; }
+
+.ability-desc {
+  font-size: 13px; line-height: 1.7;
+  color: var(--text);
+}
+
+.ability-desc em { color: var(--text-dim); font-style: italic; }
+.ability-desc strong { color: var(--text-bright); font-weight: 600; }
+
+.ability-desc ul { padding-left: 20px; margin: 8px 0; }
+.ability-desc li { margin-bottom: 4px; }
+
+.ability-note {
+  margin-top: 10px;
+  padding: 10px 12px;
+  background: var(--bg-inset);
+  border-left: 2px solid var(--text-dim);
+  font-size: 12px;
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+.ability-note.warning { border-left-color: var(--red); background: #1a080a; color: var(--text); }
+
+/* === STAT GRID === */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 8px;
+  margin-top: 8px;
+  font-size: 12px;
+}
+
+.stat-cell {
+  background: var(--bg-inset);
+  padding: 8px 10px;
+  border-left: 2px solid var(--border);
+}
+
+.stat-cell .stat-label {
+  display: block;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-dim);
+  margin-bottom: 2px;
+}
+
+.stat-cell .stat-value {
+  color: var(--text-bright);
+  font-family: 'Source Code Pro', monospace;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.stat-cell.empty .stat-value {
+  color: var(--red);
+  font-style: italic;
+  font-size: 11px;
+}
+
+.weapon-special {
+  margin-top: 10px;
+  padding: 8px 12px;
+  background: var(--bg-inset);
+  border-left: 2px solid var(--accent-dim);
+  font-size: 12px;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.weapon-special em { color: var(--accent); font-style: italic; }
+
+/* === TABLES === */
+.scaling-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0;
+  font-size: 12px;
+}
+
+.scaling-table th {
+  background: var(--bg-inset);
+  color: var(--accent);
+  font-weight: 600;
+  text-align: left;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 0.5px;
+}
+
+.scaling-table td {
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+.scaling-table tr:nth-child(even) td { background: var(--bg-inset); }
+.scaling-table tr:hover td { background: var(--bg-card-hover); }
+
+/* === DM SECTION (for grouped info) === */
+.dm-section {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 18px 20px;
+  margin-bottom: 16px;
+}
+
+.dm-section h3 {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.dm-section h4 {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-bright);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 14px 0 6px 0;
+}
+
+.dm-section h4:first-child { margin-top: 0; }
+
+.dm-section p { margin-bottom: 8px; font-size: 13px; }
+.dm-section ul { padding-left: 20px; margin: 8px 0; font-size: 13px; }
+.dm-section li { margin-bottom: 4px; }
+.dm-section strong { color: var(--text-bright); }
+.dm-section em { color: var(--text-dim); font-style: italic; }
+
+/* === STATUS GRID === */
+.status-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 8px;
+  margin: 12px 0 16px;
+}
+
+.status-item {
+  background: var(--bg-inset);
+  border: 1px solid var(--border);
+  border-left: 2px solid var(--accent);
+  padding: 8px 12px;
+  font-size: 12px;
+  color: var(--text);
+}
+
+.status-item.classified {
+  border-left-color: var(--red-dim);
+  font-style: italic;
+}
+
+.status-item.classified::after {
+  content: ' [PENDING]';
+  color: var(--red);
+  font-size: 9px;
+  letter-spacing: 1px;
+}
+
+/* === SKILLS GRID === */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+  margin: 12px 0;
+}
+
+.skill-block {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--accent);
+  padding: 12px 14px;
+}
+
+.skill-block h5 {
+  font-family: 'Source Code Pro', monospace;
+  color: var(--accent-bright);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.skill-block ul { list-style: none; padding: 0; }
+
+.skill-block li {
+  font-size: 12px;
+  padding: 3px 0;
+  color: var(--text);
+  border-bottom: 1px dotted var(--border);
+}
+
+.skill-block li:last-child { border-bottom: none; }
+
+/* === PENDING BLOCK === */
+.pending-block {
+  background: linear-gradient(135deg, #1a0808, #0a0a0c);
+  border: 1px dashed var(--red-dim);
+  padding: 14px 18px;
+  margin: 12px 0;
+  font-size: 12px;
+  color: var(--text-dim);
+  font-style: italic;
+  text-align: center;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.pending-block::before {
+  content: '[ ';
+  color: var(--red);
+  font-weight: 700;
+  font-style: normal;
+}
+
+.pending-block::after {
+  content: ' ]';
+  color: var(--red);
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* === CLASS PROGRESSION === */
+.class-prog {
+  display: grid;
+  grid-template-columns: 60px 80px 1fr;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  margin: 12px 0;
+  font-size: 12px;
+}
+
+.class-prog > div {
+  background: var(--bg-panel);
+  padding: 7px 10px;
+}
+
+.class-prog .head {
+  background: var(--bg-inset);
+  color: var(--accent);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 0.5px;
+}
+
+.class-prog .lvl {
+  background: var(--bg-inset);
+  color: var(--accent);
+  font-weight: 700;
+  text-align: center;
+}
+
+.class-prog .pending {
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+/* === CLASS HEADER === */
+.class-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  background: linear-gradient(135deg, var(--bg-card), var(--bg-panel));
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+}
+
+.class-header.sci { border-left-color: var(--sci-color); }
+.class-header.eng { border-left-color: var(--eng-color); }
+.class-header.goc { border-left-color: var(--goc-color); }
+.class-header.unk { border-left-color: var(--unk-color); }
+
+.class-header .badge-large {
+  width: 56px; height: 56px;
+  border: 2px solid var(--accent);
+  border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Source Code Pro', monospace;
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--accent);
+  flex-shrink: 0;
+  letter-spacing: 0;
+}
+
+.class-header.sci .badge-large { border-color: var(--sci-color); color: var(--sci-color); }
+.class-header.eng .badge-large { border-color: var(--eng-color); color: var(--eng-color); }
+.class-header.goc .badge-large { border-color: var(--goc-color); color: var(--goc-color); }
+.class-header.unk .badge-large { border-color: var(--unk-color); color: var(--unk-color); }
+
+.class-header h2 {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-bright);
+  letter-spacing: 1px;
+  margin-bottom: 2px;
+}
+
+.class-header.sci h2 { color: var(--sci-color); }
+.class-header.eng h2 { color: var(--eng-color); }
+.class-header.goc h2 { color: var(--goc-color); }
+.class-header.unk h2 { color: var(--unk-color); }
+
+.class-header .class-meta {
+  font-size: 11px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* === SUBSECTION HEADER (within sub-panels) === */
+.sub-section-header {
+  font-family: 'Source Code Pro', monospace;
+  color: var(--accent-bright);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 24px 0 10px;
+  padding: 8px 12px;
+  background: var(--bg-inset);
+  border-left: 3px solid var(--accent-bright);
+}
+
+.sub-section-header.sci { color: var(--sci-color); border-left-color: var(--sci-color); }
+.sub-section-header.eng { color: var(--eng-color); border-left-color: var(--eng-color); }
+.sub-section-header.goc { color: var(--goc-color); border-left-color: var(--goc-color); }
+
+/* === FLAVOR LINE === */
+.flavor-line {
+  text-align: center;
+  margin: 32px 0 8px;
+  padding: 24px;
+  font-style: italic;
+  color: var(--text-dim);
+  font-size: 14px;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+/* === CLASS PICKER (overview) === */
+.class-picker {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.class-picker .ability-card { margin-top: 0; cursor: pointer; }
+
+/* === MOBILE === */
+@media (max-width: 640px) {
+  .header-top { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .search-box input { width: 100%; }
+  .tab { padding: 8px 10px; font-size: 10px; }
+  .subtab { padding: 5px 10px; font-size: 10px; }
+  .main-content { padding: 12px; }
+  .spec-meta { grid-template-columns: 1fr; }
+  .ability-card { padding: 12px; }
+  .ability-name { font-size: 13px; }
+  .ability-desc { font-size: 12px; }
+  .ability-badges { gap: 4px; }
+  .badge { font-size: 9px; padding: 1px 6px; }
+  .scaling-table { font-size: 11px; }
+  .scaling-table td, .scaling-table th { padding: 4px 6px; }
+  .dm-section { padding: 14px; }
+  .classified-banner { padding: 12px 14px; }
+  .classified-banner h2 { font-size: 14px; }
+  .stat-grid { grid-template-columns: repeat(2, 1fr); }
+  .class-prog { grid-template-columns: 40px 60px 1fr; font-size: 11px; }
+  .class-header { padding: 12px 14px; gap: 10px; }
+  .class-header .badge-large { width: 44px; height: 44px; font-size: 11px; }
+  .class-header h2 { font-size: 15px; }
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-deep); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent-dim); }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-top">
+    <div class="header-title">
+      <div class="scp-logo">SCP</div>
+      <div>
+        <h1>EMPLOYEE HANDBOOK</h1>
+        <span class="version">CAMPAIGN REFERENCE // LIVING DOCUMENT</span>
+      </div>
+    </div>
+    <div class="search-box">
+      <input type="text" id="search" placeholder="Search handbook..." autocomplete="off">
+    </div>
+  </div>
+</header>
+
+<nav class="tab-bar">
+  <button class="tab active" data-tab="overview">Overview</button>
+  <button class="tab" data-tab="mechanics">Mechanics</button>
+  <button class="tab" data-tab="classes">Classes</button>
+  <button class="tab" data-tab="weapons">Weapons</button>
+</nav>
+
+<main class="main-content">
+
+<!-- ========================================================= -->
+<!-- ===================== OVERVIEW ========================== -->
+<!-- ========================================================= -->
+<div class="tab-panel active" id="panel-overview">
+  <div class="classified-banner">
+    <h2>SCP FOUNDATION // EMPLOYEE HANDBOOK</h2>
+    <div class="subtitle">Operational reference for personnel assigned to anomalous containment campaigns</div>
+    <div class="spec-meta">
+      <div class="meta-item"><span class="label">System</span><span class="value">5e-adjacent homebrew</span></div>
+      <div class="meta-item"><span class="label">Classes</span><span class="value">4 entered &middot; more pending</span></div>
+      <div class="meta-item"><span class="label">Weapons Catalog</span><span class="value">70+ entries</span></div>
+      <div class="meta-item"><span class="label">Status</span><span class="value">Living document &mdash; sections pending</span></div>
+    </div>
+  </div>
+
+  <h3 class="section-heading">Quick Reference</h3>
+  <div class="dm-section">
+    <h4>Action Economy</h4>
+    <p>Each turn you receive: <strong>1 attack action</strong>, <strong>1 auxiliary action</strong>, <strong>1 bonus action</strong>, <strong>1 free action</strong>.</p>
+    <p><em>Implication:</em> Pistols (bonus) plus a rifle (attack) means a single turn can fire both.</p>
+
+    <h4>Initiative</h4>
+    <p>Flat contested d20 roll &mdash; no modifiers.</p>
+
+    <h4>Stratagems</h4>
+    <p>The party gains <strong>1 combat point</strong> at the start of each round, shared across all members. Spend points to activate class-specific Stratagems. Each class has multiple <em>Stratagem archetypes</em> for different play styles.</p>
+
+    <h4>Damage Reduction</h4>
+    <p>When you take damage, you may roll a <strong>CON check (DC 10 + damage dealt)</strong>. On success, reduce damage by <strong>(character level &times; 2) + CON bonus</strong> in d4s. Uses per long rest equal to your CON modifier.</p>
+
+    <h4>Sieging</h4>
+    <p>Each side has <strong>10 HP</strong> and <strong>10 morale</strong> (can fluctuate). HP zero &rarr; force retreats. Morale zero &rarr; disadvantage on contested checks. Random events affect both. Points of interest provide defensive bonuses; attackers can destroy them.</p>
+  </div>
+
+  <h3 class="section-heading">Class Roster</h3>
+  <div class="class-picker">
+    <div class="ability-card" style="border-left-color:var(--sci-color);" onclick="switchTab('classes', 'sci')">
+      <div class="ability-name" style="color:var(--sci-color);">Scientific Department</div>
+      <div class="ability-desc">d8 hit dice. INT/WIS saves. Handguns + scientific tools. <em>Specialization details pending.</em></div>
+    </div>
+    <div class="ability-card" style="border-left-color:var(--eng-color);" onclick="switchTab('classes', 'eng')">
+      <div class="ability-name" style="color:var(--eng-color);">Engineering &amp; Technical</div>
+      <div class="ability-desc">d8 hit dice. DEX/INT saves. Mechanics tools, repair/dismantle. Three archetypes &mdash; Defensive, Offensive, Chaotic.</div>
+    </div>
+    <div class="ability-card" style="border-left-color:var(--goc-color);" onclick="switchTab('classes', 'goc')">
+      <div class="ability-name" style="color:var(--goc-color);">G.O.C Exo Operator</div>
+      <div class="ability-desc">d10 hit dice. Energy-point sub-system mechanic (STR/DEX/Movement) with overdrives. Subclass: Advanced Suit &mdash; Yellow-class mech at L4.</div>
+    </div>
+    <div class="ability-card" style="border-left-color:var(--unk-color);" onclick="switchTab('classes', 'unk')">
+      <div class="ability-name" style="color:var(--unk-color);">[CLASSIFIED]</div>
+      <div class="ability-desc"><em>Class designation and features pending. Template only.</em></div>
+    </div>
+  </div>
+
+  <div class="ability-note" style="margin-bottom:24px;">
+    <strong style="color:var(--accent);">Note:</strong> Additional class designations exist in the campaign but have not yet been entered into the handbook. Only classes with handbook entries are shown above.
+  </div>
+
+  <h3 class="section-heading">Weapons Catalog</h3>
+  <div class="dm-section">
+    <p><strong>All weapons are locked to their fastest firing mode.</strong></p>
+    <ul>
+      <li><strong>Pistols</strong> &mdash; 10 entries, mostly bonus action</li>
+      <li><strong>Assault Rifles</strong> &mdash; 10 entries</li>
+      <li><strong>Marksman</strong> &mdash; 7 entries (stats pending)</li>
+      <li><strong>Shotguns</strong> &mdash; 8 entries; half damage past effective range, no disadvantage</li>
+      <li><strong>Light Machine Guns</strong> &mdash; 6 entries</li>
+      <li><strong>Heavy Machine Guns</strong> &mdash; 6 entries</li>
+      <li><strong>Explosive (Launched)</strong> &mdash; 6 entries</li>
+      <li><strong>Explosive (Thrown)</strong> &mdash; 10 entries</li>
+      <li><strong>Melee</strong> &mdash; 11 entries; bleed damage stoppable via stabilize/heal</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ========================================================= -->
+<!-- ===================== MECHANICS ========================= -->
+<!-- ========================================================= -->
+<div class="tab-panel" id="panel-mechanics">
+  <div class="classified-banner">
+    <h2>SECTION I // RULES &amp; MECHANICS</h2>
+    <div class="subtitle">Combat, status conditions, skills, and operational systems</div>
+  </div>
+
+  <div class="subtab-bar">
+    <button class="subtab active" data-sub="combat">Combat</button>
+    <button class="subtab" data-sub="targeting">Targeting</button>
+    <button class="subtab" data-sub="reload">Reloading</button>
+    <button class="subtab" data-sub="status">Status Effects</button>
+    <button class="subtab" data-sub="skills">Skills</button>
+    <button class="subtab" data-sub="siege">Sieging</button>
+  </div>
+
+  <!-- Combat -->
+  <div class="subpanel active" data-sub="combat">
+    <div class="ability-card">
+      <div class="ability-name">Action Economy</div>
+      <div class="ability-badges">
+        <span class="badge badge-action">Attack</span>
+        <span class="badge badge-full">Auxiliary</span>
+        <span class="badge badge-bonus">Bonus</span>
+        <span class="badge badge-passive">Free</span>
+      </div>
+      <div class="ability-desc">
+        Each turn you receive <strong>1 attack action</strong>, <strong>1 auxiliary action</strong>, <strong>1 bonus action</strong>, and <strong>1 free action</strong>.
+        <p style="margin-top:8px;"><em>Pistols (bonus) plus a rifle (attack) means a single turn can fire both weapon types.</em></p>
+      </div>
+    </div>
+
+    <div class="ability-card">
+      <div class="ability-name">Initiative</div>
+      <div class="ability-desc">Flat contested d20 roll &mdash; no modifiers.</div>
+    </div>
+
+    <div class="ability-card">
+      <div class="ability-name">Stratagems</div>
+      <div class="ability-desc">
+        <ul>
+          <li><strong>1 combat point</strong> generated at the start of each round, shared across the party.</li>
+          <li>Combat points fund Stratagems &mdash; class-specific cooperative abilities.</li>
+          <li>Each class has multiple <em>Stratagem archetypes</em> tuned to different play styles.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="ability-card">
+      <div class="ability-name">Damage Reduction</div>
+      <div class="ability-desc">
+        When you take damage, you may roll a <strong>CON check (DC 10 + damage dealt)</strong>. On success, reduce the damage by <strong>(character level &times; 2) + CON bonus</strong> rolled in d4s.
+        <p style="margin-top:8px;"><em>Uses per long rest equal to your CON modifier.</em></p>
+      </div>
+    </div>
+
+    <div class="ability-card">
+      <div class="ability-name">Movement &amp; Ranges</div>
+      <div class="ability-desc">
+        Standard D&amp;D movement. Ranges are measured in <strong>inches with a tape measure</strong> at the table.
+      </div>
+    </div>
+  </div>
+
+  <!-- Targeting -->
+  <div class="subpanel" data-sub="targeting">
+    <div class="ability-card">
+      <div class="ability-name">Called Shots</div>
+      <div class="ability-desc">
+        <ul>
+          <li><strong>Vital Targets</strong> (head, heart, etc.) &mdash; +4 AC, disadvantage on the attack roll. <strong>On hit: auto-crit.</strong></li>
+          <li><strong>Non-Vital Targets</strong> (arms, legs) &mdash; +2 AC.
+            <ul>
+              <li><strong>Arms</strong> &mdash; target gains disadvantage.</li>
+              <li><strong>Legs</strong> &mdash; half movement / prone.</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <table class="scaling-table">
+      <tr><th>Target</th><th>AC Modifier</th><th>Effect on Hit</th></tr>
+      <tr><td><strong>Vital</strong> &mdash; head, heart, etc.</td><td>+4 AC, disadvantage</td><td>Auto-crit</td></tr>
+      <tr><td><strong>Arms</strong></td><td>+2 AC</td><td>Disadvantage on target</td></tr>
+      <tr><td><strong>Legs</strong></td><td>+2 AC</td><td>Half movement / prone</td></tr>
+    </table>
+  </div>
+
+  <!-- Reloading -->
+  <div class="subpanel" data-sub="reload">
+    <div class="ability-card">
+      <div class="ability-name">Reload Mechanisms</div>
+      <div class="ability-desc">
+        <ul>
+          <li><strong>Magazine</strong> &mdash; Bonus action.</li>
+          <li><strong>Bolt</strong> &mdash; Full action.</li>
+          <li><strong>No proficiency</strong> &mdash; DEX check to reload.</li>
+        </ul>
+      </div>
+    </div>
+
+    <table class="scaling-table">
+      <tr><th>Mechanism</th><th>Cost</th></tr>
+      <tr><td>Magazine</td><td>Bonus action</td></tr>
+      <tr><td>Bolt</td><td>Full action</td></tr>
+      <tr><td>No proficiency</td><td>DEX check to reload</td></tr>
+    </table>
+  </div>
+
+  <!-- Status -->
+  <div class="subpanel" data-sub="status">
+    <h3 class="section-heading">Status Effects <span class="count">15 listed</span></h3>
+    <div class="status-grid">
+      <div class="status-item">Paralyzed</div>
+      <div class="status-item">Charmed</div>
+      <div class="status-item">Blinded</div>
+      <div class="status-item">Frightened</div>
+      <div class="status-item">Deafened</div>
+      <div class="status-item">Grappled</div>
+      <div class="status-item">Invisible</div>
+      <div class="status-item">Petrified</div>
+      <div class="status-item">Poisoned</div>
+      <div class="status-item">Prone</div>
+      <div class="status-item">Incapacitated</div>
+      <div class="status-item classified">Absorption</div>
+      <div class="status-item classified">Bleeding</div>
+      <div class="status-item classified">SCP-096&rsquo;s Target</div>
+      <div class="status-item classified">Burning</div>
+    </div>
+    <div class="ability-note">Standard 5e conditions plus SCP-specific overlays. Detailed mechanical text for marked entries pending DM authorization.</div>
+  </div>
+
+  <!-- Skills -->
+  <div class="subpanel" data-sub="skills">
+    <h3 class="section-heading">Skills &amp; Abilities</h3>
+    <div class="skills-grid">
+      <div class="skill-block">
+        <h5>Strength</h5>
+        <ul><li>Athletics</li></ul>
+      </div>
+      <div class="skill-block">
+        <h5>Dexterity</h5>
+        <ul>
+          <li>Acrobatics</li>
+          <li>Sleight of Hand</li>
+          <li>Stealth</li>
+        </ul>
+      </div>
+      <div class="skill-block">
+        <h5>Intelligence</h5>
+        <ul>
+          <li>Arcana / <strong style="color:var(--accent)">Anomalous</strong></li>
+          <li>History</li>
+          <li>Investigation</li>
+          <li>Nature</li>
+          <li>Religion</li>
+        </ul>
+      </div>
+      <div class="skill-block">
+        <h5>Wisdom</h5>
+        <ul>
+          <li>Animal Handling</li>
+          <li>Insight</li>
+          <li>Medicine</li>
+          <li>Perception</li>
+          <li>Survival</li>
+        </ul>
+      </div>
+      <div class="skill-block">
+        <h5>Charisma</h5>
+        <ul>
+          <li>Deception</li>
+          <li>Intimidation</li>
+          <li>Performance</li>
+          <li>Persuasion</li>
+        </ul>
+      </div>
+    </div>
+    <div class="ability-note">Foundation-specific skill: <strong>Anomalous</strong> (replaces / pairs with Arcana) for SCP-related lore and identification checks.</div>
+  </div>
+
+  <!-- Sieging -->
+  <div class="subpanel" data-sub="siege">
+    <div class="ability-card">
+      <div class="ability-name">Siege Combat</div>
+      <div class="ability-desc">
+        Each side has <strong>10 HP</strong> and <strong>10 morale</strong> (can fluctuate).
+        <ul>
+          <li>HP zero &rarr; the force tries to retreat.</li>
+          <li>Morale zero &rarr; disadvantage on contested checks.</li>
+          <li>Random events can affect HP or morale.</li>
+          <li>Points of interest grant defensive bonuses; attackers can destroy them to remove those bonuses.</li>
+        </ul>
+      </div>
+      <div class="ability-note">Detailed event tables and POI types pending.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ========================================================= -->
+<!-- ===================== CLASSES =========================== -->
+<!-- ========================================================= -->
+<div class="tab-panel" id="panel-classes">
+  <div class="classified-banner">
+    <h2>SECTION II // CLASS ROSTER</h2>
+    <div class="subtitle">Personnel designations &mdash; class features, proficiencies, and progressions</div>
+  </div>
+
+  <div class="ability-note warning" style="margin-bottom:20px;">
+    <strong>Roster Status:</strong> Only classes with handbook entries are shown. Additional class designations exist in the campaign but have not yet been written into this document.
+  </div>
+
+  <div class="subtab-bar">
+    <button class="subtab active" data-sub="sci" data-tint="sci">Scientific</button>
+    <button class="subtab" data-sub="eng" data-tint="eng">Engineering</button>
+    <button class="subtab" data-sub="goc" data-tint="goc">GOC Exo</button>
+    <button class="subtab" data-sub="unk" data-tint="unk">[Classified]</button>
+  </div>
+
+  <!-- Scientific -->
+  <div class="subpanel active" data-sub="sci">
+    <div class="class-header sci">
+      <div class="badge-large">SCI</div>
+      <div>
+        <h2>Scientific Department</h2>
+        <div class="class-meta">d8 HP &middot; Handguns &middot; INT/WIS Saves</div>
+      </div>
+    </div>
+
+    <h3 class="section-heading">Class Profile</h3>
+    <div class="ability-card">
+      <div class="ability-desc">
+        <ul>
+          <li><strong>Hit Dice:</strong> 1d8 per level</li>
+          <li><strong>HP at 1st Level:</strong> 8 + your CON modifier</li>
+          <li><strong>HP at Higher Levels:</strong> 1d8 (or 5) + CON per level</li>
+          <li><strong>Armor:</strong> <em>pending</em></li>
+          <li><strong>Weapons:</strong> Handguns</li>
+          <li><strong>Tools:</strong> Scientific tools</li>
+          <li><strong>Saving Throws:</strong> Intelligence, Wisdom</li>
+          <li><strong>Skills:</strong> <em>pending &mdash; choose two</em></li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 class="section-heading">Equipment</h3>
+    <div class="ability-card">
+      <div class="ability-desc">Starting equipment plus background gear &mdash; <em>specific items pending DM authorization.</em></div>
+    </div>
+
+    <h3 class="section-heading">Progression</h3>
+    <div class="class-prog">
+      <div class="head">LVL</div><div class="head">PROF</div><div class="head">FEATURES</div>
+      <div class="lvl">1</div><div>+2</div><div>Specialization</div>
+      <div class="lvl">2</div><div>+2</div><div class="pending">&mdash;</div>
+      <div class="lvl">3</div><div>+2</div><div class="pending">&mdash;</div>
+      <div class="lvl">4</div><div>+2</div><div>Specialization upgrade</div>
+      <div class="lvl">5</div><div>+3</div><div class="pending">&mdash;</div>
+      <div class="lvl">6</div><div>+3</div><div class="pending">&mdash;</div>
+      <div class="lvl">7</div><div>+3</div><div class="pending">&mdash;</div>
+      <div class="lvl">8</div><div>+3</div><div>Specialization upgrade</div>
+      <div class="lvl">9</div><div>+4</div><div class="pending">&mdash;</div>
+      <div class="lvl">10</div><div>+4</div><div class="pending">&mdash;</div>
+    </div>
+
+    <div class="pending-block">Class features awaiting DM review</div>
+  </div>
+
+  <!-- Engineering -->
+  <div class="subpanel" data-sub="eng">
+    <div class="class-header eng">
+      <div class="badge-large">E&amp;T</div>
+      <div>
+        <h2>Engineering &amp; Technical</h2>
+        <div class="class-meta">d8 HP &middot; Handguns &middot; DEX/INT Saves</div>
+      </div>
+    </div>
+
+    <h3 class="section-heading">Class Profile</h3>
+    <div class="ability-card">
+      <div class="ability-desc">
+        <ul>
+          <li><strong>Hit Dice:</strong> 1d8 per level</li>
+          <li><strong>HP at 1st Level:</strong> 8 + your CON modifier</li>
+          <li><strong>HP at Higher Levels:</strong> 1d8 (or 5) + CON per level</li>
+          <li><strong>Armor:</strong> <em>pending</em></li>
+          <li><strong>Weapons:</strong> Handguns</li>
+          <li><strong>Tools:</strong> Mechanics tools</li>
+          <li><strong>Saving Throws:</strong> Dexterity, Intelligence</li>
+          <li><strong>Skills:</strong> Mechanics, plus two from Sleight of Hand, Investigation, Anomalous, Insight, History</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 class="section-heading">Progression</h3>
+    <div class="class-prog">
+      <div class="head">LVL</div><div class="head">PROF</div><div class="head">FEATURES</div>
+      <div class="lvl">1</div><div>+2</div><div>Specialization &middot; Repair / Dismantle</div>
+      <div class="lvl">2</div><div>+2</div><div class="pending">&mdash;</div>
+      <div class="lvl">3</div><div>+2</div><div class="pending">&mdash;</div>
+      <div class="lvl">4</div><div>+2</div><div>Specialization upgrade</div>
+      <div class="lvl">5</div><div>+3</div><div class="pending">&mdash;</div>
+      <div class="lvl">6</div><div>+3</div><div class="pending">&mdash;</div>
+      <div class="lvl">7</div><div>+3</div><div class="pending">&mdash;</div>
+      <div class="lvl">8</div><div>+3</div><div>Specialization upgrade</div>
+      <div class="lvl">9</div><div>+4</div><div class="pending">&mdash;</div>
+      <div class="lvl">10</div><div>+4</div><div class="pending">&mdash;</div>
+    </div>
+
+    <h3 class="section-heading">Class Features</h3>
+    <div class="ability-card" data-action="action">
+      <div class="ability-name">Repair / Dismantle</div>
+      <div class="ability-badges"><span class="badge badge-passive">Level 1</span></div>
+      <div class="ability-desc">Repair mechanical objects.</div>
+    </div>
+
+    <h3 class="section-heading">Stratagem Archetypes <span class="count">3 paths</span></h3>
+
+    <div class="ability-card" style="border-left-color:var(--passive-color);">
+      <div class="ability-name">Defensive</div>
+      <div class="pending-block">Archetype features pending</div>
+    </div>
+
+    <div class="ability-card" style="border-left-color:var(--action-color);">
+      <div class="ability-name">Offensive</div>
+      <div class="pending-block">Archetype features pending</div>
+    </div>
+
+    <div class="ability-card" style="border-left-color:var(--purple);">
+      <div class="ability-name">Chaotic</div>
+      <div class="pending-block">Archetype features pending</div>
+    </div>
+  </div>
+
+  <!-- GOC Exo Operator -->
+  <div class="subpanel" data-sub="goc">
+    <div class="class-header goc">
+      <div class="badge-large">GOC</div>
+      <div>
+        <h2>G.O.C Exo Operator</h2>
+        <div class="class-meta">d10 HP &middot; Handguns + Medium &middot; Exo Suit</div>
+      </div>
+    </div>
+
+    <h3 class="section-heading">Class Profile</h3>
+    <div class="ability-card">
+      <div class="ability-desc">
+        <ul>
+          <li><strong>Hit Dice:</strong> 1d10 per level</li>
+          <li><strong>HP at 1st Level:</strong> 10 + your CON modifier</li>
+          <li><strong>HP at Higher Levels:</strong> 1d10 (or 7) + CON per level</li>
+          <li><strong>Armor:</strong> Exo suit (AC 14)</li>
+          <li><strong>Weapons:</strong> Handguns, medium weapons</li>
+          <li><strong>Tools:</strong> <em>pending</em></li>
+          <li><strong>Saving Throws:</strong> <em>pending</em></li>
+          <li><strong>Skills:</strong> <em>pending &mdash; choose two</em></li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 class="section-heading">Progression</h3>
+    <div class="class-prog">
+      <div class="head">LVL</div><div class="head">PROF</div><div class="head">FEATURES</div>
+      <div class="lvl">1</div><div>+2</div><div>System Online (Specialization)</div>
+      <div class="lvl">2</div><div>+2</div><div>Calibration Complete</div>
+      <div class="lvl">3</div><div>+2</div><div>System Overdrive</div>
+      <div class="lvl">4</div><div>+2</div><div>Specialization upgrade</div>
+      <div class="lvl">5</div><div>+3</div><div class="pending">&mdash;</div>
+      <div class="lvl">6</div><div>+3</div><div class="pending">&mdash;</div>
+      <div class="lvl">7</div><div>+3</div><div class="pending">&mdash;</div>
+      <div class="lvl">8</div><div>+3</div><div>Specialization upgrade</div>
+      <div class="lvl">9</div><div>+4</div><div class="pending">&mdash;</div>
+      <div class="lvl">10</div><div>+4</div><div class="pending">&mdash;</div>
+    </div>
+
+    <h3 class="section-heading">Class Features</h3>
+
+    <div class="ability-card" data-action="passive">
+      <div class="ability-name">System Online</div>
+      <div class="ability-badges"><span class="badge badge-passive">Level 1</span><span class="badge badge-passive">Passive</span></div>
+      <div class="ability-desc">
+        You gain <strong>2 energy points</strong>, distributed between two sub-systems: Strength and Dexterity. Energy use requires you to be wearing a G.O.C Exo Suit.
+        <ul>
+          <li><strong>Strength:</strong> Increases STR mod equal to energy used.
+            <ul><li><em>Overdrive:</em> Advantage on STR checks/saves; STR mod +1+energy.</li></ul>
+          </li>
+          <li><strong>Dexterity:</strong> Increases DEX mod equal to energy used.
+            <ul><li><em>Overdrive:</em> Advantage on DEX checks/saves; DEX mod +1+energy.</li></ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="ability-card" data-action="passive">
+      <div class="ability-name">Calibration Complete</div>
+      <div class="ability-badges"><span class="badge badge-passive">Level 2</span></div>
+      <div class="ability-desc">
+        Grants a <strong>third energy point</strong> and a third sub-system: <strong>Movement</strong>.
+        <ul>
+          <li><strong>Movement:</strong> +5ft per energy point.
+            <ul><li><em>Overdrive:</em> This system cannot be overdriven.</li></ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="ability-card" data-action="bonus">
+      <div class="ability-name">System Overdrive</div>
+      <div class="ability-badges"><span class="badge badge-bonus">Bonus</span><span class="badge badge-passive">Level 3</span><span class="badge badge-pending">2/LR</span></div>
+      <div class="ability-desc">
+        Overdriving a system grants unique buffs at the cost of <strong>shutting down</strong> that system and its energy for <strong>1d6+1 turns</strong>. Overdrives use your bonus action and last 1 turn unless otherwise specified.
+      </div>
+    </div>
+
+    <div class="pending-block">Level 5+ features pending</div>
+
+    <div class="sub-section-header goc">Subclass &mdash; Advanced Suit Operator</div>
+
+    <div class="ability-card" style="border-left-color:var(--goc-color);">
+      <div class="ability-name">Suit Energy Repulsion System (E.R.S)</div>
+      <div class="ability-badges"><span class="badge badge-passive">Subclass L1</span></div>
+      <div class="ability-desc">
+        You gain an additional sub-system: the <strong>E.R.S</strong>.
+        <ul>
+          <li><strong>E.R.S:</strong> Reduces incoming damage by double the energy spent.
+            <ul><li><em>Overdrive (Reaction):</em> Half all incoming damage.</li></ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="ability-card" style="border-left-color:var(--goc-color);">
+      <div class="ability-name">Yellow Suit Class Operator</div>
+      <div class="ability-badges"><span class="badge badge-passive">Subclass L4</span></div>
+      <div class="ability-desc">
+        You gain access to a <strong>G.O.C Yellow Class mech suit</strong> &mdash; a 10-foot human-operated mech for varied missions. Choose its specific systems and reconfigure them at home base.
+        <p style="margin-top:8px;"><em>In combat, the mech requires your main and auxiliary actions to boot up and enter.</em></p>
+      </div>
+
+      <div class="weapon-special" style="border-left-color:var(--goc-color);">
+        <strong style="color:var(--goc-color);letter-spacing:1px;">YELLOW SUIT &mdash; SPECIFICATIONS</strong>
+        <div class="stat-grid" style="margin-top:8px;">
+          <div class="stat-cell"><span class="stat-label">HP</span><span class="stat-value">50</span></div>
+          <div class="stat-cell"><span class="stat-label">AC</span><span class="stat-value">11</span></div>
+          <div class="stat-cell"><span class="stat-label">Energy Limit</span><span class="stat-value">4</span></div>
+          <div class="stat-cell"><span class="stat-label">Overdrive Uses</span><span class="stat-value">2</span></div>
+          <div class="stat-cell"><span class="stat-label">Fists</span><span class="stat-value">+2 / 3d8+2</span></div>
+          <div class="stat-cell"><span class="stat-label">Sub-Systems</span><span class="stat-value">Choose 3</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-section-header">Yellow Suit Sub-Systems</div>
+
+    <div class="ability-card">
+      <div class="ability-name">E.R.S</div>
+      <div class="ability-desc">Reduces incoming damage by double the energy spent.<br><em>Overdrive (Reaction):</em> Half all incoming damage.</div>
+    </div>
+
+    <div class="ability-card">
+      <div class="ability-name">Additional Sensors</div>
+      <div class="ability-desc">1 energy: +1 perception. 2 energy: advantage on perception checks.<br><em>Overdrive (2 turns):</em> See all living beings within 20ft sphere, including some hidden by anomalous effects. Advantage against them.</div>
+    </div>
+
+    <div class="ability-card">
+      <div class="ability-name">Strength Enhancements</div>
+      <div class="ability-desc">Increases STR by energy spent.<br><em>Overdrive (3 turns):</em> Advantage on melee + add 1d8+3.</div>
+    </div>
+
+    <div class="ability-card">
+      <div class="ability-name">Jump Boosters</div>
+      <div class="ability-desc">2 energy: jump 10ft.<br><em>Overdrive (Main):</em> Reverse boosters at apex to slam ground &mdash; massive damage to foes and the suit itself.</div>
+    </div>
+
+    <div class="ability-card">
+      <div class="ability-name">Anti-Explosive Shielding</div>
+      <div class="ability-desc">Reduces explosive damage by 4&times; energy.<br><em>Overdrive (Reaction):</em> Eliminate explosive damage for one turn.</div>
+    </div>
+
+    <div class="ability-card">
+      <div class="ability-name">Ram Boosters</div>
+      <div class="ability-desc">+10ft straight-line movement per energy. Creatures in path: DEX save or take <strong>3d6+2 bludgeoning</strong> (half on save).<br><em>Overdrive:</em> Cannot be overdriven.</div>
+    </div>
+
+    <div class="pending-block">Subclass Level 8 feature pending</div>
+  </div>
+
+  <!-- Unknown 4th class -->
+  <div class="subpanel" data-sub="unk">
+    <div class="class-header unk">
+      <div class="badge-large">???</div>
+      <div>
+        <h2>[CLASSIFIED &mdash; DESIGNATION PENDING]</h2>
+        <div class="class-meta">Template only &middot; awaiting DM authorization</div>
+      </div>
+    </div>
+
+    <h3 class="section-heading">Class Profile</h3>
+    <div class="ability-card">
+      <div class="ability-desc">
+        <ul>
+          <li><strong>Hit Dice:</strong> ?d? per level</li>
+          <li><strong>Armor:</strong> <em>pending</em></li>
+          <li><strong>Weapons:</strong> Handguns</li>
+          <li><strong>Tools:</strong> <em>pending</em></li>
+          <li><strong>Saving Throws:</strong> <em>pending</em></li>
+          <li><strong>Skills:</strong> <em>pending &mdash; choose two</em></li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 class="section-heading">Progression</h3>
+    <div class="class-prog">
+      <div class="head">LVL</div><div class="head">PROF</div><div class="head">FEATURES</div>
+      <div class="lvl">1</div><div>+2</div><div>Specialization</div>
+      <div class="lvl">2</div><div>+2</div><div class="pending">&mdash;</div>
+      <div class="lvl">3</div><div>+2</div><div class="pending">&mdash;</div>
+      <div class="lvl">4</div><div>+2</div><div>Specialization upgrade</div>
+      <div class="lvl">5</div><div>+3</div><div class="pending">&mdash;</div>
+      <div class="lvl">6</div><div>+3</div><div class="pending">&mdash;</div>
+      <div class="lvl">7</div><div>+3</div><div class="pending">&mdash;</div>
+      <div class="lvl">8</div><div>+3</div><div>Specialization upgrade</div>
+      <div class="lvl">9</div><div>+4</div><div class="pending">&mdash;</div>
+      <div class="lvl">10</div><div>+4</div><div class="pending">&mdash;</div>
+    </div>
+
+    <div class="pending-block">Class designation and features pending</div>
+  </div>
+</div>
+
+<!-- ========================================================= -->
+<!-- ===================== WEAPONS =========================== -->
+<!-- ========================================================= -->
+<div class="tab-panel" id="panel-weapons">
+  <div class="classified-banner">
+    <h2>SECTION III // WEAPONS CATALOG</h2>
+    <div class="subtitle">All weapons are locked to their fastest firing mode.</div>
+  </div>
+
+  <div class="subtab-bar">
+    <button class="subtab active" data-sub="pistol">Pistols</button>
+    <button class="subtab" data-sub="ar">Assault Rifles</button>
+    <button class="subtab" data-sub="marksman">Marksman</button>
+    <button class="subtab" data-sub="shotgun">Shotguns</button>
+    <button class="subtab" data-sub="lmg">LMGs</button>
+    <button class="subtab" data-sub="hmg">HMGs</button>
+    <button class="subtab" data-sub="exp-launched">Explosive (Launched)</button>
+    <button class="subtab" data-sub="exp-thrown">Explosive (Thrown)</button>
+    <button class="subtab" data-sub="melee">Melee</button>
+  </div>
+
+  <!-- Pistols -->
+  <div class="subpanel active" data-sub="pistol">
+    <h3 class="section-heading">Pistols <span class="count">10 entries</span></h3>
+
+    <div class="ability-card" data-weight="light" data-action="bonus">
+      <div class="ability-name">Beretta M9</div>
+      <div class="ability-badges"><span class="badge badge-light">Light</span><span class="badge badge-bonus">Bonus</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Effective</span><span class="stat-value">60 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">250 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">2d6</span></div>
+      </div>
+    </div>
+
+    <div class="ability-card" data-weight="light" data-action="bonus">
+      <div class="ability-name">SIG P320</div>
+      <div class="ability-badges"><span class="badge badge-light">Light</span><span class="badge badge-bonus">Bonus</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Effective</span><span class="stat-value">80 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">220 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">3d4</span></div>
+      </div>
+    </div>
+
+    <div class="ability-card" data-weight="light" data-action="bonus">
+      <div class="ability-name">Glock 19</div>
+      <div class="ability-badges"><span class="badge badge-light">Light</span><span class="badge badge-bonus">Bonus</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Effective</span><span class="stat-value">80 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">250 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">2d6</span></div>
+      </div>
+    </div>
+
+    <div class="ability-card" data-weight="light" data-action="action">
+      <div class="ability-name">Glock 18 (Auto)</div>
+      <div class="ability-badges"><span class="badge badge-light">Light</span><span class="badge badge-action">Attack</span><span class="badge badge-multi">Multi-Attack</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Effective</span><span class="stat-value">50 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">200 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">3d6</span></div>
+      </div>
+      <div class="weapon-special"><em>Multi-attack:</em> target up to 2 individuals.</div>
+    </div>
+
+    <div class="ability-card" data-weight="light" data-action="bonus">
+      <div class="ability-name">FN Five-seveN</div>
+      <div class="ability-badges"><span class="badge badge-light">Light</span><span class="badge badge-bonus">Bonus</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Effective</span><span class="stat-value">90 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">350 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">5d4</span></div>
+      </div>
+    </div>
+
+    <div class="ability-card" data-weight="med" data-action="action">
+      <div class="ability-name">.357 Revolver</div>
+      <div class="ability-badges"><span class="badge badge-med">Medium</span><span class="badge badge-action">Attack</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Effective</span><span class="stat-value">60 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">300 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">4d6</span></div>
+      </div>
+    </div>
+
+    <div class="ability-card" data-weight="med" data-action="action">
+      <div class="ability-name">.44 Magnum</div>
+      <div class="ability-badges"><span class="badge badge-med">Medium</span><span class="badge badge-action">Attack</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Effective</span><span class="stat-value">70 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">300 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">3d10</span></div>
+      </div>
+    </div>
+
+    <div class="ability-card" data-weight="light" data-action="bonus">
+      <div class="ability-name">Desert Eagle</div>
+      <div class="ability-badges"><span class="badge badge-light">Light</span><span class="badge badge-bonus">Bonus</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Effective</span><span class="stat-value">100 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">350 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">6d6</span></div>
+      </div>
+    </div>
+
+    <div class="ability-card" data-weight="med" data-action="action">
+      <div class="ability-name">.454 Casull</div>
+      <div class="ability-badges"><span class="badge badge-med">Medium</span><span class="badge badge-action">Attack</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Effective</span><span class="stat-value">60 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">250 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">4d10</span></div>
+      </div>
+    </div>
+
+    <div class="ability-card" data-weight="med" data-action="action">
+      <div class="ability-name">.500 S&amp;W</div>
+      <div class="ability-badges"><span class="badge badge-med">Medium</span><span class="badge badge-action">Attack</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Effective</span><span class="stat-value">40 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">120 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">6d8</span></div>
+      </div>
+      <div class="weapon-special"><em>If damage exceeds 24, knocks medium-or-smaller target prone.</em></div>
+    </div>
+  </div>
+
+  <!-- Assault Rifles -->
+  <div class="subpanel" data-sub="ar">
+    <h3 class="section-heading">Assault Rifles <span class="count">10 entries</span></h3>
+
+    <div class="ability-card" data-weight="light" data-action="action">
+      <div class="ability-name">Rusty AK-47</div>
+      <div class="ability-badges"><span class="badge badge-light">Light</span><span class="badge badge-action">Attack</span><span class="badge badge-tbd">Unstable</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Effective</span><span class="stat-value">180 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">500 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">2d20</span></div>
+      </div>
+      <div class="weapon-special"><em>On natural 1 to hit or for damage:</em> the weapon explodes in your hands for <strong>5d8</strong>.</div>
+    </div>
+
+    <div class="ability-card" data-weight="med" data-action="action">
+      <div class="ability-name">AK-47</div>
+      <div class="ability-badges"><span class="badge badge-med">Medium</span><span class="badge badge-action">Attack</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Effective</span><span class="stat-value">180 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">500 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">3d6</span></div>
+      </div>
+    </div>
+
+    <div class="ability-card" data-weight="med" data-action="action">
+      <div class="ability-name">M-16</div>
+      <div class="ability-badges"><span class="badge badge-med">Medium</span><span class="badge badge-action">Attack</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Effective</span><span class="stat-value">200 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">600 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">3d6</span></div>
+      </div>
+    </div>
+
+    <div class="ability-card" data-weight="med" data-action="action">
+      <div class="ability-name">AR-15</div>
+      <div class="ability-badges"><span class="badge badge-med">Medium</span><span class="badge badge-action">Attack</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Effective</span><span class="stat-value">200 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">600 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">3d8</span></div>
+      </div>
+    </div>
+
+    <div class="ability-card" data-weight="med" data-action="action">
+      <div class="ability-name">M4</div>
+      <div class="ability-badges"><span class="badge badge-med">Medium</span><span class="badge badge-action">Attack</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Effective</span><span class="stat-value">200 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">600 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">5d6</span></div>
+      </div>
+    </div>
+
+    <div class="ability-card" data-weight="med" data-action="action">
+      <div class="ability-name">AR-10</div>
+      <div class="ability-badges"><span class="badge badge-med">Medium</span><span class="badge badge-action">Attack</span><span class="badge badge-pending">Scoped</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Effective</span><span class="stat-value">600 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">1200 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">4d10</span></div>
+      </div>
+    </div>
+
+    <div class="ability-card" data-weight="med" data-action="action">
+      <div class="ability-name">FN SCAR</div>
+      <div class="ability-badges"><span class="badge badge-med">Medium</span><span class="badge badge-action">Attack</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Effective</span><span class="stat-value">150 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">450 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">4d12</span></div>
+      </div>
+    </div>
+
+    <div class="ability-card" data-weight="med" data-action="action">
+      <div class="ability-name">AR-458 SOCOM</div>
+      <div class="ability-badges"><span class="badge badge-med">Medium</span><span class="badge badge-action">Attack</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Effective</span><span class="stat-value">250 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">500 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">5d10</span></div>
+      </div>
+    </div>
+
+    <div class="ability-card" data-weight="heavy" data-action="action">
+      <div class="ability-name">AR .50 Beowulf</div>
+      <div class="ability-badges"><span class="badge badge-heavy">Heavy</span><span class="badge badge-action">Attack</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Effective</span><span class="stat-value">200 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">500 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">6d12</span></div>
+      </div>
+    </div>
+
+    <div class="ability-card" data-weight="heavy" data-action="action">
+      <div class="ability-name">The Bushmaster</div>
+      <div class="ability-badges"><span class="badge badge-heavy">Heavy</span><span class="badge badge-action">Attack</span><span class="badge badge-tbd">Stun on +2</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Effective</span><span class="stat-value">180 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">400 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">8d10</span></div>
+      </div>
+      <div class="weapon-special"><em>Hit 2 above target AC:</em> stun applied.</div>
+    </div>
+  </div>
+
+  <!-- Marksman -->
+  <div class="subpanel" data-sub="marksman">
+    <h3 class="section-heading">Marksman <span class="count">7 entries &mdash; stats pending</span></h3>
+    <div class="ability-note warning">All marksman weapons are listed but mechanically incomplete. Stat blocks pending DM authorization.</div>
+
+    <div class="ability-card">
+      <div class="ability-name">.243 Rifle</div>
+      <div class="ability-badges"><span class="badge badge-tbd">Stats Pending</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell empty"><span class="stat-label">Effective</span><span class="stat-value">pending</span></div>
+        <div class="stat-cell empty"><span class="stat-label">Maximum</span><span class="stat-value">pending</span></div>
+        <div class="stat-cell empty"><span class="stat-label">Damage</span><span class="stat-value">pending</span></div>
+      </div>
+    </div>
+
+    <div class="ability-card">
+      <div class="ability-name">Bergara .308</div>
+      <div class="ability-badges"><span class="badge badge-tbd">Stats Pending</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell empty"><span class="stat-label">Effective</span><span class="stat-value">pending</span></div>
+        <div class="stat-cell empty"><span class="stat-label">Maximum</span><span class="stat-value">pending</span></div>
+        <div class="stat-cell empty"><span class="stat-label">Damage</span><span class="stat-value">pending</span></div>
+      </div>
+    </div>
+
+    <div class="ability-card">
+      <div class="ability-name">M14</div>
+      <div class="ability-badges"><span class="badge badge-tbd">Stats Pending</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell empty"><span class="stat-label">Effective</span><span class="stat-value">pending</span></div>
+        <div class="stat-cell empty"><span class="stat-label">Maximum</span><span class="stat-value">pending</span></div>
+        <div class="stat-cell empty"><span class="stat-label">Damage</span><span class="stat-value">pending</span></div>
+      </div>
+    </div>
+
+    <div class="ability-card">
+      <div class="ability-name">SVD</div>
+      <div class="ability-badges"><span class="badge badge-tbd">Stats Pending</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell empty"><span class="stat-label">Effective</span><span class="stat-value">pending</span></div>
+        <div class="stat-cell empty"><span class="stat-label">Maximum</span><span class="stat-value">pending</span></div>
+        <div class="stat-cell empty"><span class="stat-label">Damage</span><span class="stat-value">pending</span></div>
+      </div>
+    </div>
+
+    <div class="ability-card">
+      <div class="ability-name">BM-98B</div>
+      <div class="ability-badges"><span class="badge badge-tbd">Stats Pending</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell empty"><span class="stat-label">Effective</span><span class="stat-value">pending</span></div>
+        <div class="stat-cell empty"><span class="stat-label">Maximum</span><span class="stat-value">pending</span></div>
+        <div class="stat-cell empty"><span class="stat-label">Damage</span><span class="stat-value">pending</span></div>
+      </div>
+    </div>
+
+    <div class="ability-card">
+      <div class="ability-name">MRAD</div>
+      <div class="ability-badges"><span class="badge badge-tbd">Stats Pending</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell empty"><span class="stat-label">Effective</span><span class="stat-value">pending</span></div>
+        <div class="stat-cell empty"><span class="stat-label">Maximum</span><span class="stat-value">pending</span></div>
+        <div class="stat-cell empty"><span class="stat-label">Damage</span><span class="stat-value">pending</span></div>
+      </div>
+    </div>
+
+    <div class="ability-card">
+      <div class="ability-name">M82</div>
+      <div class="ability-badges"><span class="badge badge-tbd">Stats Pending</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell empty"><span class="stat-label">Effective</span><span class="stat-value">pending</span></div>
+        <div class="stat-cell empty"><span class="stat-label">Maximum</span><span class="stat-value">pending</span></div>
+        <div class="stat-cell empty"><span class="stat-label">Damage</span><span class="stat-value">pending</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shotguns -->
+  <div class="subpanel" data-sub="shotgun">
+    <h3 class="section-heading">Shotguns <span class="count">8 entries</span></h3>
+    <div class="ability-note">Shotguns deal half damage past effective range and do not gain disadvantage.</div>
+
+    <div class="ability-card" data-action="bonus">
+      <div class="ability-name">The Long Arm of Lead</div>
+      <div class="ability-badges"><span class="badge badge-bonus">Bonus</span><span class="badge badge-pending">8-Gauge Birdshot</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Effective</span><span class="stat-value">10 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">20 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">30d4</span></div>
+      </div>
+      <div class="weapon-special"><em>Enemies within effective range have advantage.</em><br><span style="color:var(--text-dim);font-size:11px;font-style:italic;">&mdash; please let us have it caiden</span></div>
+    </div>
+
+    <div class="ability-card" data-action="action">
+      <div class="ability-name">Remington 870</div>
+      <div class="ability-badges"><span class="badge badge-action">Attack</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Effective</span><span class="stat-value">30 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">60 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">2d12</span></div>
+      </div>
+    </div>
+
+    <div class="ability-card" data-action="action">
+      <div class="ability-name">Benelli M3</div>
+      <div class="ability-badges"><span class="badge badge-action">Attack</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Effective</span><span class="stat-value">25 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">55 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">3d10</span></div>
+      </div>
+    </div>
+
+    <div class="ability-card" data-action="action">
+      <div class="ability-name">Benelli M4</div>
+      <div class="ability-badges"><span class="badge badge-action">Attack</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Effective</span><span class="stat-value">35 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">65 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">4d8</span></div>
+      </div>
+    </div>
+
+    <div class="ability-card" data-action="action">
+      <div class="ability-name">SPAS-12</div>
+      <div class="ability-badges"><span class="badge badge-action">Attack</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Effective</span><span class="stat-value">40 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">80 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">4d10</span></div>
+      </div>
+    </div>
+
+    <div class="ability-card" data-action="action">
+      <div class="ability-name">Chiappa Crown (Dragon Breath)</div>
+      <div class="ability-badges"><span class="badge badge-action">Attack</span><span class="badge badge-tbd">Burn</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Effective</span><span class="stat-value">30 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">55 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">6d6</span></div>
+      </div>
+      <div class="weapon-special"><em>Hit 2 above AC:</em> apply <strong>burn (2d6)</strong> for 2 turns.</div>
+    </div>
+
+    <div class="ability-card" data-action="action">
+      <div class="ability-name">Gen 12</div>
+      <div class="ability-badges"><span class="badge badge-action">Attack</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Effective</span><span class="stat-value">50 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">90 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">5d10</span></div>
+      </div>
+    </div>
+
+    <div class="ability-card" data-action="action">
+      <div class="ability-name">AA-12 (Slugs)</div>
+      <div class="ability-badges"><span class="badge badge-action">Attack</span><span class="badge badge-tbd">Increased Piercing</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Effective</span><span class="stat-value">120 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">200 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">5d12</span></div>
+      </div>
+      <div class="weapon-special"><em>Negates piercing resistance.</em></div>
+    </div>
+  </div>
+
+  <!-- LMGs -->
+  <div class="subpanel" data-sub="lmg">
+    <h3 class="section-heading">Light Machine Guns <span class="count">6 entries</span></h3>
+
+    <div class="ability-card" data-action="action">
+      <div class="ability-name">M60</div>
+      <div class="ability-badges"><span class="badge badge-action">Attack</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Effective</span><span class="stat-value">100 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">250 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">4d8</span></div>
+      </div>
+    </div>
+
+    <div class="ability-card" data-action="action">
+      <div class="ability-name">M240</div>
+      <div class="ability-badges"><span class="badge badge-action">Attack</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Effective</span><span class="stat-value">120 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">300 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">6d6</span></div>
+      </div>
+    </div>
+
+    <div class="ability-card" data-action="action">
+      <div class="ability-name">M249</div>
+      <div class="ability-badges"><span class="badge badge-action">Attack</span><span class="badge badge-full">+ Aux</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Effective</span><span class="stat-value">100 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">200 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">5d8</span></div>
+      </div>
+      <div class="weapon-special"><em>Action to use:</em> attack action and secondary action.</div>
+    </div>
+
+    <div class="ability-card" data-action="full">
+      <div class="ability-name">M250</div>
+      <div class="ability-badges"><span class="badge badge-full">Full Action</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Effective</span><span class="stat-value">120 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">220 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">5d10</span></div>
+      </div>
+    </div>
+
+    <div class="ability-card" data-action="full">
+      <div class="ability-name">SIG .338</div>
+      <div class="ability-badges"><span class="badge badge-full">Full Action</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Effective</span><span class="stat-value">80 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">140 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">6d10</span></div>
+      </div>
+    </div>
+
+    <div class="ability-card" data-action="full">
+      <div class="ability-name">XM214 Microgun</div>
+      <div class="ability-badges"><span class="badge badge-full">Full Action</span><span class="badge badge-pending">30ft Cone OR Direct</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Effective</span><span class="stat-value">100 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">150 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">6d12</span></div>
+      </div>
+      <div class="weapon-special"><em>Fire mode:</em> 30ft cone, or direct fire.</div>
+    </div>
+  </div>
+
+  <!-- HMGs -->
+  <div class="subpanel" data-sub="hmg">
+    <h3 class="section-heading">Heavy Machine Guns <span class="count">6 entries</span></h3>
+
+    <div class="ability-card" data-action="full">
+      <div class="ability-name">T23E1</div>
+      <div class="ability-badges"><span class="badge badge-full">Full + Bonus</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Effective</span><span class="stat-value">150 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">300 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">8d6</span></div>
+      </div>
+    </div>
+
+    <div class="ability-card" data-action="full">
+      <div class="ability-name">Browning .50</div>
+      <div class="ability-badges"><span class="badge badge-full">Full + Bonus</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Effective</span><span class="stat-value">200 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">400 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">7d8</span></div>
+      </div>
+    </div>
+
+    <div class="ability-card" data-action="full">
+      <div class="ability-name">M134</div>
+      <div class="ability-badges"><span class="badge badge-full">Full + Bonus</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Effective</span><span class="stat-value">250 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">500 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">6d10</span></div>
+      </div>
+    </div>
+
+    <div class="ability-card" data-action="full">
+      <div class="ability-name">XM312</div>
+      <div class="ability-badges"><span class="badge badge-full">Full + Bonus</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Effective</span><span class="stat-value">350 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">700 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">7d10</span></div>
+      </div>
+    </div>
+
+    <div class="ability-card" data-action="full">
+      <div class="ability-name">DShK</div>
+      <div class="ability-badges"><span class="badge badge-full">Full + Bonus</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell empty"><span class="stat-label">Effective</span><span class="stat-value">pending</span></div>
+        <div class="stat-cell empty"><span class="stat-label">Maximum</span><span class="stat-value">pending</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">6d12</span></div>
+      </div>
+    </div>
+
+    <div class="ability-card" data-action="full">
+      <div class="ability-name">GAU-19</div>
+      <div class="ability-badges"><span class="badge badge-full">Full + Bonus</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell empty"><span class="stat-label">Effective</span><span class="stat-value">pending</span></div>
+        <div class="stat-cell empty"><span class="stat-label">Maximum</span><span class="stat-value">pending</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">8d12</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Explosive Launched -->
+  <div class="subpanel" data-sub="exp-launched">
+    <h3 class="section-heading">Explosive (Launched) <span class="count">6 entries</span></h3>
+
+    <div class="ability-card" data-action="full">
+      <div class="ability-name">M79 Thumper</div>
+      <div class="ability-badges"><span class="badge badge-full">Full Action</span><span class="badge badge-pending">10ft AOE</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Effective</span><span class="stat-value">60 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">100 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">3d6</span></div>
+        <div class="stat-cell"><span class="stat-label">Ammo</span><span class="stat-value">6</span></div>
+      </div>
+    </div>
+
+    <div class="ability-card" data-action="full">
+      <div class="ability-name">M32A1</div>
+      <div class="ability-badges"><span class="badge badge-full">Full Action</span><span class="badge badge-pending">10ft AOE</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Effective</span><span class="stat-value">70 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">100 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">3d6</span></div>
+        <div class="stat-cell"><span class="stat-label">Ammo</span><span class="stat-value">12</span></div>
+      </div>
+    </div>
+
+    <div class="ability-card" data-action="full">
+      <div class="ability-name">AT4</div>
+      <div class="ability-badges"><span class="badge badge-full">Full Action</span><span class="badge badge-pending">5ft AOE</span><span class="badge badge-tbd">Single Use</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Effective</span><span class="stat-value">300 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">450 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">6d10</span></div>
+      </div>
+      <div class="weapon-special"><em>Single use:</em> upon firing, the weapon is lost.</div>
+    </div>
+
+    <div class="ability-card" data-action="full">
+      <div class="ability-name">M4 Carl Gustaf</div>
+      <div class="ability-badges"><span class="badge badge-full">Full Action</span><span class="badge badge-pending">5ft AOE</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Effective</span><span class="stat-value">600 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">1000 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">7d12</span></div>
+        <div class="stat-cell"><span class="stat-label">Ammo</span><span class="stat-value">3</span></div>
+      </div>
+    </div>
+
+    <div class="ability-card" data-action="multi">
+      <div class="ability-name">M202 FLASH</div>
+      <div class="ability-badges"><span class="badge badge-multi">Variable Action</span><span class="badge badge-pending">5ft AOE</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Effective</span><span class="stat-value">300 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">500 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">4d12</span></div>
+      </div>
+      <div class="weapon-special">
+        <em>Action:</em> full / auxiliary / bonus / movement &mdash; multiple actions can fire on the same turn.<br>
+        <em>On impact:</em> attaches fire and deals <strong>2d6</strong> for 3 turns.
+      </div>
+    </div>
+
+    <div class="ability-card" data-action="full">
+      <div class="ability-name">M48 Dragon</div>
+      <div class="ability-badges"><span class="badge badge-full">All Actions</span><span class="badge badge-pending">15ft AOE</span><span class="badge badge-tbd">+4 to Hit</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Effective</span><span class="stat-value">3000 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">5000 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">18d10</span></div>
+        <div class="stat-cell"><span class="stat-label">Ammo</span><span class="stat-value">1</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Explosive Thrown -->
+  <div class="subpanel" data-sub="exp-thrown">
+    <h3 class="section-heading">Explosive (Thrown) <span class="count">10 entries</span></h3>
+
+    <div class="ability-card" data-action="bonus">
+      <div class="ability-name">Hand Grenade</div>
+      <div class="ability-badges"><span class="badge badge-bonus">Bonus</span><span class="badge badge-pending">10ft AOE</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">50 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">3d6</span></div>
+      </div>
+    </div>
+
+    <div class="ability-card" data-action="bonus">
+      <div class="ability-name">Heavy Grenade</div>
+      <div class="ability-badges"><span class="badge badge-bonus">Bonus</span><span class="badge badge-pending">10ft AOE</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">40 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">3d8</span></div>
+      </div>
+    </div>
+
+    <div class="ability-card" data-action="bonus">
+      <div class="ability-name">Flash Grenade</div>
+      <div class="ability-badges"><span class="badge badge-bonus">Bonus</span><span class="badge badge-pending">10ft AOE</span><span class="badge badge-tbd">Stun</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">50 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">none</span></div>
+      </div>
+      <div class="weapon-special"><em>Stuns all individuals inside the radius.</em></div>
+    </div>
+
+    <div class="ability-card" data-action="bonus">
+      <div class="ability-name">Smoke Grenade</div>
+      <div class="ability-badges"><span class="badge badge-bonus">Bonus</span><span class="badge badge-pending">15ft AOE</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">60 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">none</span></div>
+      </div>
+      <div class="weapon-special"><em>Disadvantage on ranged attacks both into and out of the cloud.</em></div>
+    </div>
+
+    <div class="ability-card" data-action="bonus">
+      <div class="ability-name">Gas Grenade</div>
+      <div class="ability-badges"><span class="badge badge-bonus">Bonus</span><span class="badge badge-pending">15ft AOE</span><span class="badge badge-tbd">5 Turns</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">50 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">2d6</span></div>
+      </div>
+      <div class="weapon-special"><em>Gas cloud lasts 5 turns.</em></div>
+    </div>
+
+    <div class="ability-card" data-action="bonus">
+      <div class="ability-name">Incendiary Grenade</div>
+      <div class="ability-badges"><span class="badge badge-bonus">Bonus</span><span class="badge badge-pending">15ft AOE</span><span class="badge badge-tbd">5 Turns</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">50 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">2d6</span></div>
+      </div>
+      <div class="weapon-special"><em>Zone of fire lasts 5 turns.</em></div>
+    </div>
+
+    <div class="ability-card" data-action="full">
+      <div class="ability-name">Canister Grenade</div>
+      <div class="ability-badges"><span class="badge badge-full">Full Action</span><span class="badge badge-pending">15ft AOE</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">25 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">5d10</span></div>
+      </div>
+    </div>
+
+    <div class="ability-card" data-action="bonus">
+      <div class="ability-name">Thermobaric Grenade</div>
+      <div class="ability-badges"><span class="badge badge-bonus">Bonus</span><span class="badge badge-pending">40ft AOE</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">50 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">4d6</span></div>
+      </div>
+    </div>
+
+    <div class="ability-card" data-action="bonus">
+      <div class="ability-name">C4 Bundle</div>
+      <div class="ability-badges"><span class="badge badge-bonus">Bonus</span><span class="badge badge-pending">5ft AOE</span><span class="badge badge-tbd">x3 vs. Structures</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">35 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">3d10</span></div>
+      </div>
+      <div class="weapon-special"><em>Most effective against structures and vehicles &mdash; damage &times;3 to those targets.</em></div>
+    </div>
+
+    <div class="ability-card" data-action="bonus">
+      <div class="ability-name">Highlighting Grenade</div>
+      <div class="ability-badges"><span class="badge badge-bonus">Bonus</span><span class="badge badge-pending">10ft AOE</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Maximum</span><span class="stat-value">50 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">none</span></div>
+      </div>
+      <div class="weapon-special"><em>Tagged targets:</em> everyone gains advantage against them for 2 turns.</div>
+    </div>
+  </div>
+
+  <!-- Melee -->
+  <div class="subpanel" data-sub="melee">
+    <h3 class="section-heading">Melee <span class="count">11 entries</span></h3>
+    <div class="ability-note">Bleed damage can be stopped by stabilizing or healing the affected person.</div>
+
+    <div class="ability-card" data-action="bonus">
+      <div class="ability-name">Knife</div>
+      <div class="ability-badges"><span class="badge badge-bonus">Bonus</span><span class="badge badge-tbd">Bleed 2 Turns</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Range</span><span class="stat-value">5 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">2d4</span></div>
+      </div>
+      <div class="weapon-special"><em>Causes <strong>2d6 bleed</strong> for 2 turns.</em></div>
+    </div>
+
+    <div class="ability-card" data-action="bonus">
+      <div class="ability-name">Baton</div>
+      <div class="ability-badges"><span class="badge badge-bonus">Bonus</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Range</span><span class="stat-value">5 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">3d4</span></div>
+      </div>
+      <div class="weapon-special"><em>On hit:</em> save required. Failed save &rarr; <strong>disadvantage for 1 turn</strong>.</div>
+    </div>
+
+    <div class="ability-card" data-action="bonus">
+      <div class="ability-name">Hatchet</div>
+      <div class="ability-badges"><span class="badge badge-bonus">Bonus</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Range</span><span class="stat-value">5 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">4d4</span></div>
+      </div>
+    </div>
+
+    <div class="ability-card" data-action="bonus">
+      <div class="ability-name">Stun Baton</div>
+      <div class="ability-badges"><span class="badge badge-bonus">Bonus</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Range</span><span class="stat-value">5 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">3d6</span></div>
+      </div>
+      <div class="weapon-special"><em>On hit:</em> save required. Failed save &rarr; <strong>free grapple</strong> on creatures of your size or smaller.</div>
+    </div>
+
+    <div class="ability-card" data-action="full">
+      <div class="ability-name">Sledgehammer</div>
+      <div class="ability-badges"><span class="badge badge-full">Full Action</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Range</span><span class="stat-value">10 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">3d8</span></div>
+      </div>
+      <div class="weapon-special"><em>Useful against structures.</em> Hit 3 above target AC &rarr; knocks prone (consult DM).</div>
+    </div>
+
+    <div class="ability-card" data-action="full">
+      <div class="ability-name">Axe</div>
+      <div class="ability-badges"><span class="badge badge-full">Full Action</span><span class="badge badge-tbd">Disembowelment</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Range</span><span class="stat-value">10 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">3d8</span></div>
+      </div>
+      <div class="weapon-special"><em>Disembowelment:</em> on a successful hit to the &ldquo;lower abdomen&rdquo; (must be specified), causes <strong>3d6 bleed for 10 turns</strong>.</div>
+    </div>
+
+    <div class="ability-card" data-action="bonus">
+      <div class="ability-name">Crowbar</div>
+      <div class="ability-badges"><span class="badge badge-bonus">Bonus</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Range</span><span class="stat-value">5 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">2d8</span></div>
+      </div>
+      <div class="weapon-special"><em>Useful against anything that needs to be forced open.</em></div>
+    </div>
+
+    <div class="ability-card" data-action="bonus">
+      <div class="ability-name">Knuckle Dusters</div>
+      <div class="ability-badges"><span class="badge badge-bonus">Bonus</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Range</span><span class="stat-value">5 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">3d4</span></div>
+      </div>
+      <div class="weapon-special"><em>+1d10 against non-anomalous humans.</em></div>
+    </div>
+
+    <div class="ability-card" data-action="bonus">
+      <div class="ability-name">Wakizashi</div>
+      <div class="ability-badges"><span class="badge badge-bonus">Bonus</span><span class="badge badge-tbd">Bleed 3 Turns</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Range</span><span class="stat-value">5 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">3d6</span></div>
+      </div>
+      <div class="weapon-special"><em>Causes <strong>2d6 bleed</strong> for 3 turns.</em></div>
+    </div>
+
+    <div class="ability-card" data-action="full">
+      <div class="ability-name">Machete</div>
+      <div class="ability-badges"><span class="badge badge-full">Full Action</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Range</span><span class="stat-value">5 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">3d8</span></div>
+      </div>
+    </div>
+
+    <div class="ability-card" data-action="bonus">
+      <div class="ability-name">Hammer</div>
+      <div class="ability-badges"><span class="badge badge-bonus">Bonus</span></div>
+      <div class="stat-grid">
+        <div class="stat-cell"><span class="stat-label">Range</span><span class="stat-value">5 ft</span></div>
+        <div class="stat-cell"><span class="stat-label">Damage</span><span class="stat-value">4d4</span></div>
+      </div>
+      <div class="weapon-special"><em>Hit 5 above target AC:</em> induces <strong>stun</strong>.</div>
+    </div>
+
+    <div class="flavor-line">&ldquo;... And his music was electric&rdquo;</div>
+  </div>
+</div>
+
+</main>
+
+<script>
+(function() {
+
+// switchTab(tabId) — switches main tab. Optional second arg switches to a sub-tab on arrival.
+window.switchTab = function(tabId, subId) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelector(`.tab[data-tab="${tabId}"]`).classList.add('active');
+  const panel = document.getElementById(`panel-${tabId}`);
+  panel.classList.add('active');
+  if (subId) {
+    panel.querySelectorAll('.subtab').forEach(t => t.classList.remove('active'));
+    panel.querySelectorAll('.subpanel').forEach(p => p.classList.remove('active'));
+    const tab = panel.querySelector(`.subtab[data-sub="${subId}"]`);
+    const sub = panel.querySelector(`.subpanel[data-sub="${subId}"]`);
+    if (tab) tab.classList.add('active');
+    if (sub) sub.classList.add('active');
+  }
+  window.scrollTo({top: 0, behavior: 'smooth'});
+};
+
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => switchTab(tab.dataset.tab));
+});
+
+// Sub-tabs — scoped to the active main panel
+document.querySelectorAll('.subtab').forEach(tab => {
+  tab.addEventListener('click', e => {
+    const panel = tab.closest('.tab-panel');
+    if (!panel) return;
+    panel.querySelectorAll('.subtab').forEach(t => t.classList.remove('active'));
+    panel.querySelectorAll('.subpanel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    const sub = panel.querySelector(`.subpanel[data-sub="${tab.dataset.sub}"]`);
+    if (sub) sub.classList.add('active');
+  });
+});
+
+// Search — filters cards in the active sub-panel; auto-switches sub-panels if a hit lives elsewhere
+const searchInput = document.getElementById('search');
+
+searchInput.addEventListener('input', () => {
+  const query = searchInput.value.toLowerCase().trim();
+  const activePanel = document.querySelector('.tab-panel.active');
+  if (!activePanel) return;
+
+  if (!query) {
+    // Clear filters
+    activePanel.querySelectorAll('.ability-card, .status-item, .skill-block').forEach(el => {
+      el.style.display = '';
+    });
+    return;
+  }
+
+  // For each subpanel, count matches
+  const subpanels = activePanel.querySelectorAll('.subpanel');
+  let firstHitSub = null;
+
+  if (subpanels.length > 0) {
+    subpanels.forEach(sp => {
+      let hits = 0;
+      sp.querySelectorAll('.ability-card, .status-item, .skill-block').forEach(el => {
+        const text = el.textContent.toLowerCase();
+        if (text.includes(query)) {
+          el.style.display = '';
+          hits++;
+        } else {
+          el.style.display = 'none';
+        }
+      });
+      if (hits > 0 && firstHitSub === null) firstHitSub = sp.dataset.sub;
+    });
+
+    // Auto-switch to first sub-panel with a match
+    if (firstHitSub) {
+      activePanel.querySelectorAll('.subtab').forEach(t => t.classList.remove('active'));
+      activePanel.querySelectorAll('.subpanel').forEach(p => p.classList.remove('active'));
+      const tab = activePanel.querySelector(`.subtab[data-sub="${firstHitSub}"]`);
+      const sub = activePanel.querySelector(`.subpanel[data-sub="${firstHitSub}"]`);
+      if (tab) tab.classList.add('active');
+      if (sub) sub.classList.add('active');
+    }
+  } else {
+    // No sub-panels (overview) — filter cards directly
+    activePanel.querySelectorAll('.ability-card, .status-item, .skill-block').forEach(el => {
+      const text = el.textContent.toLowerCase();
+      el.style.display = text.includes(query) ? '' : 'none';
+    });
+  }
+});
+
+// Keyboard
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    searchInput.value = '';
+    searchInput.dispatchEvent(new Event('input'));
+  }
+  if (e.key === '/' && document.activeElement !== searchInput) {
+    e.preventDefault();
+    searchInput.focus();
+  }
+});
+
+})();
+</script>
+</body>
+</html>
