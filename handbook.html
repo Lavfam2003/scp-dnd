@@ -124,6 +124,97 @@ body {
   font-weight: 700;
 }
 
+/* === SEARCH SUGGESTIONS DROPDOWN === */
+.search-suggestions {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: var(--bg-panel);
+  border: 1px solid var(--accent-dim);
+  border-radius: 4px;
+  max-height: 360px;
+  overflow-y: auto;
+  z-index: 200;
+  display: none;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.7);
+}
+
+.search-suggestions.open { display: block; }
+
+.suggestion {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.1s;
+}
+
+.suggestion:last-child { border-bottom: none; }
+
+.suggestion:hover,
+.suggestion.highlighted {
+  background: var(--bg-card);
+}
+
+.suggestion .sugg-name {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 13px;
+  color: var(--text-bright);
+  font-weight: 600;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.suggestion .sugg-name mark {
+  background: var(--accent-glow);
+  color: var(--accent-bright);
+  padding: 0 2px;
+  border-radius: 2px;
+}
+
+.suggestion .sugg-cat {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 9px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 2px 6px;
+  background: var(--bg-inset);
+  border-radius: 2px;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.suggestion .sugg-cat.cat-weapon { color: var(--accent); }
+.suggestion .sugg-cat.cat-class { color: var(--sci-color); }
+.suggestion .sugg-cat.cat-mech { color: var(--bonus-color); }
+
+.suggestion-empty {
+  padding: 16px 12px;
+  text-align: center;
+  color: var(--text-dim);
+  font-style: italic;
+  font-size: 12px;
+}
+
+/* Highlight an element jumped to */
+@keyframes flash-highlight {
+  0% { box-shadow: 0 0 0 0 var(--accent), 0 0 0 0 var(--accent-glow); }
+  30% { box-shadow: 0 0 0 2px var(--accent), 0 0 24px 4px var(--accent-glow); }
+  100% { box-shadow: 0 0 0 0 var(--accent), 0 0 0 0 transparent; }
+}
+
+.flash-target {
+  animation: flash-highlight 1.4s ease-out;
+}
+
 /* === MAIN TABS === */
 .tab-bar {
   display: flex; gap: 2px;
@@ -766,6 +857,7 @@ body {
     </div>
     <div class="search-box">
       <input type="text" id="search" placeholder="Search handbook..." autocomplete="off">
+      <div class="search-suggestions" id="search-suggestions"></div>
     </div>
   </div>
 </header>
@@ -2251,65 +2343,219 @@ document.querySelectorAll('.subtab').forEach(tab => {
   });
 });
 
-// Search — filters cards in the active sub-panel; auto-switches sub-panels if a hit lives elsewhere
+// === Search index — built once on load ===
 const searchInput = document.getElementById('search');
+const suggestBox = document.getElementById('search-suggestions');
 
-searchInput.addEventListener('input', () => {
-  const query = searchInput.value.toLowerCase().trim();
-  const activePanel = document.querySelector('.tab-panel.active');
-  if (!activePanel) return;
+const slugify = s => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
-  if (!query) {
-    // Clear filters
-    activePanel.querySelectorAll('.ability-card, .status-item, .skill-block').forEach(el => {
-      el.style.display = '';
+const CATEGORY_LABELS = {
+  pistol: 'Pistol', ar: 'Assault Rifle', marksman: 'Marksman', shotgun: 'Shotgun',
+  lmg: 'LMG', hmg: 'HMG', 'exp-launched': 'Explosive', 'exp-thrown': 'Grenade', melee: 'Melee',
+  combat: 'Combat', targeting: 'Targeting', reload: 'Reloading',
+  status: 'Status', skills: 'Skills', siege: 'Siege',
+  sci: 'Scientific', eng: 'Engineering', goc: 'GOC Exo', unk: 'Classified'
+};
+
+const TAB_LABELS = {
+  overview: 'Overview', mechanics: 'Mechanics', classes: 'Classes', weapons: 'Weapons'
+};
+
+// Build index — walks each searchable element, captures title + location + assigns id
+const searchIndex = [];
+const usedIds = new Set();
+
+function uniqueId(base) {
+  let id = base;
+  let n = 2;
+  while (usedIds.has(id)) { id = `${base}-${n}`; n++; }
+  usedIds.add(id);
+  return id;
+}
+
+document.querySelectorAll('.tab-panel').forEach(panel => {
+  const mainTab = panel.id.replace('panel-', '');
+  // Cards inside subpanels
+  panel.querySelectorAll('.subpanel').forEach(subpanel => {
+    const subTab = subpanel.dataset.sub;
+    subpanel.querySelectorAll('.ability-card').forEach(card => {
+      const nameEl = card.querySelector('.ability-name');
+      if (!nameEl) return;
+      const title = nameEl.textContent.trim();
+      const id = uniqueId('card-' + slugify(title));
+      card.id = id;
+      const catKey = subTab;
+      let kind = 'mech';
+      if (mainTab === 'weapons') kind = 'weapon';
+      else if (mainTab === 'classes') kind = 'class';
+      searchIndex.push({
+        title, id, mainTab, subTab,
+        category: CATEGORY_LABELS[catKey] || subTab,
+        kind,
+        haystack: card.textContent.toLowerCase()
+      });
     });
+    // Status items in mechanics
+    subpanel.querySelectorAll('.status-item').forEach(el => {
+      const title = el.textContent.replace(/\[PENDING\]/g, '').trim();
+      const id = uniqueId('status-' + slugify(title));
+      el.id = id;
+      searchIndex.push({
+        title, id, mainTab, subTab: subpanel.dataset.sub,
+        category: 'Status Effect', kind: 'mech',
+        haystack: el.textContent.toLowerCase()
+      });
+    });
+  });
+
+  // Cards directly in panel (overview)
+  panel.querySelectorAll(':scope > .ability-card, :scope > .class-picker .ability-card').forEach(card => {
+    const nameEl = card.querySelector('.ability-name');
+    if (!nameEl) return;
+    const title = nameEl.textContent.trim();
+    const id = uniqueId('card-' + slugify(title));
+    card.id = id;
+    searchIndex.push({
+      title, id, mainTab, subTab: null,
+      category: TAB_LABELS[mainTab] || mainTab, kind: 'mech',
+      haystack: card.textContent.toLowerCase()
+    });
+  });
+});
+
+// === Suggest rendering ===
+let highlightedIdx = -1;
+
+function renderSuggestions(query) {
+  if (!query) { hideSuggest(); return; }
+  const q = query.toLowerCase();
+  const matches = searchIndex
+    .map(item => {
+      const titleLower = item.title.toLowerCase();
+      const titleHit = titleLower.indexOf(q);
+      const haystackHit = item.haystack.indexOf(q);
+      if (titleHit < 0 && haystackHit < 0) return null;
+      // Score: title-hit-at-start beats title-hit beats body-hit
+      let score = 0;
+      if (titleHit === 0) score = 100;
+      else if (titleHit > 0) score = 50 - titleHit;
+      else score = -10;
+      return { ...item, score, titleHit };
+    })
+    .filter(Boolean)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 10);
+
+  if (matches.length === 0) {
+    suggestBox.innerHTML = '<div class="suggestion-empty">No matches in handbook</div>';
+    suggestBox.classList.add('open');
+    highlightedIdx = -1;
     return;
   }
 
-  // For each subpanel, count matches
-  const subpanels = activePanel.querySelectorAll('.subpanel');
-  let firstHitSub = null;
-
-  if (subpanels.length > 0) {
-    subpanels.forEach(sp => {
-      let hits = 0;
-      sp.querySelectorAll('.ability-card, .status-item, .skill-block').forEach(el => {
-        const text = el.textContent.toLowerCase();
-        if (text.includes(query)) {
-          el.style.display = '';
-          hits++;
-        } else {
-          el.style.display = 'none';
-        }
-      });
-      if (hits > 0 && firstHitSub === null) firstHitSub = sp.dataset.sub;
-    });
-
-    // Auto-switch to first sub-panel with a match
-    if (firstHitSub) {
-      activePanel.querySelectorAll('.subtab').forEach(t => t.classList.remove('active'));
-      activePanel.querySelectorAll('.subpanel').forEach(p => p.classList.remove('active'));
-      const tab = activePanel.querySelector(`.subtab[data-sub="${firstHitSub}"]`);
-      const sub = activePanel.querySelector(`.subpanel[data-sub="${firstHitSub}"]`);
-      if (tab) tab.classList.add('active');
-      if (sub) sub.classList.add('active');
+  suggestBox.innerHTML = matches.map((m, i) => {
+    let displayName = m.title;
+    if (m.titleHit >= 0) {
+      const before = m.title.slice(0, m.titleHit);
+      const hit = m.title.slice(m.titleHit, m.titleHit + query.length);
+      const after = m.title.slice(m.titleHit + query.length);
+      displayName = `${before}<mark>${hit}</mark>${after}`;
     }
+    return `<div class="suggestion" data-idx="${i}" data-id="${m.id}" data-main="${m.mainTab}" data-sub="${m.subTab || ''}">
+      <span class="sugg-name">${displayName}</span>
+      <span class="sugg-cat cat-${m.kind}">${m.category}</span>
+    </div>`;
+  }).join('');
+
+  suggestBox.classList.add('open');
+  highlightedIdx = 0;
+  updateHighlight();
+}
+
+function updateHighlight() {
+  suggestBox.querySelectorAll('.suggestion').forEach((el, i) => {
+    el.classList.toggle('highlighted', i === highlightedIdx);
+  });
+  // Scroll highlighted into view
+  const hl = suggestBox.querySelector('.suggestion.highlighted');
+  if (hl) hl.scrollIntoView({ block: 'nearest' });
+}
+
+function hideSuggest() {
+  suggestBox.classList.remove('open');
+  highlightedIdx = -1;
+}
+
+function jumpTo(mainTab, subTab, id) {
+  // Switch main tab
+  if (subTab) {
+    switchTab(mainTab, subTab);
   } else {
-    // No sub-panels (overview) — filter cards directly
-    activePanel.querySelectorAll('.ability-card, .status-item, .skill-block').forEach(el => {
-      const text = el.textContent.toLowerCase();
-      el.style.display = text.includes(query) ? '' : 'none';
-    });
+    switchTab(mainTab);
+  }
+  // After tab switch, scroll & flash
+  setTimeout(() => {
+    const target = document.getElementById(id);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      target.classList.remove('flash-target');
+      void target.offsetWidth; // force reflow to restart animation
+      target.classList.add('flash-target');
+    }
+  }, 200);
+  hideSuggest();
+  searchInput.value = '';
+}
+
+// === Wire up ===
+searchInput.addEventListener('input', () => {
+  renderSuggestions(searchInput.value.trim());
+});
+
+searchInput.addEventListener('focus', () => {
+  if (searchInput.value.trim()) renderSuggestions(searchInput.value.trim());
+});
+
+suggestBox.addEventListener('mousedown', e => {
+  // Use mousedown so it fires before input blur
+  const sugg = e.target.closest('.suggestion');
+  if (!sugg) return;
+  e.preventDefault();
+  jumpTo(sugg.dataset.main, sugg.dataset.sub || null, sugg.dataset.id);
+});
+
+// Hide on click outside
+document.addEventListener('mousedown', e => {
+  if (!e.target.closest('.search-box')) hideSuggest();
+});
+
+// Keyboard navigation
+searchInput.addEventListener('keydown', e => {
+  const items = suggestBox.querySelectorAll('.suggestion');
+  if (e.key === 'ArrowDown') {
+    e.preventDefault();
+    if (items.length === 0) return;
+    highlightedIdx = (highlightedIdx + 1) % items.length;
+    updateHighlight();
+  } else if (e.key === 'ArrowUp') {
+    e.preventDefault();
+    if (items.length === 0) return;
+    highlightedIdx = (highlightedIdx - 1 + items.length) % items.length;
+    updateHighlight();
+  } else if (e.key === 'Enter') {
+    e.preventDefault();
+    const hl = suggestBox.querySelector('.suggestion.highlighted');
+    if (hl) jumpTo(hl.dataset.main, hl.dataset.sub || null, hl.dataset.id);
+  } else if (e.key === 'Escape') {
+    if (suggestBox.classList.contains('open')) {
+      hideSuggest();
+    } else {
+      searchInput.value = '';
+    }
   }
 });
 
-// Keyboard
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') {
-    searchInput.value = '';
-    searchInput.dispatchEvent(new Event('input'));
-  }
   if (e.key === '/' && document.activeElement !== searchInput) {
     e.preventDefault();
     searchInput.focus();
